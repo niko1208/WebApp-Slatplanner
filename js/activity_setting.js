@@ -280,6 +280,46 @@ function loadSetting(pid, tbname, callback) {
 	                }));
 	            }
 	        }
+	        if(tbname == 'responsible') {
+	        	$('#act_detail_resp').html("");
+	        	for(i=0;i<data.length;i++) {
+	            	$('#act_detail_resp').append($('<option>', { 
+	                    value: data[i].value,
+	                    text : data[i].value 
+	                }));
+	            }
+	            $('.act_detail_const_resp').html("");
+	        	for(i=0;i<data.length;i++) {
+	            	$('.act_detail_const_resp').append($('<option>', { 
+	                    value: data[i].value,
+	                    text : data[i].value 
+	                }));
+	            }
+	        } else if(tbname == 'location') {
+	        	$('#act_detail_location').html("");
+	        	for(i=0;i<data.length;i++) {
+	            	$('#act_detail_location').append($('<option>', { 
+	                    value: data[i].value,
+	                    text : data[i].value 
+	                }));
+	            }
+	        } else if(tbname == 'priority') {
+	        	$('#act_detail_priority').html("");
+	        	for(i=0;i<data.length;i++) {
+	            	$('#act_detail_priority').append($('<option>', { 
+	                    value: data[i].value,
+	                    text : data[i].value 
+	                }));
+	            }
+	        } else if(tbname == 'delay') {
+	        	$('#act_detail_delay').html("");
+	        	for(i=0;i<data.length;i++) {
+	            	$('#act_detail_delay').append($('<option>', { 
+	                    value: data[i].value,
+	                    text : data[i].value 
+	                }));
+	            }
+	        }
         },
         error: function() {
         },

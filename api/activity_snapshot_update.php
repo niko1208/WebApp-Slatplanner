@@ -7,15 +7,11 @@
 	$pid = $_REQUEST["pid"];
 
 	$tbname = $_REQUEST["tbname"];
-	$value = $_REQUEST["value"];
+	$value = $_REQUEST["value"]; $value = mysql_escape_string($value);
+	$desc = $_REQUEST["desc"]; $desc = mysql_escape_string($desc);
+	$date = $_REQUEST["date"];
 
-	if($tbname != "snapshot") {
-		$query = "insert into tbl_".$tbname." values('$pid', '$value', '')";
-	} else {
-		$desc = $_REQUEST["desc"];
-		$date = $_REQUEST["date"];
-		$query = "insert into tbl_".$tbname." values('$pid', '$value', '', '$desc', '$date')";
-	}
+	$query = "update tbl_".$tbname." set `desc`='$desc' where project_id='$pid' and `value`='$value'";
 
 	if ( mysql_query($query) )
 

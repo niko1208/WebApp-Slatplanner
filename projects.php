@@ -23,7 +23,12 @@ include("header.php");
 
 <link href="libs/css/jquery-ui.css" rel="stylesheet">
 
-
+<div class='overlay' id='loading'>
+    <div class="overlay_black"></div>
+    <div class="alert">
+        Loading...
+    </div>
+</div>
 
 <div class="section" id="section_projects">
 
@@ -158,7 +163,7 @@ include("header.php");
 <!-- ============================================================================== -->
 
 <div class="section" id="section_activity">
-
+    <center><h3 id='ppname'></h3></center>
     <div class="td_wrapper">
 
         <div style="float:left" id="go_profile">< Go Back</div>
@@ -175,7 +180,7 @@ include("header.php");
             
             <div id='act_constraints' class='list '>Constraints</div>
 
-            <div id='chart' class='list'>Gantt Chart</div>
+            <div id='chart' class='list'>Visuals</div>
 
         </center>
 
@@ -302,6 +307,117 @@ include("header.php");
 
     </div>
 
+    <div class="acont" id="section_activity_constraint">
+        <div class="td_wrapper">
+            <div class="row">
+                <div class="col col-sm-3">
+                    <div>
+                        <div class="div_constraint" style="max-width:150px; float: left; margin-right: 25px;">
+                            <select class="form-control snapshot" id="contraint"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-3">
+                    <button type="button" class="btn btn-success bt_acadd">Save</button>
+                </div>
+                <div class="col col-sm-5">
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        <div class="td_wrapper">
+            <table class='table stable' id="table_activity_constraint">
+                <thead>
+                    <tr style="font-weight: bold; color: #333;">
+                        <td></td>
+                        <td>Type</td>
+                        <td>ID</td>
+                        <td>Description</td>
+                        <td>Start</td>
+                        <td>Finish</td>
+                        <td>Responsible</td>
+                        <td>Drivinig</td>
+                        <td>Done?</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr class='tr'>
+                        <td></td>
+                        <td class='atype'>
+                            <select class='form-control act_const_type' type='text' id='act_const_type'></select>
+                        </td>
+                        <td><input class="form-control act_const_id" id='act_const_id' type="text" value=''/></td>
+                        <td class='acode'><input class="form-control act_desc" id='act_desc' type="text" value=''/></td>
+                        <td class='astart'><input class="form-control act_start" id='act_start' type="text" value=''/></td>
+                        <td><input class="form-control act_finish" id='act_finish' type="text" value=''/></td>
+                        <td>
+                            <select class='form-control act_resp' type='text' id='act_resp'></select>
+                        </td>
+                        <td><input class="form-control act_driving" id='act_driving' type="text" value=''/></td>
+                        <td class='selcheck' id="selcheck">
+                            <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o i-checked" aria-hidden="true" style="display: none"></i>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div>
+                <button type="button" class="btn btn-success bt_ccadd">Add</button>
+                <button type="button" class="btn btn-danger bt_ccremove">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="acont" id="section_activity_tracking">
+        <div class="td_wrapper">
+
+            <div class="row">
+
+                <div class="col col-sm-3">
+                    <div>Snapshots</div>
+                    <div>
+                        <div class="div_snapshot1" style="max-width:150px; float: left; margin-right: 25px;">
+                            <select class="form-control snapshot" id="snapshot_tracking"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-3">
+                    <div>Snapshot Description</div>
+                    <div>
+                        <textarea class="form-control" id="snapshot_desc_tracking" rows='1'></textarea>
+                    </div>
+                </div>
+                <div class="col col-sm-5">
+                    <button type="button" class="btn btn-success bt_atadd" style='margin-top: 20px;'>Save</button>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+        <div class="td_wrapper">
+            <table class='table stable' id="table_activity_tracking">
+                <thead>
+                    <tr style="font-weight: bold; color: #333;">
+                        <td>ID</td>
+                        <td>Description</td>
+                        <td>Responsible</td>
+                        <td>Start</td>
+                        <td>Finish</td>
+                        <td>Done?</td>
+                        <td>Prev Start</td>
+                        <td>Prev Finish</td>
+                        <td>Delay Reason</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <div class="acont" id="section_activity_list">
 
         <div class="td_wrapper">
@@ -329,7 +445,7 @@ include("header.php");
                 <div class="col col-sm-5">
                     <div>Creation Date</div>
                     <div>
-                        <input type='text' class="form-control" id="snapshot_date" />
+                        <input type='text' class="form-control" id="snapshot_date" readonly="true" />
                     </div>
                 </div>
             </div>
@@ -547,18 +663,158 @@ include("header.php");
 
     </div>
 
-
-
-    <div class="acont" id="section_activity_chart">
+    <div class="acont" id="section_activity_detail">
 
         <div class="td_wrapper">
+            <div class="row">
+                <div class="col col-sm-2">
+                    <div>Activity ID</div>
+                    <input class="form-control" id='act_detail_id' type='text' />
+                </div>
+                <div class="col col-sm-4">
+                    <div>Activity Name</div>
+                    <input class="form-control" id='act_detail_name' type='text' />
+                </div>
+                <div class="col col-sm-4">
+                    <div>&nbsp;</div>
+                    <button type="button" class="btn btn-primary" id='bt_view_detail'>View</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-success " id='bt_save_detail'>Save</button>
+                </div>
+            </div>
+            <h3>Information</h3>
+            <table class='table stable' id="table_act_detail">
+                <thead>
+                    <tr>
+                        <td>Duration</td>
+                        <td>Start</td>
+                        <td>Finish</td>
+                        <td>Crew Size</td>
+                        <td>Responsible</td>
+                        <td>Location</td>
+                        <td>Priority</td>
+                        <td>URL</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" id='act_detail_duration' type='text' /></td>
+                        <td><input class="form-control" id='act_detail_start' type='text' /></td>
+                        <td><input class="form-control" id='act_detail_finish' type='text' /></td>
+                        <td><input class="form-control" id='act_detail_size' type='text' /></td>
+                        <td><select class="form-control" id='act_detail_resp' type='text' ></select></td>
+                        <td><select class="form-control" id='act_detail_location' type='text' ></select></td>
+                        <td><select class="form-control" id='act_detail_priority' type='text' ></select></td>
+                        <td><input class="form-control" id='act_detail_url' type='text' /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <div>Note</div>
+                <textarea class="form-control" id='act_detail_note'></textarea>
+            </div>
+            <h3>Constraints</h3>
+            <table class='table stable' id="table_act_detail_const">
+                <thead>
+                    <tr>
+                        <td width='50'></td>
+                        <td>Type</td>
+                        <td>ID</td>
+                        <td>Description</td>
+                        <td>Start</td>
+                        <td>Finish</td>
+                        <td>Responsible</td>
+                        <td>Done</td>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <select class='form-control act_detail_const_type' type='text' id='act_detail_const_type'></select>
+                        </td>
+                        <td><input class='form-control act_detail_const_id' type='text' /></td>
+                        <td><input class='form-control act_detail_const_desc' type='text' /></td>
+                        <td><input class='form-control act_detail_const_start' type='text' /></td>
+                        <td><input class='form-control act_detail_const_finish' type='text' /></td>
+                        <td><select class='form-control act_detail_const_resp' type='text' ></select></td>
+                        <td class="act_detail_const_done selcheck" >
+                            <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o i-checked" aria-hidden="true" style="display: none"></i>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div>
+                <button type="button" class="btn btn-success bt_dcadd">Add</button>
+                <button type="button" class="btn btn-danger bt_dcremove">Remove</button>
+            </div>
 
+            <h3>History</h3>
+            <table class='table stable' id="table_act_detail_snap">
+                <thead>
+                    <tr>
+                        <td>Snapshot Date</td>
+                        <td>Start</td>
+                        <td>Change</td>
+                        <td>Finish</td>
+                        <td>Change</td>
+                        <td>Reason</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>  
+
+    <div class="acont cont_chart" id="section_activity_chart_tab">
+        <div class="td_wrapper">
+            <div class="">
+                <center>
+                    <div id='chart_gantt' class='list chart_tab sel'>Gantt Chart</div>
+                    <div id='chart_plan' class='list chart_tab'>Plan Achievement</div>
+                    <div id='chart_reason' class='list chart_tab'>Failure Reasons</div>
+                    <div id='chart_curve' class='list chart_tab'>Progress Curve</div>
+                </center>
+            </div>
+            <div>
+                <select class="form-control" id="visual_resp"></select>
+            </div>
+        </div>
+        <table id="table_activity_tracking_visual">
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div class="acont cont_chart" id="section_activity_chart_plan">
+        
+        <div id="div_chart_plan"></div>
+    </div>
+
+    <div class="acont cont_chart" id="section_activity_chart_reason">
+        
+        <div id="div_chart_reason"></div>
+    </div>
+
+    <div class="acont cont_chart" id="section_activity_chart_curve">
+        
+        <div id="div_chart_curve"></div>
+    </div>
+
+    <div class="acont cont_chart" id="section_activity_chart">
+
+        <div class="td_wrapper">
+        <!--
             <div style='float:left;'>Filter</div>
 
             <select class="form-control" id='filter_chart'>
 
             </select>
-
+-->
             <div id="gantt"></div>
 
             <div id="div_histogram">
@@ -647,10 +903,24 @@ include("footer.php");
 
 <script src="js/combo.js"></script>
 
-<script src="libs/js/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script src="libs/js/exporting.js"></script>
 
 <script src="js/projects.js"></script>
 <script src="js/activity_setting.js"></script>
 <script src="js/activity_list.js"></script>
+<script src="js/activity_detail.js"></script>
+<script src="js/activity_tracking.js"></script>
+<script src="js/activity_constraint.js"></script>
+<script src="js/visual.js"></script>
+
+
+
+<style type="text/css">
+    #table_activity_tracking_visual{
+        display: none;
+    }
+</style>

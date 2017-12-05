@@ -3,9 +3,11 @@
 	
 	$data = $_REQUEST['data'];
 	$pid = $_REQUEST['pid'];
+	$sid = $_REQUEST['sid'];
+	if(!isset($sid)) $sid = '0';
 	
 	$data = explode(",", $data); 
-	$query = "delete from tbl_activity where pid='$pid'";
+	$query = "delete from tbl_activity where pid='$pid' and sid='$sid'";
 	mysql_query($query);
 
 	for($i=0; $i<count($data)/12; $i++) {
@@ -13,7 +15,7 @@
 		for($j=0; $j<12; $j++) {
 			$str .= ", '".$data[$i*12+$j]."'";
 		}
-		$query = "insert into tbl_activity values('null' ". $str .  ", '$pid')";	
+		$query = "insert into tbl_activity values('null' ". $str .  ", '$pid', '$sid')";	
 		mysql_query($query);
 	}
 	$json_data = array("success"=>"1", "detail"=>$query);

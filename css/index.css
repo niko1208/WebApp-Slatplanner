@@ -448,10 +448,20 @@ tr.tr.sel .pname {
 
 }
 
-.psetting i {
+.psetting i,
+.selcheck i,
+.done i {
 
   font-size: 20px;
 
+}
+.selcheck, 
+.done{
+  text-align: center;
+}
+.selcheck i,
+.done i {
+  margin-top: 6px;
 }
 
 .psetting .i-checked,
@@ -1069,6 +1079,42 @@ input.tt {
 }
 #snapshot_date{
   max-width: 150px;
+}
+
+
+#section_activity_detail h3{
+  color: #333;
+  padding-top: 20px;
+  font-size: 20px;
+  text-decoration: underline;
+}
+.astart input.red,
+.afinish input.red{
+  color: red;
+}
+.ahide{
+  display: none;
+}
+.changestart,
+.changefinish{
+  text-align: center;
+}
+.sleft{
+  margin-right: 5px;
+  color: #5cb85c
+}
+.sright{
+  color: #f00;
+  margin-left: 5px;
+}
+.chart_tab{
+  margin-top: -10px;
+}
+.cont_chart .highcharts-legend{
+  display: block;
+}
+#visual_resp{
+  max-width: 200px;
 }
 
 @media (max-width: 768px) {

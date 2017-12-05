@@ -129,11 +129,15 @@ $(document).ready(function(){
 
                                     <td><input class="tt" type="text" value=''/></td>
 
+                                    <td><input class="tt" type="text" value=''/></td>
+
+                                    <td class="acolor" style='display:none'><input class="tt" type="text" maxlength="7" value=''/></td>
+
                                     <td class="acode"><input class="tt" type="text" value=''/></td>
 
-                                    <td class="acolor"><input class="tt" type="text" maxlength="7" value=''/></td>
+                                    <td class="alocation"><input class="tt" type="text" value=''/></td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class="apriority"><input class="tt" type="text" value=''/></td>
 
                                     <td><input class="tt" type="text" value=''/></td>
 
@@ -157,10 +161,12 @@ $(document).ready(function(){
 
                         var td_obj = tr_obj.find('td:nth-child(2)');
 
-                        for(var x in cells) {
-
+                        for(var x in cells) { 
+                            if(td_obj.css('display') == 'none') {
+                                td_obj.find('input').val('');
+                                td_obj = td_obj.next();
+                            }
                             td_obj.find('input').val(cells[x]);
-
                             td_obj = td_obj.next();
 
                         }
@@ -213,9 +219,9 @@ $(document).ready(function(){
 
             filter_c = $('#filter_chart').val();
 
-            gantt();
+            //gantt();
 
-            histogram();
+            //histogram();
 
     });
 
@@ -364,7 +370,7 @@ $(document).ready(function(){
         loadActivity(ppid);
     });
 
-    $('#bt_asave').click(function(){
+    $('#bt_asave').click(function(){ 
 
 		sUrl = "api/activity_save.php";
 
@@ -386,9 +392,12 @@ $(document).ready(function(){
 
         });
 
+
+        showLoading('save');
         form_data.append('data', data);
 
         form_data.append('pid', $('#bt_asave').attr('pid'));
+        form_data.append('sid', ssid);
 
         $.ajax({
 
@@ -405,6 +414,7 @@ $(document).ready(function(){
             data: form_data,
 
             success: function(data){
+                hideLoading();
 
                 colorChange();
 
@@ -413,7 +423,7 @@ $(document).ready(function(){
             },
 
             error: function() {
-
+                hideLoading();
             },
 
             dataType: 'json'
@@ -707,6 +717,7 @@ $(document).ready(function(){
                                     item.push($(this).val());
 
                             });
+                            item[6] = $(this).find('.clr_responsible').attr('bg');
 
                             if($(this).find('.acheck').hasClass('sel')) {
 
@@ -736,7 +747,7 @@ $(document).ready(function(){
 
                                                             <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
 
-                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][5]+`</div>
+                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
 
                                                         </div>
 
@@ -760,7 +771,7 @@ $(document).ready(function(){
 
                                                             <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
 
-                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][5]+`</div>
+                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
 
                                                         </div>
 
@@ -946,7 +957,7 @@ $(document).ready(function(){
 
 
 
-            $('#section_activity_list').fadeOut('fast');
+            $('.acont').fadeOut('fast');
 
             $('#section_activity_chart').fadeIn();
 
@@ -955,730 +966,10 @@ $(document).ready(function(){
             $('#filter_chart').html($('#filter').html());
 
             
-
-            $('#section_activity_chart').css('display', 'block');
-
-            
-
-            gantt();
-
-            histogram();
+            $('#chart_plan').click();
 
         });
-
-                       
-
-        function gantt() {
-
-                var data = [];
-
-                $('#table_activity tbody tr').each(function(){
-
-                        item = [];
-
-                            
-
-                        $(this).find('td input').each(function(){
-
-                                item.push($(this).val());
-
-                        });
-
-                        if (item[3] != '' && item[4] != ''){
-
-                            if (filter_c == 'All')
-
-                                data.push(item);
-
-                            else if (item[5] == filter_c)
-
-                                data.push(item);
-
-                        }
-
-                            
-
-                });
-
-
-
-                for(i=0; i<data.length-1; i++) {
-
-                        for(j=i+1; j<data.length; j++) {
-
-                                if(data[i][3] > data[j][3]) {
-
-                                        temp = data[i];
-
-                                        data[i] = data[j];
-
-                                        data[j] = temp;
-
-                                }
-
-                        }
-
-                }
-
-                source = []; 
-
-                for(i=0; i<data.length; i++) {
-
-                        item = {
-
-                            name: data[i][1],
-
-                            desc: data[i][5],
-
-                            values: [{
-
-                                from: data[i][3],
-
-                                to: data[i][4],
-
-                                label: data[i][1],
-
-                                customClass: "ganttRed"
-
-                            }]
-
-                        };
-
-                        source.push(item);
-
-                }
-
-
-
-                $("#gantt").html("");
-
-                $("#gantt").gantt({
-
-                    source: source,
-
-                    navigate: "scroll",
-
-                    scale: "days",
-
-                    maxScale: "months",
-
-                    minScale: "hours",
-
-                    itemsPerPage: 40,
-
-                    useCookie: true,
-
-                    onItemClick: function(data) {
-
-
-
-                    },
-
-                    onAddClick: function(dt, rowId) {
-
-
-
-                    },
-
-                    onRender: function() {
-
-                        if (window.console && typeof console.log === "function") {
-
-                            console.log("chart rendered");
-
-                        }
-
-                        $('.bar.ganttRed .fn-label').each(function(){
-
-
-
-                                for(i=0; i<data.length; i++) {
-
-                                    if ($(this).html() == data[i][1]){
-
-                                        $(this).css('background-color', data[i][6]);
-
-                                        break;
-
-                                    }
-
-                                }
-
-                        });
-
-                    }
-
-                });
-
-        }
-
-        
-
-        
-
-        Date.prototype.getWeek = function() {
-
-            var onejan = new Date(this.getFullYear(), 0, 1);
-
-            return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-
-        }
-
-        
-
-        function getWeekBy(date1, date2) {
-
-            var d1 = new Date(date1 * 1000);
-
-            var d2 = new Date(date2 * 1000);
-
-            
-
-            var onejan = new Date(d1.getFullYear(), 0, 1);
-
-            return Math.ceil((((d2 - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-
-        }
-
-        
-
-        function getMonthBy(date1, date2) {
-
-            var d1 = new Date(date1 * 1000);
-
-            var d2 = new Date(date2 * 1000);
-
-            
-
-            var year1 = d1.getFullYear();
-
-            var year2 = d2.getFullYear();
-
-            
-
-            return (year2 - year1) * 12 + d2.getMonth();
-
-        }
-
-        
-
-        function histogram(filter) {
-
-            
-
-            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-            var all_data=[], data = [], p_start_date, p_end_date, category_count;
-
-            var categories = [], categories_date = [], all_colors = [];
-
-            var series = new Array();
-
-            var i, j, k;
-
-            
-
-
-
-            $('#table_activity tbody tr').each(function(){
-
-                    item = [];
-
-                    $(this).find('td input').each(function(){
-
-                            item.push($(this).val());
-
-                    });
-
-                    if (item[3] != '' && item[4] != ''){
-
-                        if (filter_c == 'All')
-
-                            data.push(item);
-
-                        else if (item[5] == filter_c)
-
-                            data.push(item);
-
-                        all_data.push(item);
-
-                    }
-
-            });
-
-
-
-            p_start_date = new Date(data[0][3]).getTime() / 1000;
-
-            p_end_date = new Date(data[0][4]).getTime() / 1000;
-
-
-
-            for (i=1; i<data.length; i++) {
-
-                var third = new Date(data[i][3]).getTime() / 1000;
-
-                var fourth = new Date(data[i][4]).getTime() / 1000;
-
-                if (p_start_date > third)
-
-                    p_start_date = third;
-
-                if (p_end_date < fourth)
-
-                    p_end_date = fourth;
-
-            }
-
-
-
-            j = 0;
-
-            $('#filter option').each(function(){
-
-                if ($(this).html() != 'All'){
-
-                    for (k = 0; k<all_data.length; k++){
-
-                        if ($(this).html() == all_data[k][5])
-
-                            all_colors[j] = all_data[k][6];
-
-                    }
-
-                    j++;
-
-                }
-
-            });
-
-
-
-            j = 0;  i = 0;
-
-            $('#filter option').each(function(){
-
-                if ($(this).html() != 'All'){
-
-                    if (filter_c == 'All') {
-
-                        var a = new Array();
-
-                        series[j] = {name:$(this).html(), data:a};
-
-
-
-                        for (k = 0;k<data.length;k++){
-
-                            if ($(this).html() == data[k][5])
-
-                                colors[j] = data[k][6];
-
-                        }
-
-
-
-                        j++;
-
-                    } else if (filter_c == $(this).html()) {
-
-                        var a = new Array();
-
-                        series[j] = {name:$(this).html(), data:a};
-
-
-
-                        for (k = 0;k<data.length;k++){
-
-                            if ($(this).html() == data[k][5])
-
-                                colors[j] = data[k][6];
-
-                        }
-
-                        j++;
-
-                    }
-
-                    filters[i++] = $(this).html();
-
-                }
-
-            });
-
-
-
-            if (his_scale == 4){
-
-
-
-                category_count = (p_end_date - p_start_date) / (24*60*60) + 1;
-
-
-
-                j = 0;
-
-                for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
-
-                    var d = new Date(i * 1000);
-
-                    var month = months[d.getMonth()];
-
-                    var day = d.getDate();
-
-                    var year = d.getFullYear();
-
-                    categories[j] = month + ' ' + day + ' ' + year;
-
-                    categories_date[j] = i;
-
-                    for (k=0; k<series.length; k++){
-
-                        series[k].data[j] = 0;
-
-                    }
-
-                    j++;
-
-                }
-
-
-
-                for (i=0; i<data.length; i++){
-
-                    for (j=0; j<series.length; j++){
-
-                        if (data[i][5] == series[j].name){
-
-                            var a_start_date = new Date(data[i][3]).getTime() / 1000;
-
-                            var a_end_date = new Date(data[i][4]).getTime() / 1000;
-
-                            for (k=a_start_date;k<=a_end_date;k=k+24*60*60){
-
-                                var p = (k - p_start_date) / (24*60*60);
-
-                                if (isRestDate(k)){
-
-                                    series[j].data[p] = 0;
-
-                                } else {
-
-                                    series[j].data[p] += parseInt(data[i][7]);
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            } else if (his_scale == 3){
-
-                var p_start_week, p_end_week;
-
-                
-
-                p_start_week = (new Date(p_start_date * 1000)).getWeek();
-
-                p_end_week = getWeekBy(p_start_date, p_end_date);
-
-                
-
-                category_count = p_end_week - p_start_week + 1;
-
-
-
-                j = 0;
-
-                for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
-
-                    var d = new Date(i * 1000);
-
-                    var year = d.getFullYear();
-
-                    var week = getWeekBy(p_start_date, i);
-
-                    categories[week  - p_start_week] = d.getWeek() + ' week ' + year;
-
-                    for (k=0; k<series.length; k++){
-
-                        series[k].data[week - p_start_week] = 0;
-
-                    }
-
-                    j++;
-
-                }
-
-                
-
-                for (i=0; i<data.length; i++){
-
-                    for (j=0; j<series.length; j++){
-
-                        if (data[i][5] == series[j].name){
-
-                            
-
-                            var a_start_date = new Date(data[i][3]).getTime() / 1000;
-
-                            var a_end_date = new Date(data[i][4]).getTime() / 1000;
-
-                            var a_start_week = getWeekBy(p_start_date, a_start_date);
-
-                            var a_end_week = getWeekBy(p_start_date, a_end_date);
-
-                            
-
-                            for (k=a_start_week; k<=a_end_week; k++){
-
-                                var p = k - p_start_week;
-
-                                for (var t = a_start_date; t<=a_end_date; t += 24*60*60){
-
-                                    var tt = getWeekBy(p_start_date, t);
-
-                                    if (k == tt){
-
-                                        if (!isRestDate(t)){
-
-                                            series[j].data[p] += parseInt(data[i][7]);
-
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            } else if (his_scale == 2){
-
-                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-
-
-                var p_start_month, p_end_month;
-
-                p_start_month = (new Date(p_start_date * 1000)).getMonth();
-
-                p_end_month = getMonthBy(p_start_date, p_end_date);
-
-                category_count = p_end_month - p_start_month + 1;
-
-
-
-                j = 0;
-
-                for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
-
-                    var d = new Date(i * 1000);
-
-                    var year = d.getFullYear();
-
-                    var month = getMonthBy(p_start_date, i);
-
-                    categories[month  - p_start_month] = monthNames[d.getMonth()] + ' ' + year;
-
-                    for (k=0; k<series.length; k++){
-
-                        series[k].data[month - p_start_month] = 0;
-
-                    }
-
-                    j++;
-
-                }
-
-                
-
-                for (i=0; i<data.length; i++){
-
-                    for (j=0; j<series.length; j++){
-
-                        if (data[i][5] == series[j].name){
-
-                            
-
-                            var a_start_date = new Date(data[i][3]).getTime() / 1000;
-
-                            var a_end_date = new Date(data[i][4]).getTime() / 1000;
-
-                            var a_start_month = getMonthBy(p_start_date, a_start_date);
-
-                            var a_end_month = getMonthBy(p_start_date, a_end_date);
-
-                            
-
-                            for (k=a_start_month; k<=a_end_month; k++){
-
-                                var p = k - p_start_month;
-
-                                for (var t = a_start_date; t<=a_end_date; t += 24*60*60){
-
-                                    var tt = getMonthBy(p_start_date, t);
-
-                                    if (k == tt){
-
-                                        if (!isRestDate(t)){
-
-                                            series[j].data[p] += parseInt(data[i][7]);
-
-                                        }
-
-                                    }
-
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-            
-
-            for (i=0;i<series.length;i++)
-
-                for (j=0;j<series[i].data.length;j++)
-
-                    if (series[i].data[j] == 0)
-
-                        series[i].data[j] = '';
-
-
-
-            var histogram_width = category_count * 42 + 60;
-
-            $('#histogram').css('width', histogram_width + 'px');
-
-
-
-            Highcharts.chart('histogram', {
-
-                chart: {
-
-                    type: 'column'
-
-                },
-
-                title: {
-
-                    text: 'Stacked column chart'
-
-                },
-
-                xAxis: {
-
-                    categories: categories
-
-                },
-
-                yAxis: {
-
-                    min: 0,
-
-                    title: {
-
-                        text: 'Total fruit consumption'
-
-                    },
-
-                    stackLabels: {
-
-                        enabled: true,
-
-                        style: {
-
-                            fontWeight: 'bold',
-
-                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-
-                        }
-
-                    }
-
-                },
-
-                legend: {
-
-                    align: 'right',
-
-                    x: -30,
-
-                    verticalAlign: 'top',
-
-                    y: 25,
-
-                    floating: true,
-
-                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-
-                    borderColor: '#CCC',
-
-                    borderWidth: 1,
-
-                    shadow: false
-
-                },
-
-                tooltip: {
-
-                    headerFormat: '<b>{point.x}</b><br/>',
-
-                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-
-                },
-
-                plotOptions: {
-
-                    column: {
-
-                        stacking: 'normal',
-
-                        dataLabels: {
-
-                            enabled: true,
-
-                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-
-                        }
-
-                    }
-
-                },
-
-                series: series
-
-            });
-
-            
-
-            var html_str = '';
-
-            for (i=0;i<filters.length;i++){
-
-                html_str += "<div style='float:left; width:15px;height:15px;background-color:" + all_colors[i] + "'></div><div style='float:left;padding-left:10px;padding-right:20px;'>" + filters[i] + "</div>";
-
-            }
-
-            $('#mark').html(html_str);
-
-        }        
+   
 
 
 // ========== activity tabs event ================
@@ -1694,8 +985,10 @@ $(document).ready(function(){
 
 		$('#section_activity_list').fadeIn();
 
+        ssid = "0";
+        $('.div_snapshot .ui-widget.ui-widget-content').val('');
         loadSnapshot(ppid);
-        loadActivity(ppid);
+        //loadActivity(ppid);
 
 	});
 
@@ -1713,6 +1006,53 @@ $(document).ready(function(){
         loadSettingAll(ppid);
 
     });
+
+    $('#act_detail').click(function(){
+
+        $('.list').removeClass('sel');
+
+        $(this).addClass('sel');
+
+
+        $('.acont').css('display', 'none');
+
+        $('#section_activity_detail').fadeIn();
+
+        loadActivityDetail(ppid, aaid);
+
+    });
+
+    $('#act_tracking').click(function(){
+
+        $('.list').removeClass('sel');
+
+        $(this).addClass('sel');
+
+
+        $('.acont').css('display', 'none');
+
+        $('#section_activity_tracking').fadeIn();
+
+        $('#snapshot_tracking').val("0");
+        loadActivityTracking(ppid, 0);
+
+    });
+
+    $('#act_constraints').click(function(){
+
+        $('.list').removeClass('sel');
+
+        $(this).addClass('sel');
+
+
+        $('.acont').css('display', 'none');
+
+        $('#section_activity_constraint').fadeIn();
+
+        loadActivityConstraint(ppid, true);
+
+    });
+
 
 
 //================================================
@@ -2093,6 +1433,13 @@ function trClickEvent() {
 
         });
 
+        $('#section_activity table tr.tr .bt_go_detail').unbind( "click" );
+
+        $('#section_activity table tr.tr .bt_go_detail').click(function(){
+            aaid = $(this).attr('aid');
+            aaaid = $(this).attr('aaid');
+            $('#act_detail').click();
+        });
 
 
         $('#table_activity tr .tt').unbind("focus");
@@ -2311,6 +1658,10 @@ function changePlatformEvent() {
 
 
 var ppid = -1;
+var aaid = -1;
+var aaaid = -1;
+var ppname = "";
+var psetting;
 function tableEvent() {
 
     $( "#section_projects tr.tr" ).dblclick(function() {
@@ -2321,10 +1672,11 @@ function tableEvent() {
         $('.acont').css('display', 'none');
         $('#section_activity_list').css('display', 'block');
 
-        ppid = $(this).attr('id');
+        ppid = $(this).attr('id'); 
+        ppname = $(this).find('.pname span').html(); 
+        $('#ppname').html(ppname);
 
-        loadSnapshot(ppid);
-        loadActivity(ppid);
+        $('#act_list').click();
 
     });
 
@@ -2463,10 +1815,11 @@ function loadProject() {
 }
 
 
+var activityData;
 
 function loadActivity(pid) {
-
-        sUrl = "api/activity_get.php?pid="+pid;
+    showLoading();
+        sUrl = "api/activity_get.php?pid="+pid+'&sid='+ssid;
 
         strHtml = "";
 
@@ -2485,6 +1838,8 @@ function loadActivity(pid) {
             contentType: false,
 
             success: function(data){                  
+
+                activityData = data;
 
                 for(i=0;i<data.length;i++) {
 
@@ -2522,6 +1877,8 @@ function loadActivity(pid) {
 
                                     <td><input class="tt" type="text" value='`+data[i].note+`'/></td>
 
+                                    <td><button type="button" class="btn btn-primary bt_go_detail" aaid="`+data[i].id+`" aid="`+data[i].activity_id+`">View</button></td>
+
                                 </tr>`;
 
                 }
@@ -2545,10 +1902,11 @@ function loadActivity(pid) {
 
                 renderSetting();
 
+                hideLoading();
             },
 
             error: function() {
-
+                hideLoading();
             },
 
             dataType: 'json'
@@ -2563,16 +1921,17 @@ function renderSetting() {
             $('#table_activity tbody tr').each(function(){
                 td1 = $(this).find('.acode input');
                 td_color1 = $(this).find('.acode .clr_responsible');
-                color1 = settingData['responsible'];  console.log(color1);
+                color1 = settingData['responsible']; 
                 for(i=0; i<color1.length; i++) {
                     if(td1.val() == color1[i].value) {
                         td_color1.css('background', color1[i].color);
+                        td_color1.attr('bg', color1[i].color);
                         break;
                     }
                 }
 
                 td2 = $(this).find('.alocation input');
-                td_color2 = $(this).find('.alocation .clr_responsible');
+                td_color2 = $(this).find('.alocation .clr_location');
                 color2 = settingData['location']; 
                 for(i=0; i<color2.length; i++) {
                     if(td2.val() == color2[i].value) {
@@ -2582,7 +1941,7 @@ function renderSetting() {
                 }
 
                 td3 = $(this).find('.apriority input');
-                td_color3 = $(this).find('.apriority .clr_responsible');
+                td_color3 = $(this).find('.apriority .clr_priority');
                 color3 = settingData['priority']; 
                 for(i=0; i<color3.length; i++) {
                     if(td3.val() == color3[i].value) {
@@ -2933,6 +2292,721 @@ function saveClickEvent() {
 }
 
 
+function gantt() {
+    $('#chart_gantt').addClass('sel');
+
+        var data = [];
+
+        $('#table_activity tbody tr').each(function(){
+
+                item = [];
+
+                    
+
+                $(this).find('td input').each(function(){
+
+                        item.push($(this).val());
+
+                });
+                item[6] = $(this).find('.clr_responsible').attr('bg');
+                if (item[3] != '' && item[4] != ''){
+
+                    if (filter_c == 'All')
+
+                        data.push(item);
+
+                    else if (item[7] == filter_c)
+
+                        data.push(item);
+
+                }
+
+                    
+
+        });
+
+
+
+        for(i=0; i<data.length-1; i++) {
+
+                for(j=i+1; j<data.length; j++) {
+
+                        if(data[i][3] > data[j][3]) {
+
+                                temp = data[i];
+
+                                data[i] = data[j];
+
+                                data[j] = temp;
+
+                        }
+
+                }
+
+        }
+
+        source = []; 
+
+        for(i=0; i<data.length; i++) {
+
+                item = {
+
+                    name: data[i][1],
+
+                    desc: data[i][5],
+
+                    values: [{
+
+                        from: data[i][3],
+
+                        to: data[i][4],
+
+                        label: data[i][1],
+
+                        customClass: "ganttRed"
+
+                    }]
+
+                };
+
+                source.push(item);
+
+        }
+
+
+
+        $("#gantt").html("");
+
+        $("#gantt").gantt({
+
+            source: source,
+
+            navigate: "scroll",
+
+            scale: "days",
+
+            maxScale: "months",
+
+            minScale: "hours",
+
+            itemsPerPage: 40,
+
+            useCookie: true,
+
+            onItemClick: function(data) {
+
+
+
+            },
+
+            onAddClick: function(dt, rowId) {
+
+
+
+            },
+
+            onRender: function() {
+
+                if (window.console && typeof console.log === "function") {
+
+                    console.log("chart rendered");
+
+                }
+
+                $('.bar.ganttRed .fn-label').each(function(){
+
+
+
+                        for(i=0; i<data.length; i++) {
+
+                            if ($(this).html() == data[i][1]){
+
+                                $(this).css('background-color', data[i][6]);
+
+                                break;
+
+                            }
+
+                        }
+
+                });
+
+            }
+
+        });
+
+}
+
+
+
+
+
+Date.prototype.getWeek = function() {
+
+    var onejan = new Date(this.getFullYear(), 0, 1);
+
+    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+
+}
+
+
+
+function getWeekBy(date1, date2) {
+
+    var d1 = new Date(date1 * 1000);
+
+    var d2 = new Date(date2 * 1000);
+
+    
+
+    var onejan = new Date(d1.getFullYear(), 0, 1);
+
+    return Math.ceil((((d2 - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+
+}
+
+
+
+function getMonthBy(date1, date2) {
+
+    var d1 = new Date(date1 * 1000);
+
+    var d2 = new Date(date2 * 1000);
+
+    
+
+    var year1 = d1.getFullYear();
+
+    var year2 = d2.getFullYear();
+
+    
+
+    return (year2 - year1) * 12 + d2.getMonth();
+
+}
+
+
+var filter_c = "All";
+function histogram(filter) {
+
+    
+
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    var all_data=[], data = [], p_start_date, p_end_date, category_count;
+
+    var categories = [], categories_date = [], all_colors = [];
+
+    var series = new Array();
+
+    var i, j, k;
+
+    
+
+
+
+    $('#table_activity tbody tr').each(function(){
+
+            item = [];
+
+            $(this).find('td input').each(function(){
+                item.push($(this).val());
+
+            });
+            item[6] = $(this).find('.clr_responsible').attr('bg');
+            if (item[3] != '' && item[4] != ''){
+
+                if (filter_c == 'All')
+
+                    data.push(item);
+
+                else if (item[7] == filter_c)
+
+                    data.push(item);
+
+                all_data.push(item);
+
+            }
+
+    });
+
+    if(data.length > 0) {
+        p_start_date = new Date(data[0][3]).getTime() / 1000;
+        p_end_date = new Date(data[0][4]).getTime() / 1000;
+    } else {
+        p_start_date = new Date(data[0][3]).getTime() / 1000;
+        p_end_date = new Date(data[0][4]).getTime() / 1000;
+    }
+
+
+    for (i=1; i<data.length; i++) {
+
+        var third = new Date(data[i][3]).getTime() / 1000;
+
+        var fourth = new Date(data[i][4]).getTime() / 1000;
+
+        if (p_start_date > third)
+
+            p_start_date = third;
+
+        if (p_end_date < fourth)
+
+            p_end_date = fourth;
+
+    }
+
+
+    console.log(p_start_date);
+    console.log(p_end_date);
+    j = 0;
+
+    $('#filter option').each(function(){
+
+        if ($(this).html() != 'All'){
+
+            for (k = 0; k<all_data.length; k++){
+
+                if ($(this).html() == all_data[k][7])
+
+                    all_colors[j] = all_data[k][6];
+
+            }
+
+            j++;
+
+        }
+
+    });
+
+
+
+    j = 0;  i = 0;
+
+    $('#filter option').each(function(){
+
+        if ($(this).html() != 'All'){
+
+            if (filter_c == 'All') {
+
+                var a = new Array();
+
+                series[j] = {name:$(this).html(), data:a};
+
+
+
+                for (k = 0;k<data.length;k++){
+
+                    if ($(this).html() == data[k][7])
+
+                        colors[j] = data[k][6];
+
+                }
+
+
+
+                j++;
+
+            } else if (filter_c == $(this).html()) {
+
+                var a = new Array();
+
+                series[j] = {name:$(this).html(), data:a};
+
+
+
+                for (k = 0;k<data.length;k++){
+
+                    if ($(this).html() == data[k][7])
+
+                        colors[j] = data[k][6];
+
+                }
+
+                j++;
+
+            }
+
+            filters[i++] = $(this).html();
+
+        }
+
+    });
+
+
+    console.log(his_scale);
+    if (his_scale == 4){
+
+
+
+        category_count = (p_end_date - p_start_date) / (24*60*60) + 1;
+
+
+
+        j = 0;
+
+        for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
+
+            var d = new Date(i * 1000);
+
+            var month = months[d.getMonth()];
+
+            var day = d.getDate();
+
+            var year = d.getFullYear();
+
+            categories[j] = month + ' ' + day + ' ' + year;
+
+            categories_date[j] = i;
+
+            for (k=0; k<series.length; k++){
+
+                series[k].data[j] = 0;
+
+            }
+
+            j++;
+
+        }
+
+
+
+        for (i=0; i<data.length; i++){
+
+            for (j=0; j<series.length; j++){
+
+                if (data[i][7] == series[j].name){
+
+                    var a_start_date = new Date(data[i][3]).getTime() / 1000;
+
+                    var a_end_date = new Date(data[i][4]).getTime() / 1000;
+
+                    for (k=a_start_date;k<=a_end_date;k=k+24*60*60){
+
+                        var p = (k - p_start_date) / (24*60*60); 
+                        p = Math.floor(p);
+
+                        if (isRestDate(k)){
+
+                            series[j].data[p] = 0;
+
+                        } else {
+
+                            series[j].data[p] += parseInt(data[i][5]);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+        console.log(series);
+
+    } else if (his_scale == 3){
+
+        var p_start_week, p_end_week;
+
+        
+
+        p_start_week = (new Date(p_start_date * 1000)).getWeek();
+
+        p_end_week = getWeekBy(p_start_date, p_end_date);
+
+        
+
+        category_count = p_end_week - p_start_week + 1;
+
+
+
+        j = 0;
+
+        for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
+
+            var d = new Date(i * 1000);
+
+            var year = d.getFullYear();
+
+            var week = getWeekBy(p_start_date, i);
+
+            categories[week  - p_start_week] = d.getWeek() + ' week ' + year;
+
+            for (k=0; k<series.length; k++){
+
+                series[k].data[week - p_start_week] = 0;
+
+            }
+
+            j++;
+
+        }
+
+        
+
+        for (i=0; i<data.length; i++){
+
+            for (j=0; j<series.length; j++){
+
+                if (data[i][7] == series[j].name){
+
+                    
+
+                    var a_start_date = new Date(data[i][3]).getTime() / 1000;
+
+                    var a_end_date = new Date(data[i][4]).getTime() / 1000;
+
+                    var a_start_week = getWeekBy(p_start_date, a_start_date);
+
+                    var a_end_week = getWeekBy(p_start_date, a_end_date);
+
+                    
+
+                    for (k=a_start_week; k<=a_end_week; k++){
+
+                        var p = k - p_start_week;
+
+                        for (var t = a_start_date; t<=a_end_date; t += 24*60*60){
+
+                            var tt = getWeekBy(p_start_date, t);
+
+                            if (k == tt){
+
+                                if (!isRestDate(t)){
+
+                                    series[j].data[p] += parseInt(data[i][5]);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    } else if (his_scale == 2){
+
+        var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+
+
+        var p_start_month, p_end_month;
+
+        p_start_month = (new Date(p_start_date * 1000)).getMonth();
+
+        p_end_month = getMonthBy(p_start_date, p_end_date);
+
+        category_count = p_end_month - p_start_month + 1;
+
+
+
+        j = 0;
+
+        for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
+
+            var d = new Date(i * 1000);
+
+            var year = d.getFullYear();
+
+            var month = getMonthBy(p_start_date, i);
+
+            categories[month  - p_start_month] = monthNames[d.getMonth()] + ' ' + year;
+
+            for (k=0; k<series.length; k++){
+
+                series[k].data[month - p_start_month] = 0;
+
+            }
+
+            j++;
+
+        }
+
+        
+
+        for (i=0; i<data.length; i++){
+
+            for (j=0; j<series.length; j++){
+
+                if (data[i][7] == series[j].name){
+
+                    
+
+                    var a_start_date = new Date(data[i][3]).getTime() / 1000;
+
+                    var a_end_date = new Date(data[i][4]).getTime() / 1000;
+
+                    var a_start_month = getMonthBy(p_start_date, a_start_date);
+
+                    var a_end_month = getMonthBy(p_start_date, a_end_date);
+
+                    
+
+                    for (k=a_start_month; k<=a_end_month; k++){
+
+                        var p = k - p_start_month;
+
+                        for (var t = a_start_date; t<=a_end_date; t += 24*60*60){
+
+                            var tt = getMonthBy(p_start_date, t);
+
+                            if (k == tt){
+
+                                if (!isRestDate(t)){
+
+                                    series[j].data[p] += parseInt(data[i][5]);
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    
+
+    for (i=0;i<series.length;i++)
+
+        for (j=0;j<series[i].data.length;j++)
+
+            if (series[i].data[j] == 0)
+
+                series[i].data[j] = '';
+
+
+
+    var histogram_width = category_count * 42 + 60;
+
+    $('#histogram').css('width', histogram_width + 'px');
+
+
+
+    Highcharts.chart('histogram', {
+
+        chart: {
+
+            type: 'column'
+
+        },
+
+        title: {
+
+            text: 'Stacked column chart'
+
+        },
+
+        xAxis: {
+
+            categories: categories
+
+        },
+
+        yAxis: {
+
+            min: 0,
+
+            title: {
+
+                text: 'Total fruit consumption'
+
+            },
+
+            stackLabels: {
+
+                enabled: true,
+
+                style: {
+
+                    fontWeight: 'bold',
+
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+
+                }
+
+            }
+
+        },
+
+        legend: {
+
+            align: 'right',
+
+            x: -30,
+
+            verticalAlign: 'top',
+
+            y: 25,
+
+            floating: true,
+
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+
+            borderColor: '#CCC',
+
+            borderWidth: 1,
+
+            shadow: false
+
+        },
+
+        tooltip: {
+
+            headerFormat: '<b>{point.x}</b><br/>',
+
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+
+        },
+
+        plotOptions: {
+
+            column: {
+
+                stacking: 'normal',
+
+                dataLabels: {
+
+                    enabled: true,
+
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+
+                }
+
+            }
+
+        },
+
+        series: series
+
+    });
+
+    
+
+    var html_str = '';
+
+    for (i=0;i<filters.length;i++){
+
+        html_str += "<div style='float:left; width:15px;height:15px;background-color:" + all_colors[i] + "'></div><div style='float:left;padding-left:10px;padding-right:20px;'>" + filters[i] + "</div>";
+
+    }
+
+    $('#mark').html(html_str);
+
+}     
 
 function showAlert() {
 

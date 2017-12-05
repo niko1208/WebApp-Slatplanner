@@ -644,8 +644,13 @@ function readURL(input, img) {
 
 
 
-function showLoading() {
+function showLoading(str="") {
 
+    if(str == "") {
+        $('#loading .alert').html("Loading...");
+    } else {
+        $('#loading .alert').html("Saving...");
+    }
 	$('#loading').css('display', 'block'); 
 
 }
