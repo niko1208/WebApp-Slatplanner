@@ -1,6 +1,7 @@
 <?php
 	session_start(); 
 	$uid = $_SESSION['uid'];
+	$uemail = $_SESSION['uemail'];
 
 	include('./config.php');
 	
@@ -14,8 +15,11 @@
 	} else {
         $query = "insert into tbl_project(name, date, platform, user_id) values('$pname', '$pday', '$platform', '$uid')";
     }
-	if ( mysql_query($query) )
+	if (mysql_query($query) )
 	{		
+		$result = mysql_query("select * from tbl_project order by id DESC");
+		$row = mysql_fetch_assoc($result);
+		mysql_query("insert into tbl_permission values(null, '$uemail', 'Administrator', '".$row['id']."')");   
 		$json_data = array("success"=>"1", "detail"=>"");
 		echo json_encode($json_data);
 	}

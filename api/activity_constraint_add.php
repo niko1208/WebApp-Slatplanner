@@ -21,7 +21,7 @@
 
 	{		
 
-		$json_data = array("success"=>"1", "detail"=>"");
+		$json_data = array("success"=>"1", "detail"=>$query);
 
 		echo json_encode($json_data);
 

@@ -37,14 +37,22 @@ include("header.php");
     <h2 class='text-center'>SignIn Account</h2>
     <div class="cont text-center">
         <div class="color_blue text-bold">Please enter Email address and Password</div>
-        <form class='login'>
+        <form class='login' action="./projects.php" method='post'>
             <div>
-                <input type="text" class="form-control" placeholder="Email Address" id='uname1'>
+                <input type="text" class="form-control" placeholder="Email Address" id='uname1' autocomplete="off" required="true">
             </div>
             <div>
-                <input type="password" class="form-control" placeholder="Password" id='upassword1'>
+                <input type="password" class="form-control" placeholder="Password" id='upassword1' autocomplete="off" required="true">
             </div>
-            <div class="divbt" id="bt_login">Signin</div>
+            <div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" id="chkremember">
+                    Remember me
+                </label>
+            </div>
+            </div>
+            <input type='button' class="divbt" id="bt_login" value="Signin" style="padding: 0px 30px;" />
         </form>
         <div class="color_blue" id="bt_go_signup">Create Account?</div>
     </div>

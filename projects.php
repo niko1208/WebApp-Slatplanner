@@ -20,7 +20,7 @@ include("header.php");
 ?>
 
 
-
+<input type='hidden' id='myemail' value='<?php echo $_SESSION["uemail"];?>'/>
 <link href="libs/css/jquery-ui.css" rel="stylesheet">
 
 <div class='overlay' id='loading'>
@@ -38,7 +38,7 @@ include("header.php");
 
     <div class="td_wrapper">
 
-        <div id="add_project">Add Project</div>
+        <div id="add_project1">Add Project</div>
 
         <div id="delete_project">Delete Project</div>
 
@@ -50,6 +50,11 @@ include("header.php");
 
     </table>
 
+    <div class="td_wrapper">
+
+        <div id="add_project"><i class="fa fa-plus-circle" aria-hidden="true"></i></div>
+
+    </div>
     
 
     <div class="div_form">
@@ -98,13 +103,13 @@ include("header.php");
 
 
 
-            <center><br/>
-
-                <button type="button" class="btn btn-success" id='bt_psave' >Save</button>
-
-            </center>
-
         </form>
+        <center><br/>
+
+            <button type="button" class="btn btn-success" id='bt_psave' >Save</button>
+
+        </center>
+
 
     </div>
 
@@ -113,6 +118,28 @@ include("header.php");
 
 
 <!-- ============================================================================== -->
+
+<div class="overlay" id="alert_delete_setting">
+
+    <div class="overlay_black"></div>
+
+    <div class="alert">
+
+        <div class="alert_title">Delete this Setting?</div>
+
+        <div class="alert_message"></div>
+
+        <div class="buttons">
+
+            <div class='bt_alert_yes'>Yes</div>
+
+            <div class='bt_alert_cancel'>No</div>
+
+        </div>
+
+    </div>
+
+</div>
 
 <div class="overlay" id="alert_delete_project">
 
@@ -193,7 +220,163 @@ include("header.php");
     <div class="acont" id="section_activity_setting">
 
         <div class="td_wrapper">
-
+            <div class="row">
+                <div class="col col-sm-3">
+                    <div class='setting_item sel' id='setting_item_user'>User Privilege</div>
+                    <div class='setting_item' id='setting_item_resp'>Responsible</div>
+                    <div class='setting_item' id='setting_item_location'>Locations</div>
+                    <div class='setting_item' id='setting_item_priority'>Priorities</div>
+                    <div class='setting_item' id='setting_item_constraint'>Contraints</div>
+                    <div class='setting_item' id='setting_item_delay'>Delay Reasons</div>
+                </div>
+                <div class="col col-sm-9">
+                    <div class='setting_tab' id='setting_user'>
+                        <div class="setting_tab_title">Edit All Tasks</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>User</td>
+                                    <td>Email</td>
+                                    <td>Permissions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class='setting_tab' id='setting_resp'>
+                        <div class="setting_tab_title">Responsible</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Value</td>
+                                    <td>Color</td>
+                                    <td>Assigned Users</td>
+                                    <td width="50"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="4">
+                                        <button type="button" class="btn btn-success" id='bt_setting_resp_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class='overlay' id='div_assign_user_dlg'>
+                            <div class="overlay_black"></div>
+                            <div class='overlay_content'>
+                                <div class='div_cont'></div>
+                                <div style='text-align: center;'>
+                                    <button type="button" class="btn btn-success" id='bt_assign_user_ok'>Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='setting_tab' id='setting_location'>
+                        <div class="setting_tab_title">Location</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Value</td>
+                                    <td>Color</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success" id='bt_setting_location_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class='setting_tab' id='setting_priority'>
+                        <div class="setting_tab_title">Priority</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Value</td>
+                                    <td>Color</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success" id='bt_setting_priority_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class='setting_tab' id='setting_constraint'>
+                        <div class="setting_tab_title">Constraint</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Value</td>
+                                    <td>Color</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success" id='bt_setting_constraint_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class='setting_tab' id='setting_delay'>
+                        <div class="setting_tab_title">Delay Reason</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Value</td>
+                                    <td>Color</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="2">
+                                        <button type="button" class="btn btn-success" id='bt_setting_delay_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+        <div class="td_wrapper">
             <div class="row">
                 <div class="col col-sm-2"></div>
                 <div class="col col-sm-4">Value(s)</div>
@@ -304,7 +487,7 @@ include("header.php");
             </div>
 
         </div>
-
+        -->
     </div>
 
     <div class="acont" id="section_activity_constraint">
@@ -317,10 +500,19 @@ include("header.php");
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-3">
+                <div class="col col-sm-5">
                     <button type="button" class="btn btn-success bt_acadd">Save</button>
                 </div>
-                <div class="col col-sm-5">
+                <div class="col col-sm-4">
+                    <div class="div_constraint" style="max-width:150px; float: left; margin-left: 65px;">
+                        <select class="form-control snapshot" id="contraint_resp"></select>
+                    </div>
+                    <div class="div_constraint" style="max-width:150px; float: right; margin-left: 25px;">
+                        <div class="form-control snapshot selcheck" id="contraint_done">
+                            <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
+                            <i class="fa fa-check-square-o i-checked" aria-hidden="true" style="display: none"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -595,6 +787,8 @@ include("header.php");
 
                         <option value='1'>Dates(range)</option>
 
+                        <option value='2'>Duration</option>
+
                     </select>
 
                     
@@ -638,7 +832,21 @@ include("header.php");
             <div style="float:left;margin-left: 30px;margin-top: 20px;">
                 <button type="button" class="btn btn-gray" id='bt_aexport'>Print</button>
             </div>
-
+            <div style='clear:both'></div>
+            <div id='duration_print_option'>
+                <table class='table'>
+                    <thead><tr>
+                        <td>Responsible</td>
+                        <td>Quantity</td>
+                    </tr></thead>
+                    <tbody>
+                        <tr>
+                            <td><span class='respcolor'></span> Todd</td>
+                            <td class='dqn'><input class='tt' value="16"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
 
             <br/>
@@ -801,7 +1009,10 @@ include("header.php");
     </div>
 
     <div class="acont cont_chart" id="section_activity_chart_curve">
-        
+        <div style="float: right; padding-right: 50px; margin-top: -40px;width: 300px;">
+            <select class="form-control" id="filter_curve_priority" style='float: right;max-width: 150px;'></select>
+            <div style='float: right;margin-right: 20px;padding-top: 10px;  '>Priority</div>
+        </div>
         <div id="div_chart_curve"></div>
     </div>
 
@@ -849,13 +1060,13 @@ include("header.php");
 
     <div class="alert">
 
-        <div class="cont">
+        <div class="cont" id='print_cont'>
 
             
 
         </div>
 
-        <div class="cont_hidden">
+        <div class="cont_hidden" id='cont_hidden'>
 
             
 

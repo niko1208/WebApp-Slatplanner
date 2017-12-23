@@ -46,6 +46,12 @@ $(function(){
         $('.chart_tab').removeClass('sel');
         $('#chart_curve').addClass('sel');
         
+        spriority = settingData['priority'];
+        $('#filter_curve_priority').html("<option value=''>All</option>");
+        for(i=0; i<spriority.length; i++) {
+            $('#filter_curve_priority').append("<option value='"+spriority[i].value+"'>"+spriority[i].value+"</option>");
+        }
+
         chart_curve();
     })
 
@@ -59,16 +65,22 @@ $(function(){
             drawChart_reason();
         } else if($('.chart_tab.sel').attr('id') == 'chart_gantt') {
             filter_c = sid;
+            if(sid == "") filter_c = "All";
             gantt();
             histogram();
+        } else if($('.chart_tab.sel').attr('id') == 'chart_curve') {
+            chart_curve();
         }
         
 	})
+    $('#filter_curve_priority').change(function(){
+        chart_curve();
+    });
 
 })
 
-function chart_curve(filter){ console.log(activityData1);
-
+function chart_curve(filter){ 
+    
     p_start_date = new Date(activityData1[0].start).getTime() / 1000;
     p_end_date = new Date(activityData1[0].finish).getTime() / 1000;
     for(i=1; i<activityData1.length; i++) {
@@ -93,7 +105,7 @@ function chart_curve(filter){ console.log(activityData1);
         categories_date[j] = i;
         j++;
     }
-
+    console.log(activityData1);
     gdata = [];
     for(s=0; s<snapshot.length; s++) {
         sid = snapshot[s].id;
@@ -110,7 +122,19 @@ function chart_curve(filter){ console.log(activityData1);
                 item.push("");
                 item.push(activityData1[i].code);
                 
-                adata.push(item);
+                if($('#visual_resp').val() != '' && $('#visual_resp').val() == activityData1[i].code) {
+                    if($('#filter_curve_priority').val() != '' && $('#filter_curve_priority').val() == activityData1[i].priority) {
+                        adata.push(item);                        
+                    } else if($('#filter_curve_priority').val() == '') {
+                        adata.push(item);
+                    }
+                } else if($('#visual_resp').val() == '') {
+                    if($('#filter_curve_priority').val() != '' && $('#filter_curve_priority').val() == activityData1[i].priority) {
+                        adata.push(item);                        
+                    } else if($('#filter_curve_priority').val() == '') {
+                        adata.push(item);
+                    }
+                }
             }
         }
         if(adata.length > 0) {
@@ -241,34 +265,36 @@ function drawChart_reason() { console.log(reason_data);
     for(n=0; n<settingData.delay.length; n++) {
         reason = settingData.delay[n].value;
         data = [];
-        for(nn=0; nn<settingData.responsible.length; nn++) {
-            resp = settingData.responsible[nn].value;
-            if(selresp == resp) {
-                for(i=0; i<xx.length; i++) {
-                    s = xx[i]; 
-                    ss = reason_data[s][reason][resp];
-                    if(eval(ss) > 0) {
-                        data.push(ss);
-                    } else {
-                        data.push(0);
-                    }
+        if(selresp == 'All' || selresp == '') {
+            for(i=0; i<xx.length; i++) {
+                s = xx[i]; 
+                ss = reason_data[s][reason]['total'];
+                if(eval(ss) > 0) {
+                    data.push(ss);
+                } else {
+                    data.push(0);
                 }
-                break;
-            } else {
-                for(i=0; i<xx.length; i++) {
-                    s = xx[i]; 
-                    ss = reason_data[s][reason]['total'];
-                    if(eval(ss) > 0) {
-                        data.push(ss);
-                    } else {
-                        data.push(0);
+            }
+        } else {
+            for(nn=0; nn<settingData.responsible.length; nn++) {
+                resp = settingData.responsible[nn].value;
+                if(selresp == resp) {
+                    for(i=0; i<xx.length; i++) {
+                        s = xx[i]; 
+                        ss = reason_data[s][reason][resp];
+                        if(eval(ss) > 0) {
+                            data.push(ss);
+                        } else {
+                            data.push(0);
+                        }
                     }
+                    break;
                 }
-                break;
             }
         }
         ser.push({'name': reason, 'data':data, 'color':settingData.delay[n].color});
     }
+    console.log(ser);
     
     Highcharts.chart('div_chart_reason', {
         chart: {

@@ -72,8 +72,14 @@ $(function() {
         const_type = $(this).val();
         loadActivityConstraint(ppid);
     })
+    $('#contraint_resp').change(function(){
+        const_resp_type = $(this).val();
+        loadActivityConstraint(ppid);
+    })
 })
 var const_type = "";
+var const_resp_type = "";
+var const_done = "0";
 function saveConstraint() {
     sUrl = "api/activity_constraint_save.php";
     var form_data = new FormData();  
@@ -120,6 +126,7 @@ function loadActivityConstraint(pid, firstload=false) {
     respdata = settingData['responsible'];
     if(firstload) {
         strConst = "<option value='Activity'>Activity</option>";
+        strConst = "";
         for(i=0; i<constdata.length; i++) {
             strConst += "<option value='"+constdata[i].value+"'>"+constdata[i].value+"</option>";
         }
@@ -127,15 +134,19 @@ function loadActivityConstraint(pid, firstload=false) {
         $('#contraint').append(strConst);
         $('#act_const_type').html(strConst);
         strResp = "";
-        for(i=0; i<respdata.length; i++) {
-            strResp += "<option value='"+respdata[i].value+"'>"+respdata[i].value+"</option>";
+        for(i=0; i<respData_permission.length; i++) {
+            strResp += "<option value='"+respData_permission[i].value+"'>"+respData_permission[i].value+"</option>";
         }
         $('#act_resp').html(strResp);
+        $('#contraint_resp').html("<option value=''></option>");
+        $('#contraint_resp').append(strResp);
     }
 	sUrl = "api/activity_constraint_get.php";
     var form_data = new FormData();
     form_data.append('pid', pid);
     form_data.append('type', const_type);
+    form_data.append('done', const_done);
+    form_data.append('resptype', const_resp_type);
     $.ajax({
         type: "POST",
         url: sUrl,
@@ -158,12 +169,26 @@ function renderActivityConstraint(data) {
     $('#table_activity_constraint tbody').html(strHtml);
     for(i=0;i<data.length;i++) {
         strConst = "<option value='Activity'>Activity</option>";
+        strConst = "";
         strConst1 = "";
         for(j=0; j<constdata.length; j++) {
             if(data[i].type == constdata[j].value)
                 strConst += "<option value='"+constdata[j].value+"' selected>"+constdata[j].value+"</option>";
             else
                 strConst += "<option value='"+constdata[j].value+"'>"+constdata[j].value+"</option>";
+        }
+        strDisabled = "";
+        strDisabled1 = "";
+        if(ppermission == "Edit Responsible Tasks") strDisabled1 = "disabled";
+        isReadonly = true;
+        for(j=0; j<respData_permission.length; j++) {
+            if(ppermission == "Edit Responsible Tasks" && data[i].resp == respData_permission[j].value) {
+                isReadonly = false;
+                break;
+            }
+        }
+        if(isReadonly) {
+            strDisabled = "disabled";
         }
         for(j=0; j<respdata.length; j++) {
             if(data[i].resp == respdata[j].value)
@@ -176,6 +201,7 @@ function renderActivityConstraint(data) {
         if(data[i].done == '1') 
             strDone = `<i class="fa fa-square-o i-setting" aria-hidden="true" style='display:none'></i>
                         <i class="fa fa-check-square-o i-checked" aria-hidden="true"></i>`;
+        
 
         strHtml += `<tr class='tr' id='`+data[i].id+`'>
                         <td class='selcheck'>
@@ -183,7 +209,7 @@ function renderActivityConstraint(data) {
                             <i class="fa fa-check-square-o i-checked" aria-hidden="true" style="display: none"></i>
                         </td>
 
-                        <td class='atype'><select class='form-control act_const_type' type='text'>` + strConst + `</select></td>
+                        <td class='atype'><select class='form-control act_const_type' type='text' `+strDisabled+`>` + strConst + `</select></td>
 
                         <td><input class="tt act_const_id" type="text" value='`+data[i].actid+`'/></td>
 
@@ -193,7 +219,7 @@ function renderActivityConstraint(data) {
 
                         <td class='afinish'><input class="tt" type="text" value='`+data[i].finish+`'/></td>
 
-                        <td><select class='form-control act_resp' id='`+data[i].id+`'>` + strConst1 + `</select></td>
+                        <td><select class='form-control act_resp' id='`+data[i].id+`' `+strDisabled1+`>` + strConst1 + `</select></td>
 
                         <td class='driving'><input class="tt" type="text" value='`+data[i].driving+`'/></td>
 
@@ -204,6 +230,18 @@ function renderActivityConstraint(data) {
     }
 
     $('#table_activity_constraint tbody').html(strHtml);
+
+    $('#table_activity_constraint tbody tr').each(function(){
+        for(j=0; j<respData_permission.length; j++) {
+            if(ppermission == "Edit Responsible Tasks" && $(this).find('.act_resp').val() == respData_permission[j].value) {
+                isReadonly = false;
+                break;
+            }
+        }
+        if(isReadonly) {
+            $(this).find('input').attr('readonly', 'true');
+        }
+    })
 
     $('#table_activity_constraint tr input.act_const_id').unbind('keyup');
     $('#table_activity_constraint tr input.act_const_id').keyup(function(event){
@@ -229,6 +267,14 @@ function renderActivityConstraint(data) {
         } else {
             obj.find('.i-checked').css('display', 'none');
             obj.find('.i-setting').css('display', 'block');
+        }
+        if($(this).parent().attr('id') == 'contraint_done') {
+            if($(this).hasClass('i-checked')) {
+                const_done = '0';
+            } else {
+                const_done = '1';
+            }
+            loadActivityConstraint(ppid);
         }
     });
     $('#table_activity_constraint tbody tr .act_resp').unbind('change');
@@ -263,8 +309,9 @@ function checkConstraint() {
         if(max < start) max = start;
     })
     $('#table_activity_constraint tbody tr').each(function(){
+        start = $(this).find('.astart input').attr('drivingstart'); start = new Date(start);
         finish = $(this).find('.afinish input').val(); finish = new Date(finish);
-        if(finish > max) {
+        if(finish > start) {
             $(this).find('.afinish input').addClass('red');
         }
     })

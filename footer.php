@@ -85,6 +85,9 @@
     <link href="libs/css/style.css" type="text/css" rel="stylesheet">
 
     <script src="libs/js/spectrum.js"></script>
+
+    <script src="libs/jsPDF-master/dist/jspdf.debug.js"></script>
+    <script src="libs/jsPDF-master/plugins/total_pages.js"></script>
     
     <script src="js/index.js"></script>
 

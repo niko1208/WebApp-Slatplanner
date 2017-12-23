@@ -43,6 +43,10 @@ $(function(){
             contentType: false,
             data: form_data,
             success: function(data) { 
+                $('.act_detail_const_id').val('');
+                $('.act_detail_const_desc').val('');
+                $('.act_detail_const_start').val('');
+                $('.act_detail_const_finish').val('');
                 loadData1(ppid);
             },
             error: function() {
@@ -78,6 +82,11 @@ $(function(){
             dataType: 'json'
         });
     })
+    $('#act_detail_id').keydown(function(event){
+        if (event.which == 13){
+            $('#bt_view_detail').click();
+        }
+    });
 
 
 	// ----- init ---------
@@ -245,13 +254,46 @@ function loadActivityDetail(pid, aid) {
         contentType: false,
         data: form_data,
         success: function(data) { console.log(data);
-        	loadDetailData(data);
+            loadDetailData(data);
         	loadData1(ppid);
+            checkActDetailPermission();
         },
         error: function() {
         },
         dataType: 'json'
     });
+}
+
+function checkActDetailPermission() {
+    if(ppermission == "Edit Responsible Tasks") {
+        isReadonly = true;
+        for(j=0; j<respData_permission.length; j++) {
+            if($('#act_detail_resp').val() == respData_permission[j].value) {
+                isReadonly = false;
+                break;
+            }
+        }
+        if(isReadonly) {
+            $('#section_activity_detail input').attr('readonly', 'true');
+            $('#section_activity_detail textarea').attr('readonly', 'true');
+            $('#section_activity_detail select').attr('disabled', 'true');
+            $('.bt_dcadd').css('display', 'none');
+            $('.bt_dcremove').css('display', 'none');
+        } else {
+            $('#section_activity_detail input').removeAttr('readonly');  
+            $('#section_activity_detail textarea').removeAttr('readonly');
+            $('#section_activity_detail select').removeAttr('disabled');
+            $('.bt_dcadd').css('display', 'inline-block');
+            $('.bt_dcremove').css('display', 'inline-block');  
+        }
+    } else if(ppermission == "Read-Only") { 
+    } else {
+        $('#section_activity_detail input').removeAttr('readonly');
+        $('#section_activity_detail textarea').removeAttr('readonly');
+        $('#section_activity_detail select').removeAttr('disabled');
+        $('.bt_dcadd').css('display', 'inline-block');
+        $('.bt_dcremove').css('display', 'inline-block');
+    }
 }
 
 function saveActivityDetail() {
@@ -261,7 +303,7 @@ function saveActivityDetail() {
     form_data.append('aname', $('#act_detail_name').val());
 
     form_data.append('duration', $('#act_detail_duration').val());
-    form_data.append('start_prev', $('#act_detail_start').val());
+    form_data.append('start', $('#act_detail_start').val());
     form_data.append('finish', $('#act_detail_finish').val());
     form_data.append('size', $('#act_detail_size').val());
     form_data.append('resp', $('#act_detail_resp').val());
@@ -356,6 +398,34 @@ function loadDetailData(data) {
 		}
 	}
 
+    sUrl = "api/activity_tracking_get.php";
+    var form_data = new FormData();  
+    form_data.append('pid', ppid);
+    form_data.append('aid', data.activity_id);
+    $.ajax({
+        type: "POST",
+        url: sUrl,
+        cache: false,
+        processData: false, 
+        contentType: false,
+        data: form_data,
+        success: function(data){
+            console.log(data);
+            data1 = [];
+            data1.push(actData[0]);
+            for(i=0; i<data.length; i++) {
+                data1.push(data[i]);
+            }
+            loadSnapshotHistory(data1);
+            checkActDetailPermission();
+        },
+        error: function() {
+            
+        },
+        dataType: 'json'
+    });
+
+    /*
 	for(i=0; i<actData.length; i++) { 
 		dd = actData[i];
         strDelay = "";
@@ -368,14 +438,14 @@ function loadDetailData(data) {
         }
     	strHtml = `
     		<tr pid='`+actData[i].pid+`' aid='`+actData[i].activity_id+`' sid='`+actData[i].sid+`'>
-                <td><input class="form-control act_detail_duration" type='text' value='`+dd.snapshot+`'/></td>
-                <td><input class="form-control act_detail_start" type='text' value='`+dd.start+`' /></td>
+                <td><input class="form-control act_detail_duration" type='text' value='`+dd.snapshot+`' readonly/></td>
+                <td><input class="form-control act_detail_start" type='text' value='`+dd.start+`'  readonly/></td>
                 <td><div class='changestart'>
                     <span class='sleft ahide'><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
                     <span class='stext'></span>
                     <span class='sright ahide'><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
                 </div></td>
-                <td><input class="form-control act_detail_finish" type='text' value='`+dd.finish+`' /></td>
+                <td><input class="form-control act_detail_finish" type='text' value='`+dd.finish+`'  readonly/></td>
                 <td><div class='changefinish'>
                     <span class='sleft ahide'><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
                     <span class='stext'></span>
@@ -386,6 +456,67 @@ function loadDetailData(data) {
     	`;
     	$('#table_act_detail_snap tbody').append(strHtml);
 	}
+    */
+    
+}
+function loadSnapshotHistory(data, cur) {
+    delay = settingData['delay'];
+    actData = data;
+    for(i=0; i<actData.length; i++) {
+        dd = actData[i];
+        for(j=0; j<snapshot.length; j++) {
+            if(snapshot[j].id == dd.sid) {
+                actData[i]['snapshot'] = snapshot[j].value;
+                break;
+            }
+        }
+    }
+    for(i=0; i<actData.length-1; i++) {
+        for(j=i+1; j<actData.length; j++) {
+            if(actData[j].snapshot == 'current') {
+                temp = actData[i];
+                actData[i] = actData[j];
+                actData[j] = temp;
+            }
+            else if((new Date(actData[j].snapshot)) > (new Date(actData[i].snapshot))) {
+                temp = actData[i];
+                actData[i] = actData[j];
+                actData[j] = temp;
+            }
+        }
+    }
+    $('#table_act_detail_snap tbody').html("");
+    for(i=0; i<actData.length; i++) { 
+        dd = actData[i];
+        strDelay = "";
+        strDelay += "<option value=''></option>";
+        for(j=0; j<delay.length; j++) {
+            if(dd.reason == delay[j].value)
+                strDelay += "<option value='"+delay[j].value+"' selected>"+delay[j].value+"</option>";
+            else
+                strDelay += "<option value='"+delay[j].value+"'>"+delay[j].value+"</option>";
+        }
+        if(!(dd.snapshot) || dd.snapshot == 'undefined') continue;
+        strHtml = `
+            <tr pid='`+actData[i].pid+`' aid='`+actData[i].aid+`' sid='`+actData[i].sid+`'>
+                <td><input class="form-control act_detail_duration" type='text' value='`+dd.snapshot+`' readonly/></td>
+                <td><input class="form-control act_detail_start" type='text' value='`+dd.start+`'  readonly/></td>
+                <td><div class='changestart'>
+                    <span class='sleft ahide'><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+                    <span class='stext'></span>
+                    <span class='sright ahide'><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div></td>
+                <td><input class="form-control act_detail_finish" type='text' value='`+dd.finish+`'  readonly/></td>
+                <td><div class='changefinish'>
+                    <span class='sleft ahide'><i class="fa fa-arrow-left" aria-hidden="true"></i></span>
+                    <span class='stext'></span>
+                    <span class='sright ahide'><i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+                </div></td>
+                <td><select class='form-control adelay ahide act_detail_reason' readonly reason='`+dd.reason+`'>`+strDelay+`</select></td>
+            </tr>
+        `;
+        $('#table_act_detail_snap tbody').append(strHtml);
+    }
     saveSnapshotHistory();
 
     $('#table_act_detail_snap tbody tr').each(function(){
@@ -407,23 +538,22 @@ function loadDetailData(data) {
             $(this).find('.changestart .sleft').removeClass('ahide');
         } else if(changestart/oneday > 0) {
             $(this).find('.changestart .sright').removeClass('ahide');
-            $(this).find('.act_detail_reason').removeClass('ahide');
+            //$(this).find('.act_detail_reason').removeClass('ahide');
         }
         if(changefinish/oneday < 0) {
             $(this).find('.changefinish .sleft').removeClass('ahide');
         } else if(changefinish/oneday > 0) {
             $(this).find('.changefinish .sright').removeClass('ahide');
-            $(this).find('.act_detail_reason').removeClass('ahide');
+            //$(this).find('.act_detail_reason').removeClass('ahide');
         }
         $(this).find('.changestart .stext').html(Math.abs(Math.floor(changestart/oneday)));
         $(this).find('.changefinish .stext').html(Math.abs(Math.floor(changefinish/oneday)));
         
-
+        if($(this).find('.act_detail_reason').attr('reason') != '') $(this).find('.act_detail_reason').removeClass('ahide');
     });
     $('#table_act_detail_snap tbody tr .act_detail_reason').change(function(){
         saveSnapshotHistory();
     });
-    
 }
 function saveSnapshotHistory() {
     sUrl = "api/activity_snapshot_history_save.php";

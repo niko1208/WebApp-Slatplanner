@@ -71,15 +71,47 @@ $('#bt_register').click(function(){
     });
 })
 
-$('#bt_login').click(function(){
-    if($('#uname1').val() == "") {
-        alert("please input name");
-        return;
+$('#uname1').keydown(function(event){
+    if (event.which == 13){
+        if($('#uname1').val() == "" || !validateEmail($('#uname1').val())) {
+            alert("please input valid email");
+            $('#uname1').focus();
+        } else {
+            $('#upassword1').focus();
+        }
+    }
+});
+
+$('#upassword1').keydown(function(event){
+    if (event.which == 13){
+        if($('#upassword1').val() == "") {
+            alert("please input password");
+            $('#upassword1').focus();
+        } else {
+            $('#bt_login').click();
+        }
+    }
+});
+
+$('#bt_login').click(function(){ 
+    login();
+});
+
+})
+
+function login() {
+    
+    if($('#uname1').val() == "" || !validateEmail($('#uname1').val())) {
+        alert("please input valid email");
+        $('#uname1').focus();
+        return false;
     }
     if($('#upassword1').val() == "") {
         alert("please input password");
-        return;
+        $('#upassword1').focus();
+        return false;
     }
+    
     sUrl = "api/user_login.php";
     var form_data = new FormData();      
     form_data.append('uemail', $('#uname1').val());        
@@ -102,20 +134,30 @@ $('#bt_login').click(function(){
         success: function(data){
 
             if(data.success == "1") {
-                location.href = './';
+                if($('#chkremember:checkbox:checked').length > 0) {
+                    $('form.login').submit();
+                } else { 
+                    location.href = './projects.php';
+                }
+                return true;
             } else {
                 alert("Invalid email or password");
+                return false;
             }
 
         },
 
         error: function() {
             alert("error");
+            return false;
         },
 
         dataType: 'json'
 
     });
-})
+}
 
-})
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}

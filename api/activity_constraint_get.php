@@ -2,6 +2,8 @@
 	include('./config.php');
 	$pid = $_REQUEST['pid'];
    $type = $_REQUEST['type'];
+   $done = $_REQUEST['done'];
+   $resptype = $_REQUEST['resptype'];
    $driving = $_REQUEST['driving'];
 	mysql_query("CREATE TABLE `tbl_activity_constraint` (                 
                            `id` INT(11) NOT NULL AUTO_INCREMENT,                  
@@ -20,12 +22,20 @@
    if(isset($driving) && $driving != "") {
       $where = " and driving='$driving'";
    }
-   if($type == "") {
-	  $result = mysql_query("select * from tbl_activity_constraint where pid='$pid' " . $where . " order by id");
-   } else {
-      $result = mysql_query("select * from tbl_activity_constraint where pid='$pid' and `type`='$type' " . $where . " order by id");
+   if(isset($resptype) && $resptype != '') {
+      $where = " and resp='$resptype'";  
    }
-	$ret = array();
+   if(isset($done) && $done != '0') {
+      $where = " and done='$done'";  
+   }
+   if($type == "") {
+      $query = "select * from tbl_activity_constraint where pid='$pid' " . $where . " order by id";
+	   $result = mysql_query($query);
+   } else {
+      $query = "select * from tbl_activity_constraint where pid='$pid' and `type`='$type' " . $where . " order by id";
+      $result = mysql_query($query);
+   }
+   $ret = array();
 	while($row = mysql_fetch_assoc($result)) {
       $driving = $row['driving'];
       $row['drivingstart'] = "";

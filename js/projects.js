@@ -2,6 +2,21 @@ var keydown, ctrl_v=0;
 
 var temp_finish_date;
 
+var qn_resp = [];
+
+function calcDQn() {
+    for(i=0; i<settingData['responsible'].length; i++) {
+        qn_resp[settingData['responsible'][i].value] = 0;
+    }
+    $('#table_activity tr.tr.sel').each(function(){
+        val = $(this).find('.acode input').val();
+        qn_resp[val] += eval($(this).find('.aduration input').val()*1);
+    })
+    $('#duration_print_option table tbody tr').each(function(){
+        val = $(this).find('.respvalue').text();
+        $(this).find('.dqn input').val(qn_resp[val]);
+    })
+}
 $(document).ready(function(){
 
         
@@ -70,13 +85,22 @@ $(document).ready(function(){
             $('.div_from_date').css('display','none');
 
             $('.div_to_date').css('display','none');
+            $('#duration_print_option').fadeOut('fast');
 
-        } else {
+        } else if($(this).val() == 1) {
 
             $('.div_from_date').css('display','block');
 
             $('.div_to_date').css('display','block');
+            $('#duration_print_option').fadeOut('fast');
 
+        } else {
+            $('.div_from_date').css('display','none');
+
+            $('.div_to_date').css('display','none');
+            $('#duration_print_option').fadeIn('fast');
+
+            calcDQn();
         }
 
     });
@@ -127,7 +151,7 @@ $(document).ready(function(){
 
                                     <td class='astart'><input class="tt" type="text" value=''/></td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class='afinish'><input class="tt" type="text" value=''/></td>
 
                                     <td><input class="tt" type="text" value=''/></td>
 
@@ -236,8 +260,9 @@ $(document).ready(function(){
     
 
     $('#add_project').click(function(){
+        if($('#div_pname').length > 0) return;
 
-	strHtml = `
+	    strHtml = `
 
                         <form>
 
@@ -282,14 +307,13 @@ $(document).ready(function(){
                             <div class="add_platform">Add new platform</div>
 
 
+                        </form>
 
                             <center><br/>
 
                                 <button type="button" class="btn btn-success" id='bt_psave'>Save</button>
 
                             </center>
-
-                        </form>
 
                     `;
 
@@ -299,7 +323,42 @@ $(document).ready(function(){
 
     	$('#bt_psave').attr('pid', '');
 
+        //========= add tr ==============
+        strHtml = `<tr class='tr sel' id='' platform=''>
 
+                                    <td>
+
+                                        <div class="td_wrapper"><table class='stable'><tr>
+
+                                            <td>
+
+                                                <div class="div_td">
+
+                                                    <div class="pdate" style="display:none"></div>
+
+                                                    <div class="pname" id='div_pname'><i class="fa fa-power-off plunch disable" aria-hidden="true"></i> <input type='text' class='tt' value='' /></div>
+
+                                                </div>
+
+                                            </td>
+
+                                            <td class='psetting' style='text-align: right;padding-right: 30px;'>
+
+                                                <i class="fa fa-trash-o pdelete disable" aria-hidden="true"></i>
+
+                                            </td>
+
+                                        </tr></table></div>
+
+                                    </td>
+
+                                </tr>`;
+        $('#table_project').html($('#table_project').html()+strHtml);
+        $('#div_pname input').focus();
+
+        trClickEvent();
+
+        tableEvent();
 
     	addPlatformEvent();
 
@@ -340,7 +399,7 @@ $(document).ready(function(){
 
 		                <td class='astart'><input class="tt" type="text" value=''/></td>
 
-		                <td><input class="tt" type="text" value=''/></td>
+		                <td class='afinish'><input class="tt" type="text" value=''/></td>
 
                         <td><input class="tt" type="text" value=''/></td>
 
@@ -461,7 +520,7 @@ $(document).ready(function(){
 	});
 
 
-
+    /*
 	$('#delete_project').click(function(){
 
 		if($('#section_projects tr.tr.sel').length > 0) {
@@ -473,7 +532,7 @@ $(document).ready(function(){
 		}
 
 	});
-
+    */
         $('#alert_delete_project .bt_alert_yes').click(function(){
 
                 sUrl = "api/project_del.php";
@@ -553,12 +612,115 @@ $(document).ready(function(){
 	});
 
 
-
+        function hexToRgb(h)
+        {
+            var r = parseInt((cutHex(h)).substring(0,2),16), g = ((cutHex(h)).substring(2,4),16), b = parseInt((cutHex(h)).substring(4,6),16)
+            return r+''+b+''+b;
+        }
+        function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
         /* Print Part */
 
         $('#bt_qrcode_print').unbind('click');
 
         $('#bt_qrcode_print').click(function(){
+
+            var data = $('.cont_hidden').html();
+            
+            var options = {
+            };
+            var doc = new jsPDF('p', 'pt', 'a4');
+
+            ptx = 72 / 96;
+            x = 0;
+            y = 0;
+            w = 190;
+            h = 160;
+            i = 0;
+            margin_top = 20;
+            margin_left = 20;
+            row_num = 3;
+            hm = 100;
+            if ($('#print_mode').val() != 'A') {
+                var doc = new jsPDF('l', 'pt', 'a4');
+                row_num = 2;
+                h = 180;
+                hm = 120;
+            }
+            $('.cont .div_qr').each(function(){
+                if(i != 0 && i % (row_num*3) == 0) {
+                    doc.addPage();
+                    i = 0;
+                }
+                doc.setFont("Arial");
+                x = (i % 3)*w+margin_left;
+                y = Math.floor(i / 3)*h+margin_top;
+                doc.setFontSize(22);
+                doc.text(x, y+30, $(this).find('.print_aname').html());
+                doc.setFontSize(12);
+                milestone = $(this).find('.print_milestone').html();
+                if(milestone.indexOf('Finish') > -1) {
+                    if(milestone.indexOf('Finish Milestone') > -1) {
+                        doc.text(x+w-60-85, y+hm-2, milestone);
+                    } else {
+                        doc.text(x+w-60-35, y+hm-2, milestone);
+                    }
+                } else {
+                    doc.text(x, y+hm-2, milestone);    
+                }
+                
+                doc.setDrawColor(0);
+                
+                bgcolor = $(this).find('.print_acolor').css('background-color'); 
+                bgcolor = bgcolor.replace('rgb(', '').replace(')', '');
+                bgcolor = bgcolor.split(','); 
+                if(bgcolor[0].indexOf("rgba") > -1) {
+                    bgc1 = 255;
+                    bgc2 = 255;
+                    bgc3 = 255;
+                } else {
+                    bgc1 = eval(bgcolor[0]);
+                    bgc2 = eval(bgcolor[1]);
+                    bgc3 = eval(bgcolor[2]);
+                }
+                doc.setFillColor(bgc1,bgc2,bgc3);
+                doc.rect(x, y+hm, w-60, 25, 'F');
+                cid = $(this).find('.print_qr canvas').attr('id');
+                canvas = document.getElementById(cid);
+                imgData = canvas.toDataURL(); 
+                doc.addImage(imgData, 'JPEG', x+140, y+hm, 40, 40);
+                doc.text(x, y+(hm+40), $(this).find('.print_aid').html());
+                doc.text(x+50, y+(hm+40), $(this).find('.print_acode').html());
+
+                if($(this).find('.print_acolor span').length > 0) {
+                    if(milestone.indexOf('Milestone') < 0) {
+                        doc.setLineWidth(2);
+                        if($(this).find('.print_acolor span.sarrow:first-child').css('display') != 'none') {
+                            doc.triangle(x+10, y+(hm+5), x+5, y+(hm+12), x+10, y+(hm+19), 'F'); 
+                            doc.line(x+20, y+(hm+12), x+6, y+(hm+12));
+                            doc.line(x, y+hm, x, y+hm+25);
+                        } else {
+                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-5, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
+                            doc.line(x+(w-60)-20, y+(hm+12), x+(w-60)-6, y+(hm+12));
+                            doc.line(x+w-60, y+hm, x+w-60, y+hm+25);
+                        }
+                    } else {
+                        doc.setLineWidth(1);
+                        doc.setFillColor(0,0,0);
+                        if(milestone.indexOf('Finish Milestone') < 0) {
+                            doc.triangle(x+10, y+(hm+5), x+5, y+(hm+12), x+10, y+(hm+19), 'F');                            
+                            doc.triangle(x+10, y+(hm+5), x+15, y+(hm+12), x+10, y+(hm+19), 'F');
+                        } else {
+                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-5, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
+                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-15, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
+                        }
+                    }
+                }
+
+                i++;
+            })
+            doc.save('pageContent.pdf');
+
+            return;
 
             if ($('#print_type').val() == 0){
 
@@ -572,13 +734,13 @@ $(document).ready(function(){
 
                         mywindow.document.write(`<style type="text/css">\n\
 
-                                                .div_qr {float:left;width:266px;height:218px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;}\n\
+                                                .div_qr {float:left;width:266px;height:218px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;}\n\
 
-                                                .print_aname {float:left;font-size:35px;line-height:46px;text-align:left;height: 138px;width: 268px;overflow: hidden;}\n\
+                                                .print_aname {float:left;font-size:35px;line-height:33px;text-align:left;height: 99px;width: 268px;overflow: hidden;}\n\
 
-                                                .div_box2 {position:absolute;margin-top:150px;}\n\
+                                                .div_box2 {position:absolute;margin-top:130px;}\n\
 
-                                                .div_box1 {float:left;width:190px;}\n\
+                                                .div_box1 {float:left;width:180px;margin-right:10px;}\n\
 
                                                 .print_acolor {width:100%;height:46px;-webkit-print-color-adjust:exact;}\n\
 
@@ -586,11 +748,12 @@ $(document).ready(function(){
 
                                                 .print_acode {float:right;line-height:32px;font-size:18px;}\n\
 
-                                                .print_qr {float:right;width:70px;margin-left:10px;}\n\
+                                                .print_qr {float:right;width:70px;margin-left:10px;margin-top: 20px;}\n\
 
                                                 img {width:70px;height:70px;}\n\
 
                                                 body {margin:0;padding:0;}\n\
+                                                .print_acolor span {font-size: 40px;margin-top: 0px;color: #000;}\n\
 
                                         </style></head><body>`);
 
@@ -598,15 +761,15 @@ $(document).ready(function(){
 
                         mywindow.document.write(`<style type="text/css">\n\
 
-                                                .div_qr:nth-child(odd) {float:left;width:266px;height:254px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 48px 10.8px 0;}\n\
+                                                .div_qr:nth-child(odd) {float:left;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 48px 10.8px 0;}\n\
 
-                                                .div_qr:nth-child(even) {float:left;width:266px;height:254px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 0 10.8px 0;}\n\
+                                                .div_qr:nth-child(even) {float:left;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 0 10.8px 0;}\n\
 
-                                                .print_aname {float:left;font-size:35px;line-height:46px;text-align:left;height: 174px;width: 268px;overflow: hidden;}\n\
+                                                .print_aname {float:left;font-size:35px;line-height:45px;text-align:left;height: 135px;width: 268px;overflow: hidden;}\n\
 
-                                                .div_box2 {position:absolute;margin-top:187px;}\n\
+                                                .div_box2 {position:absolute;margin-top:167px;}\n\
 
-                                                .div_box1 {float:left;width:190px;}\n\
+                                                .div_box1 {float:left;width:180px;margin-right:10px;}\n\
 
                                                 .print_acolor {width:100%;height:46px;-webkit-print-color-adjust:exact;}\n\
 
@@ -614,11 +777,12 @@ $(document).ready(function(){
 
                                                 .print_acode {float:right;line-height:32px;font-size:18px;}\n\
 
-                                                .print_qr {float:right;width:70px;margin-left:10px;}\n\
+                                                .print_qr {float:right;width:70px;margin-left:10px;margin-top: 20px;}\n\
 
                                                 img {width:70px;height:70px;}\n\
 
                                                 body {margin:0;padding:0;}\n\
+                                                .print_acolor span {font-size: 40px;margin-top: 0px;color: #000;}\n\
 
                                         </style></head><body>`);
 
@@ -632,7 +796,7 @@ $(document).ready(function(){
 
                     mywindow.print();
 
-            } else {
+            } else if($('#print_type').val() == 1) {
 
                     var data = $('.cont_hidden').html();
 
@@ -644,7 +808,7 @@ $(document).ready(function(){
 
                             mywindow.document.write(`<style type="text/css">\n\
 
-                                            .div_qr {float:left;text-align:center;width:266px;height:218px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;}\n\
+                                            .div_qr {float:left;text-align:center;width:266px;height:218px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;}\n\
 
                                             .print_weekday {font-size:40px;}\n\
 
@@ -666,9 +830,9 @@ $(document).ready(function(){
 
                             mywindow.document.write(`<style type="text/css">\n\
 
-                                            .div_qr:nth-child(odd) {float:left;text-align:center;width:266px;height:254px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 48px 10.8px 0;}\n\
+                                            .div_qr:nth-child(odd) {float:left;text-align:center;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 48px 10.8px 0;}\n\
 
-                                            .div_qr:nth-child(even) {float:left;text-align:center;width:266px;height:254px;border:1px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 0 10.8px 0;}\n\
+                                            .div_qr:nth-child(even) {float:left;text-align:center;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 0 10.8px 0;}\n\
 
                                             .print_weekday {font-size:40px;}\n\
 
@@ -696,6 +860,78 @@ $(document).ready(function(){
 
                     mywindow.print();
 
+            } else if ($('#print_type').val() == 2){
+
+                    var data = $('.cont_hidden').html();
+
+                    var mywindow = window.open('', '', '');
+
+                    mywindow.document.write('<html><head>');
+
+                    if ($('#print_mode').val() == 'A') {
+
+                        mywindow.document.write(`<style type="text/css">\n\
+
+                                                .div_qr {float:left;width:266px;height:218px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;}\n\
+
+                                                .print_aname {float:left;font-size:35px;line-height:46px;text-align:left;height: 138px;width: 268px;overflow: hidden;}\n\
+
+                                                .div_box2 {position:absolute;margin-top:150px;}\n\
+
+                                                .div_box1 {float:left;width:190px;}\n\
+
+                                                .print_acolor {width:100%;height:46px;margin-top:150px;-webkit-print-color-adjust:exact;}\n\
+
+                                                .print_aid {float:left;line-height:32px;font-size:18px;}\n\
+
+                                                .print_acode {float:right;line-height:32px;font-size:18px;}\n\
+
+                                                .print_qr {float:right;width:70px;margin-left:10px;}\n\
+
+                                                img {width:70px;height:70px;}\n\
+
+                                                body {margin:0;padding:0;}\n\
+
+                                        </style></head><body>`);
+
+                    } else {
+
+                        mywindow.document.write(`<style type="text/css">\n\
+
+                                                .div_qr:nth-child(odd) {float:left;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 48px 10.8px 0;}\n\
+
+                                                .div_qr:nth-child(even) {float:left;width:266px;height:254px;border:0px solid #333;padding:10px;color:#333;font-family:Opensans-Bold;margin:10.8px 0 10.8px 0;}\n\
+
+                                                .print_aname {float:left;font-size:35px;line-height:46px;text-align:left;height: 174px;width: 268px;overflow: hidden;}\n\
+
+                                                .div_box2 {position:absolute;margin-top:187px;}\n\
+
+                                                .div_box1 {float:left;width:190px;}\n\
+
+                                                .print_acolor {width:100%;height:46px;margin-top:186px;-webkit-print-color-adjust:exact;}\n\
+
+                                                .print_aid {float:left;line-height:32px;font-size:18px;}\n\
+
+                                                .print_acode {float:right;line-height:32px;font-size:18px;}\n\
+
+                                                .print_qr {float:right;width:70px;margin-left:10px;}\n\
+
+                                                img {width:70px;height:70px;}\n\
+
+                                                body {margin:0;padding:0;}\n\
+
+                                        </style></head><body>`);
+
+                    }
+
+                    mywindow.document.write(data);
+
+                    mywindow.document.write('</body></html>');
+
+                    mywindow.document.close();
+
+                    mywindow.print();
+
             }
 
         });
@@ -704,237 +940,396 @@ $(document).ready(function(){
 
 	$("#bt_aexport").click(function(){
 
-                if ($('#print_type').val() == 0){       //Activity
+        if ($('#print_type').val() == 0){       //Activity
 
-                    var data = [];
+            var data = [];
 
-                    $('#table_activity tbody tr').each(function(){
+            $('#table_activity tbody tr').each(function(){
 
-                            item = [];
+                item = [];
 
-                            $(this).find('td input').each(function(){
+                $(this).find('td input').each(function(){
 
-                                    item.push($(this).val());
+                        item.push($(this).val());
 
-                            });
-                            item[6] = $(this).find('.clr_responsible').attr('bg');
+                });
+                item[6] = $(this).find('.clr_responsible').attr('bg');
 
-                            if($(this).find('.acheck').hasClass('sel')) {
+                if($(this).find('.acheck').hasClass('sel')) {
 
-                                    data.push(item);
-
-                            }
-
-                    })
-
-                    $('#dlg_export').fadeIn('fast');
-
-                    $('#dlg_export .cont').html("");
-
-                    for(i=0; i<data.length; i++) {
-
-                            if ($('#print_mode').val() == 'A') {
-
-                                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:1pxsolid#333;padding:10px;color:#333;font-family:Opensans-Bold;'>
-
-                                                    <div class='print_aname' style='float:left;font-size:35px;line-height:46px;text-align:left;height: 138px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
-
-                                                    <div class='div_box2' style='position: relative; top: 10px;'>
-
-                                                        <div class='div_box1' style='float:left;width:186px;'>
-
-                                                            <div class='print_acolor' style="width:100%;height:46px;background:`+data[i][6]+`"></div>
-
-                                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
-
-                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
-
-                                                        </div>
-
-                                                        <div class='print_qr' style='float:right;width:70px;'><canvas width='70' height='70' id='qr_`+i+`'></canvas></div>
-
-                                                    </div>
-
-                                            </div>`;
-
-                            } else {
-
-                                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:1pxsolid#333;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
-
-                                                    <div class='print_aname' style='float:left;font-size:35px;line-height:46px;text-align:left;height: 174px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
-
-                                                    <div class='div_box2' style='position: relative; top: 10px;'>
-
-                                                        <div class='div_box1' style='float:left;width:186px;'>
-
-                                                            <div class='print_acolor' style="width:100%;height:46px;background:`+data[i][6]+`"></div>
-
-                                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
-
-                                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
-
-                                                        </div>
-
-                                                        <div class='print_qr' style='float:right;width:70px;'><canvas width='70' height='70' id='qr_`+i+`'></canvas></div>
-
-                                                    </div>
-
-                                            </div>`;
-
-
-
-                            }
-
-                            $('#dlg_export .cont').append(strHtml);
-
-                            qr_options.text = "A|"+data[i][0];
-
-                            $('#qr_'+i).qrcode(qr_options);
-
-                    }
-
-                        
-
-                    $('.cont_hidden').html($('.cont').html());
-
-                            
-
-                    $('.cont_hidden canvas').each(function(){
-
-                        var canvas = document.getElementById($(this).attr('id'));
-
-                        $("<img src='"+canvas.toDataURL()+"'/>").insertAfter($(this));
-
-                        $(this).remove();
-
-                    }).promise().done(function(){
-
-                        $('.cont_hidden .div_qr').attr('style', '');
-
-                        $('.cont_hidden .div_box2').attr('style', '');
-
-                        $('.cont_hidden .div_box1').attr('style', '');
-
-                        $('.cont_hidden .print_aid').attr('style', '');
-
-                        $('.cont_hidden .print_acode').attr('style', '');
-
-                        $('.cont_hidden .print_qr').attr('style', '');
-
-                        $('#bt_qrcode_print').css('display','inline-block');
-
-                    });
-
-                    
-
-                } else {                            //Dates
-
-                    $('#dlg_export').fadeIn('fast');
-
-                    $('#dlg_export .cont').html("");
-
-                    var from_date = new Date($('#from_date').val()).getTime();
-
-                    var to_date = new Date($('#to_date').val()).getTime();
-
-                    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-                    
-
-                    var index = 0;
-
-                    for(var i=from_date; i<=to_date; i += 24 * 60 * 60 * 1000) {
-
-                            var date = new Date(i);
-
-                            var weekday = weekdays[date.getDay()];
-
-                            var day = date.getDate();
-
-                            var month = date.getMonth() + 1;
-
-                            var year = date.getFullYear();
-
-                            if ($('#print_mode').val() == 'A') {
-
-                                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:1pxsolid#333;padding:10px;color:#333;font-family:Opensans-Bold;'>
-
-                                                    <div class='print_weekday' style='font-size:40px;'>` + weekday + `</div>
-
-                                                    <div class='print_md' style='font-size:76px;line-height:120px;'>`+ month + '/' + day + `</div>
-
-                                                    <div class='div_box' style='position:relative;margin-top: -13px;width: 268px;'>
-
-                                                        <div class='print_y' style='float:left;font-size:40px;margin-left:55px;margin-top:13px;'>` + year + `</div>
-
-                                                        <div class='print_qr' style='float:right;'><canvas width='70' height='70' id='qr_`+index+`'></canvas></div>
-
-                                                    </div>
-
-                                                </div>`;
-
-                            } else {
-
-                                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:1pxsolid#333;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
-
-                                                    <div class='print_weekday' style='font-size:40px;'>` + weekday + `</div>
-
-                                                    <div class='print_md' style='font-size:76px;line-height:156px;'>`+ month + '/' + day + `</div>
-
-                                                    <div class='div_box' style='position:relative;margin-top: -13px;width: 268px;'>
-
-                                                        <div class='print_y' style='float:left;font-size:40px;margin-left:55px;margin-top:13px;'>` + year + `</div>
-
-                                                        <div class='print_qr' style='float:right;'><canvas width='70' height='70' id='qr_`+index+`'></canvas></div>
-
-                                                    </div>
-
-                                                </div>`;
-
-                            }
-
-                            $('#dlg_export .cont').append(strHtml);
-
-                            qr_options.text = "D|"+month+"/"+day+"/"+year;
-
-                            $('#qr_'+index).qrcode(qr_options);
-
-                            index++;
-
-                    }
-
-                    
-
-                    $('.cont_hidden').html($('.cont').html());
-
-                    
-
-                    $('.cont_hidden canvas').each(function(){
-
-                        var canvas = document.getElementById($(this).attr('id'));
-
-                        $("<img src='"+canvas.toDataURL()+"'/>").insertAfter($(this));
-
-                        $(this).remove();
-
-                        
-
-                    }).promise().done(function(){
-
-                        $('.cont_hidden .div_qr').attr('style', '');
-
-                        $('.cont_hidden .div_box').attr('style', '');
-
-                        $('.cont_hidden .print_qr').attr('style', '');
-
-                        $('.cont_hidden .print_y').attr('style', '');
-
-                        $('#bt_qrcode_print').css('display','inline-block');
-
-                    });
+                        data.push(item);
 
                 }
 
+            })
+
+            console.log(data);
+            
+            
+            $('#dlg_export').fadeIn('fast');
+
+            $('#dlg_export .cont').html("");
+
+            for(i=0; i<data.length; i++) {
+
+                strHtml_start = "";
+                strHtml_finish = "";
+                if ($('#print_mode').val() == 'A') {
+
+                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:0px solid;padding:10px;color:#333;font-family:Opensans-Bold;'>
+
+                                    <div class='print_aname' style='float:left;font-size:35px;line-height:35px;text-align:left;height: 120px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
+
+                                    <div class='div_box2' style='position: relative; top: 10px;'>
+
+                                        <div class='div_box1' style='float:left;width:186px;'>
+                                            <div class='print_milestone' style='text-align:textalign;line-height:20px;'>startfinish</div>
+                                            <div class='print_acolor' style="border-textalign:10px solid #000;width:100%;height:46px;background:`+data[i][6]+`">
+                                                <span class='sarrow' style='float:left;display:displeft'>&#x2190;</span>
+                                                <span class='sarrow' style='float:right;display:dispright'>&#x2192;</span>
+                                            </div>
+
+                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
+
+                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
+
+                                        </div>
+
+                                        <div class='print_qr' style='float:right;width:70px;margin-top: 20px;'><canvas width='70' height='70' id='qr_`+i+`_***'></canvas></div>
+
+                                    </div>
+
+                            </div>`;
+
+                    if(data[i][2]*1 != 0 || (data[i][2]*1 == 0 && data[i][3]*1 == 0 && data[i][4]*1 == 0)) {
+                        strHtml_start = strHtml.replace("***", 's').replace('startfinish', 'Start').replace('textalign', 'left').replace('dispright', 'none').replace('textalign', 'left');   
+                        strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'Finish').replace('textalign', 'right').replace('displeft', 'none').replace('textalign', 'right');   
+                    } else {
+                        strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;'>
+
+                                    <div class='print_aname' style='float:left;font-size:35px;line-height:40px;text-align:left;height: 120px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
+
+                                    <div class='div_box2' style='position: relative; top: 10px;'>
+
+                                        <div class='div_box1' style='float:left;width:186px;'>
+                                            <div class='print_milestone' style='text-align:textalign;line-height:20px;'>startfinish</div>
+                                            <div class='print_acolor' style="width:100%;height:46px;background:`+data[i][6]+`">
+                                                <span style='float:textalign'>&#x25C6;</span>
+                                            </div>
+
+                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
+
+                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
+
+                                        </div>
+
+                                        <div class='print_qr' style='float:right;width:70px;margin-top: 20px;'><canvas width='70' height='70' id='qr_`+i+`_***''></canvas></div>
+
+                                    </div>
+
+                            </div>`;
+                        if(data[i][3]*1 != 0)
+                            strHtml_start = strHtml.replace("***", 's').replace('startfinish', 'Start Milestone').replace('textalign', 'left').replace('textalign', 'left');  
+                        if(data[i][4]*1 != 0) 
+                            strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'Finish Milestone').replace('textalign', 'right').replace('textalign', 'right');
+                    }
+                } else {
+                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
+
+                                    <div class='print_aname' style='float:left;font-size:35px;line-height:45px;text-align:left;height: 135px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
+
+                                    <div class='div_box2' style='position: relative; top: 10px;'>
+
+                                        <div class='div_box1' style='float:left;width:186px;'>
+                                            <div class='print_milestone' style='text-align:textalign;line-height:20px;'>startfinish</div>
+                                            <div class='print_acolor' style="border-textalign:10px solid #000;width:100%;height:46px;background:`+data[i][6]+`">
+                                                <span class='sarrow' style='float:left;display:displeft'>&#x2190;</span>
+                                                <span class='sarrow' style='float:right;display:dispright'>&#x2192;</span>
+                                            </div>
+
+                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
+
+                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
+
+                                        </div>
+
+                                        <div class='print_qr' style='float:right;width:70px;margin-top: 20px;'><canvas width='70' height='70' id='qr_`+i+`_***'></canvas></div>
+
+                                    </div>
+
+                            </div>`;
+
+                    if(data[i][2]*1 != 0) {
+                        strHtml_start = strHtml.replace("***", 's').replace('startfinish', 'start').replace('textalign', 'left').replace('dispright', 'none').replace('textalign', 'left');   
+                        strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'finish').replace('textalign', 'right').replace('displeft', 'none').replace('textalign', 'right');   
+                    } else {
+                        strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
+
+                                    <div class='print_aname' style='float:left;font-size:35px;line-height:45px;text-align:left;height: 135px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
+
+                                    <div class='div_box2' style='position: relative; top: 10px;'>
+
+                                        <div class='div_box1' style='float:left;width:186px;'>
+                                            <div class='print_milestone' style='text-align:textalign;line-height:20px;'>startfinish</div>
+                                            <div class='print_acolor' style="width:100%;height:46px;background:`+data[i][6]+`">
+                                                <span style='float:textalign'>&#x25C6;</span>
+                                            </div>
+
+                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
+
+                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
+
+                                        </div>
+
+                                        <div class='print_qr' style='float:right;width:70px;margin-top: 20px;'><canvas width='70' height='70' id='qr_`+i+`_***''></canvas></div>
+
+                                    </div>
+
+                            </div>`;
+                        if(data[i][3]*1 != 0)
+                            strHtml_start = strHtml.replace("***", 's').replace('startfinish', 'Start Milestone').replace('textalign', 'left').replace('textalign', 'left');  
+                        if(data[i][4]*1 != 0) 
+                            strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'Finish Milestone').replace('textalign', 'right').replace('textalign', 'right');
+                    }
+                    /* original 
+                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:1pxsolid#333;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
+
+                                    <div class='print_aname' style='float:left;font-size:35px;line-height:46px;text-align:left;height: 174px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
+
+                                    <div class='div_box2' style='position: relative; top: 10px;'>
+
+                                        <div class='div_box1' style='float:left;width:186px;'>
+
+                                            <div class='print_acolor' style="width:100%;height:46px;background:`+data[i][6]+`"></div>
+
+                                            <div class='print_aid' style='float:left;line-height:32px;font-size: 18px;'>`+data[i][0]+`</div>
+
+                                            <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+data[i][7]+`</div>
+
+                                        </div>
+
+                                        <div class='print_qr' style='float:right;width:70px;'><canvas width='70' height='70' id='qr_`+i+`'></canvas></div>
+
+                                    </div>
+
+                            </div>`;
+                    */
+                }
+
+                $('#dlg_export .cont').append(strHtml_start);
+                qr_options.text = "AS|"+data[i][0];
+                $('#qr_'+i+'_s').qrcode(qr_options);
+
+                $('#dlg_export .cont').append(strHtml_finish);
+                qr_options.text = "AF|"+data[i][0];
+                $('#qr_'+i+'_f').qrcode(qr_options);
+
+            }
+
+                
+
+            $('.cont_hidden').html($('.cont').html());
+
+                    
+
+            $('.cont_hidden canvas').each(function(){
+
+                var canvas = document.getElementById($(this).attr('id'));
+
+                $("<img src='"+canvas.toDataURL()+"'/>").insertAfter($(this));
+
+                $(this).remove();
+
+            }).promise().done(function(){
+
+                $('.cont_hidden .div_qr').attr('style', '');
+
+                $('.cont_hidden .div_box2').attr('style', '');
+
+                $('.cont_hidden .div_box1').attr('style', '');
+
+                $('.cont_hidden .print_aid').attr('style', '');
+
+                $('.cont_hidden .print_acode').attr('style', '');
+
+                $('.cont_hidden .print_qr').attr('style', '');
+
+                $('#bt_qrcode_print').css('display','inline-block');
+
+            });
+
+            
+
+        } else if($('#print_type').val() == 1) {                            //Dates
+
+            $('#dlg_export').fadeIn('fast');
+
+            $('#dlg_export .cont').html("");
+
+            var from_date = new Date($('#from_date').val()).getTime();
+
+            var to_date = new Date($('#to_date').val()).getTime();
+
+            var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            
+
+            var index = 0;
+
+            for(var i=from_date; i<=to_date; i += 24 * 60 * 60 * 1000) {
+
+                var date = new Date(i);
+
+                var weekday = weekdays[date.getDay()];
+
+                var day = date.getDate();
+
+                var month = date.getMonth() + 1;
+
+                var year = date.getFullYear();
+
+                if ($('#print_mode').val() == 'A') {
+
+                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;'>
+
+                                    <div class='print_weekday' style='font-size:40px;'>` + weekday + `</div>
+
+                                    <div class='print_md' style='font-size:76px;line-height:120px;'>`+ month + '/' + day + `</div>
+
+                                    <div class='div_box' style='position:relative;margin-top: -13px;width: 268px;'>
+
+                                        <div class='print_y' style='float:left;font-size:40px;margin-left:55px;margin-top:13px;'>` + year + `</div>
+
+                                        <div class='print_qr' style='float:right;'><canvas width='70' height='70' id='qr_`+index+`'></canvas></div>
+
+                                    </div>
+
+                                </div>`;
+
+                } else {
+
+                    strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
+
+                                    <div class='print_weekday' style='font-size:40px;'>` + weekday + `</div>
+
+                                    <div class='print_md' style='font-size:76px;line-height:156px;'>`+ month + '/' + day + `</div>
+
+                                    <div class='div_box' style='position:relative;margin-top: -13px;width: 268px;'>
+
+                                        <div class='print_y' style='float:left;font-size:40px;margin-left:55px;margin-top:13px;'>` + year + `</div>
+
+                                        <div class='print_qr' style='float:right;'><canvas width='70' height='70' id='qr_`+index+`'></canvas></div>
+
+                                    </div>
+
+                                </div>`;
+
+                }
+
+                $('#dlg_export .cont').append(strHtml);
+
+                qr_options.text = "D|"+month+"/"+day+"/"+year;
+
+                $('#qr_'+index).qrcode(qr_options);
+
+                index++;
+
+            }
+
+            
+
+            $('.cont_hidden').html($('.cont').html());
+
+            
+
+            $('.cont_hidden canvas').each(function(){
+
+                var canvas = document.getElementById($(this).attr('id'));
+
+                $("<img src='"+canvas.toDataURL()+"'/>").insertAfter($(this));
+
+                $(this).remove();
+
+                
+
+            }).promise().done(function(){
+
+                $('.cont_hidden .div_qr').attr('style', '');
+
+                $('.cont_hidden .div_box').attr('style', '');
+
+                $('.cont_hidden .print_qr').attr('style', '');
+
+                $('.cont_hidden .print_y').attr('style', '');
+
+                $('#bt_qrcode_print').css('display','inline-block');
+
+            });
+
+        } else if($('#print_type').val() == 2) { // duration
+
+            $('#dlg_export').fadeIn('fast');
+
+            $('#dlg_export .cont').html("");
+
+            $('#duration_print_option tbody tr').each(function(){
+                qn = $(this).find('input.tt').val();
+                color = $(this).find('.respcolor').css('background');
+                respvalue = $(this).find('.respvalue').html();
+                for(i=0; i<qn*1; i++) {
+                    if ($('#print_mode').val() == 'A') {
+
+                        strHtml = `<div class='div_qr' style='float:left;width: 288px;height:240px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;'>
+
+                                        <div class='print_acolor' style="width:100%;height:46px;margin-top:150px;background:`+color+`"></div>
+
+                                        <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+respvalue+`</div>
+
+                                    </div>`;
+
+                    } else {
+                        strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
+
+                                        <div class='print_acolor' style="width:100%;height:46px;margin-top:186px;background:`+color+`"></div>
+
+                                        <div class='print_acode' style='float:right;line-height:32px;font-size: 18px;'>`+respvalue+`</div>
+
+                                    </div>`;
+
+                    }
+                    $('#dlg_export .cont').append(strHtml);
+                }
+            })
+
+            $('.cont_hidden').html($('.cont').html());
+
+            
+
+            $('.cont_hidden canvas').each(function(){
+
+                var canvas = document.getElementById($(this).attr('id'));
+
+                $("<img src='"+canvas.toDataURL()+"'/>").insertAfter($(this));
+
+                $(this).remove();
+
+                
+
+            }).promise().done(function(){
+
+                $('.cont_hidden .div_qr').attr('style', '');
+
+                $('.cont_hidden .div_box').attr('style', '');
+
+                $('.cont_hidden .print_qr').attr('style', '');
+
+                $('.cont_hidden .print_y').attr('style', '');
+
+                $('#bt_qrcode_print').css('display','inline-block');
+
+            });
+        }
+ 
 	});
 
 
@@ -944,6 +1339,8 @@ $(document).ready(function(){
 		$('#section_activity').fadeOut('fast');
 
   		$('#section_projects').fadeIn();
+
+        loadProject();
 
 	});
 
@@ -986,13 +1383,17 @@ $(document).ready(function(){
 		$('#section_activity_list').fadeIn();
 
         ssid = "0";
-        $('.div_snapshot .ui-widget.ui-widget-content').val('');
+        $('.div_snapshot .ui-widget.ui-widget-content').val(''); console.log(ppermission);
         loadSnapshot(ppid);
         //loadActivity(ppid);
 
 	});
 
     $('#act_setting').click(function(){
+
+        if(ppermission != "Administrator") {
+            return;
+        }
 
         $('.list').removeClass('sel');
 
@@ -1004,6 +1405,8 @@ $(document).ready(function(){
         $('#section_activity_setting').fadeIn();
 
         loadSettingAll(ppid);
+
+        settingClickInit();
 
     });
 
@@ -1018,7 +1421,12 @@ $(document).ready(function(){
 
         $('#section_activity_detail').fadeIn();
 
+        //$('#bt_view_detail').click();
         loadActivityDetail(ppid, aaid);
+
+        setTimeout(function() {
+            changePermission();
+        }, 1500);
 
     });
 
@@ -1036,6 +1444,10 @@ $(document).ready(function(){
         $('#snapshot_tracking').val("0");
         loadActivityTracking(ppid, 0);
 
+        setTimeout(function() {
+            changePermission();
+        }, 1500);
+
     });
 
     $('#act_constraints').click(function(){
@@ -1050,6 +1462,10 @@ $(document).ready(function(){
         $('#section_activity_constraint').fadeIn();
 
         loadActivityConstraint(ppid, true);
+
+        setTimeout(function() {
+            changePermission();
+        }, 1500);
 
     });
 
@@ -1333,8 +1749,6 @@ function trClickEvent() {
 
         $('#section_projects table tr.tr').click(function(){
 
-
-
                 $('table tr.tr').removeClass('sel');
 
                 $(this).addClass('sel');
@@ -1347,7 +1761,7 @@ function trClickEvent() {
 
                 $('#bt_psave').attr('pid', $(this).attr('id'));
 
-                $('#pname').val($(this).find('.pname').find('span').text());
+                $('#pname').val($(this).find('.pname').find('input').val());
 
                 $('#pdate').val($(this).find('.pdate').text());
 
@@ -1431,6 +1845,7 @@ function trClickEvent() {
 
                 }
 
+                calcDQn();
         });
 
         $('#section_activity table tr.tr .bt_go_detail').unbind( "click" );
@@ -1568,7 +1983,7 @@ function trClickEvent() {
 
         $('.aduration input').keyup(function(event){
 
-                setFinishDate();
+            setFinishDate(true);
 
         });
 
@@ -1578,7 +1993,15 @@ function trClickEvent() {
 
         $('.astart input').keyup(function(event){
 
-                setFinishDate();
+            setFinishDate();
+
+        });
+
+        $('.afinish input').unbind('keyup');
+
+        $('.afinish input').keyup(function(event){
+
+            setDuration();
 
         });
 
@@ -1662,8 +2085,35 @@ var aaid = -1;
 var aaaid = -1;
 var ppname = "";
 var psetting;
+var ppermission = "Administrator";
 function tableEvent() {
+    $( "#section_projects .plunch" ).click(function(){
+        if($(this).hasClass('disable')) return;
+        obj = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent();
+        
+        $('#section_projects').fadeOut('fast');
 
+        $('#section_activity').fadeIn();
+        $('.acont').css('display', 'none');
+        $('#section_activity_list').css('display', 'block');
+
+        ppid = obj.attr('id'); 
+        ppermission = obj.attr('permission');
+        ppname = obj.find('.pname input').val(); 
+        $('#ppname').html(ppname);
+
+        $('#act_list').click();
+    })
+    $( "#section_projects .pdelete" ).click(function(){
+        if($(this).hasClass('disable')) return;
+        obj = $(this).parent().parent().parent().parent().parent().parent().parent();
+        $('#alert_delete_project').fadeIn('fast');
+        $('#bt_psave').attr('pid','');
+    })
+    $('.pname input').keyup(function(e){
+        $('#pname').val($(this).val());
+    })
+    /*
     $( "#section_projects tr.tr" ).dblclick(function() {
 
         $('#section_projects').fadeOut('fast');
@@ -1679,7 +2129,7 @@ function tableEvent() {
         $('#act_list').click();
 
     });
-
+    */
 }
 
 
@@ -1752,7 +2202,7 @@ function loadProject() {
 
                 for(i=0;i<data.length;i++) {
 
-                    strHtml += `<tr class='tr' id='`+data[i].id+`' platform='`+data[i].platform+`'>
+                    strHtml += `<tr class='tr' id='`+data[i].id+`' platform='`+data[i].platform+`' email='`+data[i].email+`' permission='`+data[i].permission+`'>
 
                                     <td>
 
@@ -1762,9 +2212,9 @@ function loadProject() {
 
                                                 <div class="div_td">
 
-                                                    <div class="pdate">`+data[i].date+`</div>
+                                                    <div class="pdate" style="display:none">`+data[i].date+`</div>
 
-                                                    <div class="pname"><i class="fa fa-folder-o" aria-hidden="true"></i> <span>`+data[i].name+`</span></div>
+                                                    <div class="pname"><i class="fa fa-power-off plunch" aria-hidden="true"></i> <input type='text' class='tt' value='`+data[i].name+`' /></div>
 
                                                 </div>
 
@@ -1772,9 +2222,7 @@ function loadProject() {
 
                                             <td class='psetting' style='text-align: right;padding-right: 30px;'>
 
-                                                <i class="fa fa-check-circle-o i-checked" aria-hidden="true"></i>
-
-                                                <i class="fa fa-cog i-setting" aria-hidden="true"></i>
+                                                <i class="fa fa-trash-o pdelete" aria-hidden="true"></i>
 
                                             </td>
 
@@ -1788,7 +2236,14 @@ function loadProject() {
 
                 $('#table_project').html(strHtml);
 
-
+                myemail = $('#myemail').val();
+                $('#table_project tr.tr').each(function() {
+                    if($(this).attr('permission') == 'Administrator') {
+                    } else {
+                        $(this).find('.pdelete').remove();
+                        $(this).find('input.tt').attr('readonly', 'true');
+                    }
+                })
 
                 trClickEvent();
 
@@ -1842,6 +2297,9 @@ function loadActivity(pid) {
                 activityData = data;
 
                 for(i=0;i<data.length;i++) {
+                    if(data[i].duration == 'NaN') data[i].duration = '';
+                    if(data[i].start.indexOf('NaN') > -1) data[i].start = '';
+                    if(data[i].finish.indexOf('NaN') > -1) data[i].finish = '';
 
                     strHtml += `<tr class='tr'>
 
@@ -1861,7 +2319,7 @@ function loadActivity(pid) {
 
                                     <td class='astart'><input class="tt" type="text" value='`+data[i].start+`'/></td>
 
-                                    <td><input class="tt" type="text" value='`+data[i].finish+`'/></td>
+                                    <td class='afinish'><input class="tt" type="text" value='`+data[i].finish+`'/></td>
 
                                     <td><input class="tt" type="text" value='`+data[i].size+`'/></td>
 
@@ -1887,7 +2345,28 @@ function loadActivity(pid) {
 
                 $('#bt_asave').attr('pid', pid);
 
-
+                changePermission();
+                loadSetting(ppid, "responsible", function(){
+                    if(ppermission == "Edit Responsible Tasks") {
+                        $('#table_activity tbody tr.tr').each(function() { 
+                            isReadonly = true;
+                            for(j=0; j<respData_permission.length; j++) {
+                                if($(this).find('.acode input').val() == respData_permission[j].value) {
+                                    isReadonly = false;
+                                    break;
+                                }
+                            }
+                            if(isReadonly) {
+                                $(this).find('input').attr('readonly', 'true');
+                            }
+                        })
+                    } else if(ppermission == "Read-Only") {
+                        $('#table_activity tbody tr.tr').each(function() { 
+                            $(this).find('input').attr('readonly', 'true');
+                        })
+                    }
+                });
+                
 
                 trClickEvent();
 
@@ -1903,6 +2382,7 @@ function loadActivity(pid) {
                 renderSetting();
 
                 hideLoading();
+
             },
 
             error: function() {
@@ -1912,6 +2392,60 @@ function loadActivity(pid) {
             dataType: 'json'
 
         });
+
+}
+
+function changePermission() { 
+
+    if(ppermission == 'Read-Only') {
+        $('.bt_go_detail').css('display', 'none');
+        $('.bt_ssadd').css('display', 'none');
+        $('.bt_ssremove').css('display', 'none');
+        $('#bt_hadd').css('display', 'none');
+        $('#bt_hremove').css('display', 'none');
+        $('#bt_asave').css('display', 'none');
+        $('#bt_adelete').css('display', 'none');
+        $('#bt_aclear').css('display', 'none');
+        $('#paste').css('display', 'none');
+        $('#snapshot_desc').css('display', 'none');
+
+        $('#table_act_detail_const tfoot').css('display', 'none');
+        $('#table_act_detail_const .act_resp').attr('disabled', 'true');
+        $('.bt_dcadd').css('display', 'none');
+        $('.bt_dcremove').css('display', 'none');
+        $('#bt_save_detail').css('display', 'none');
+        $('#table_activity_constraint tfoot').css('display', 'none');
+        $('#table_activity_constraint select').attr('disabled', 'true');
+        $('.bt_atadd').css('display', 'none');
+        $('.bt_acadd').css('display', 'none');
+        $('.bt_ccadd').css('display', 'none');
+        $('.bt_ccremove').css('display', 'none');
+    } else if(ppermission == 'Edit Responsible Tasks') {
+
+    } else { 
+        $('.bt_go_detail').css('display', 'inline-block');
+        $('.bt_ssadd').css('display', 'inline-block');
+        $('.bt_ssremove').css('display', 'inline-block');
+        $('#bt_hadd').css('display', 'inline-block');
+        $('#bt_hremove').css('display', 'inline-block');
+        $('#bt_asave').css('display', 'inline-block');
+        $('#bt_adelete').css('display', 'inline-block');
+        $('#bt_aclear').css('display', 'inline-block');
+        $('#paste').css('display', 'inline-block');
+        $('#snapshot_desc').css('display', 'inline-block');
+
+        $('#table_act_detail_const tfoot').css('display', 'table-footer-group');
+        $('#table_act_detail_const .act_resp').removeAttr('disabled');
+        $('.bt_dcadd').css('display', 'inline-block');
+        $('.bt_dcremove').css('display', 'inline-block');
+        $('#bt_save_detail').css('display', 'inline-block');
+        $('#table_activity_constraint tfoot').css('display', 'table-footer-group');
+        $('#table_activity_constraint select').removeAttr('disabled');
+        $('.bt_atadd').css('display', 'inline-block');
+        $('.bt_acadd').css('display', 'inline-block');
+        $('.bt_ccadd').css('display', 'inline-block');
+        $('.bt_ccremove').css('display', 'inline-block');
+    }
 
 }
 
@@ -2012,9 +2546,53 @@ function loadHolidays(pid) {
 
 }
 
+function setDuration() { 
+
+    $('#table_activity .tr').each(function(){
 
 
-function setFinishDate() {
+        var element = $(this);
+
+        var duration = parseInt($(this).find("input:nth(2)").val()*1);
+
+        var start = $(this).find("input:nth(3)").val();
+        var finish = $(this).find("input:nth(4)").val();
+
+        if(duration*1 == 0) { // change finish input
+            
+            if(finish*1 != 0)
+                element.find("input:nth(3)").val("");
+
+        } else if(finish != "" && start != "") {
+
+            var start_stamp = new Date(start).getTime() / 1000;
+
+            var finish_stamp = new Date(finish).getTime() / 1000;
+
+            var oneday = 24 * 60 *60;
+            
+            var nd = (finish_stamp - start_stamp) / oneday;
+            nd = Math.floor(nd);
+            n = nd;
+
+            for(i=1; i<n; i++) {
+
+                ff = start_stamp + oneday*i;
+
+                if (isRestDate(ff)) {
+                    nd --;
+                }
+
+            }
+
+            element.find("input:nth(2)").val(nd);
+        }
+
+
+    });
+}
+
+function setFinishDate(isduration = false) { 
 
     $('#table_activity .tr').each(function(){
 
@@ -2022,77 +2600,109 @@ function setFinishDate() {
 
         var element = $(this);
 
-        var duration = parseInt($(this).find("input:nth(2)").val());
+        var duration = parseInt($(this).find(".aduration input").val()*1);
 
         var start = $(this).find("input:nth(3)").val();
+        var finish = $(this).find("input:nth(4)").val();
 
-        if(duration != "" && start != "") {
-
+        if(duration == 0 && start != "" && finish != "") {
             var start_stamp = new Date(start).getTime() / 1000;
 
-            var finish_stamp = start_stamp;
+            var finish_stamp = new Date(finish).getTime() / 1000;
 
+            var oneday = 24 * 60 *60;
             
+            var nd = (finish_stamp - start_stamp) / oneday;
+            nd = Math.floor(nd);
+            n = nd;
 
-            if (duration  == 1) {
+            for(i=1; i<n; i++) {
 
-                var f;
+                ff = start_stamp + oneday*i;
 
-                do {
-
-                    if (isRestDate(finish_stamp)) {
-
-                        f = true;
-
-                        finish_stamp += 24 * 60 *60;
-
-                    } else {
-
-                        f = false;
-
-                    }
-
-                } while(f);
-
-            } else {
-
-                getFinishDate(finish_stamp, 1, duration);
-
-                finish_stamp = temp_finish_date;
+                if (isRestDate(ff)) {
+                    nd --;
+                }
 
             }
 
+            element.find("input:nth(2)").val(nd);
+        } else if(duration != 0 && start != "") {
+            var start_stamp = new Date(start).getTime() / 1000;
+            var finish_stamp = start_stamp;
             
+            if (duration  == 1) {
+                var f;
+                do {
+                    if (isRestDate(finish_stamp)) {
+                        f = true;
+                        finish_stamp += 24 * 60 *60;
+                    } else {
+                        f = false;
+                    }
+                } while(f);
+            } else {
+                getFinishDate(finish_stamp, 1, duration);
+                finish_stamp = temp_finish_date;
+            }
 
             var finish = new Date(finish_stamp * 1000);
-
-            
-
+           
             var year=finish.getFullYear();
-
             year = year.toString().substr(-2);
-
             var month=finish.getMonth();
-
             month=month+1;
-
             var day=finish.getDate();
 
-
-
             finish = month + "/" + day + "/" + year;
-
             element.find("input:nth(4)").val(finish);
+        } else if(isduration && duration*1 != 0) {
+            var finish_stamp = new Date(finish).getTime() / 1000;
+            var start_stamp = finish_stamp;
+
+            if (duration  == 1) {
+                var f;
+                do {
+                    if (isRestDate(start_stamp)) {
+                        f = true;
+                        start_stamp -= 24 * 60 *60;
+                    } else {
+                        f = false;
+                    }
+                } while(f);
+            } else {
+                getStartDate(start_stamp, 1, duration);
+                start_stamp = temp_finish_date;
+            }
+
+            var start = new Date(start_stamp * 1000);
+
+            var year=start.getFullYear();
+            year = year.toString().substr(-2);
+            var month=start.getMonth();
+            month=month+1;
+            var day=start.getDate();
+
+            start = month + "/" + day + "/" + year;
+            element.find("input:nth(3)").val(start);
+        } else if(duration*1 == 0 && isduration) { // change duration input
+            if(start*1 != 0) {
+                element.find("input:nth(4)").val("");
+            }
+        } else if(duration*1 == 0 && !isduration) { // change finish input
+            if(start*1 != 0)
+                element.find("input:nth(4)").val("");
+
+        } else if(!isduration && start*1 == 0) {
+            element.find("input:nth(2)").val("0");            
         }
 
     });
 
 }
 
-
-
 function getFinishDate(date, n, duration){
-
+    
     if (!isRestDate(date)) {
 
         n++;
@@ -2130,6 +2740,52 @@ function getFinishDate(date, n, duration){
     } else {
 
         date += 24 * 60 *60;
+
+        getFinishDate(date, n, duration);
+
+    }
+
+}
+
+function getStartDate(date, n, duration){
+    
+    if (!isRestDate(date)) {
+
+        n++;
+
+        date -= 24 * 60 *60;
+
+        if (n == duration){
+
+            var f;
+
+            do {
+
+                if (isRestDate(date)) {
+
+                    f = true;
+
+                    date += 24 * 60 *60;
+
+                } else {
+
+                    f = false;
+
+                }
+
+            } while(f);
+
+            temp_finish_date = date;
+
+        } else{
+
+            getFinishDate(date, n, duration);
+
+        }
+
+    } else {
+
+        date -= 24 * 60 *60;
 
         getFinishDate(date, n, duration);
 
@@ -2234,6 +2890,8 @@ function saveClickEvent() {
         $('#bt_psave').unbind( "click" );
 
         $('#bt_psave').click(function(){
+
+            if($('.tr.sel').length < 1) return;
 
                 sUrl = "api/project_save.php";
 
@@ -2691,7 +3349,7 @@ function histogram(filter) {
 
                         } else {
 
-                            series[j].data[p] += parseInt(data[i][5]);
+                            series[j].data[p] += parseInt(data[i][5]*1);
 
                         }
 
@@ -2774,7 +3432,7 @@ function histogram(filter) {
 
                                 if (!isRestDate(t)){
 
-                                    series[j].data[p] += parseInt(data[i][5]);
+                                    series[j].data[p] += parseInt(data[i][5]*1);
 
                                 }
 
@@ -2860,7 +3518,7 @@ function histogram(filter) {
 
                                 if (!isRestDate(t)){
 
-                                    series[j].data[p] += parseInt(data[i][5]);
+                                    series[j].data[p] += parseInt(data[i][5]*1);
 
                                 }
 
@@ -2895,7 +3553,9 @@ function histogram(filter) {
     $('#histogram').css('width', histogram_width + 'px');
 
 
-
+    for (i=0;i<series.length;i++){
+        series[i]['color'] = all_colors[i];
+    }
     Highcharts.chart('histogram', {
 
         chart: {
@@ -2999,9 +3659,9 @@ function histogram(filter) {
     var html_str = '';
 
     for (i=0;i<filters.length;i++){
-
-        html_str += "<div style='float:left; width:15px;height:15px;background-color:" + all_colors[i] + "'></div><div style='float:left;padding-left:10px;padding-right:20px;'>" + filters[i] + "</div>";
-
+        if(filter_c == 'All' || (filter_c == filters[i]) && filter_c != 'All') {
+            html_str += "<div style='float:left; width:15px;height:15px;background-color:" + all_colors[i] + "'></div><div style='float:left;padding-left:10px;padding-right:20px;'>" + filters[i] + "</div>";
+        }
     }
 
     $('#mark').html(html_str);

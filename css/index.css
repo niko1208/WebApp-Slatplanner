@@ -414,8 +414,6 @@ table.stable {
 
 tr.tr {
 
-  cursor: pointer;
-
   border-bottom: 1px solid #ccc;
 
 }
@@ -435,11 +433,26 @@ tr.tr.sel .pdate {
   color: #0071cf;
 
 }
+.pname input.tt{
+  width: calc(100% - 50px);
+  max-width: 100%;
+}
 
 tr.tr.sel .pname {
 
   color: #333;
 
+}
+.plunch,
+.pdelete{
+  cursor: pointer;
+  font-size: 22px !important;
+  color: #333;
+  padding: 10px;
+}
+.plunch.disable,
+.pdelete.disable{
+  color: #aaa;
 }
 
 .psetting {
@@ -502,8 +515,26 @@ tr.tr.sel .pname {
   margin: auto;
 
 }
-
+.div_form form{
+  display: none;
+}
+#table_project{
+  margin-bottom: 0px;
+}
 #add_project {
+  color: #0071cf;
+  float: left;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 10px;
+  margin-top: 0px;
+  font-size: 22px;
+
+}
+
+#add_project1 {
+  display: none;
 
   color: #0071cf;
 
@@ -518,6 +549,7 @@ tr.tr.sel .pname {
 }
 
 #delete_project {
+  display: none;
 
   color: #0071cf;
 
@@ -713,7 +745,26 @@ input.tt {
   background: rgba(255,255,255,0.6);
 
 }
-
+.overlay_content{
+  background: #2a343d;
+  padding: 30px;
+  width: 320px;
+  height: 400px;
+  position: absolute;
+  left: calc(50% - 160px);
+  top: calc(50% - 200px);
+  z-index: 9;
+  color: #fff;
+}
+.overlay_content .div_cont{
+  overflow-y: auto; 
+  height: 320px;
+}
+.overlay_content .form-check span{
+  font-weight: normal;
+  font-size: 16px;
+  padding-left: 5px;
+}
 .alert {
 
   background: #2a343d;
@@ -1116,6 +1167,73 @@ input.tt {
 #visual_resp{
   max-width: 200px;
 }
+
+/*========== pharse 7 =========*/
+.sselect{
+  max-width: 250px;
+}
+.setting_item{
+  padding: 5px 0px;
+  cursor: pointer;
+}
+.setting_item:hover{
+  color: #333;
+}
+.setting_item.sel{
+  color: #333;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.setting_tab_title{
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+}
+.sdelete{
+  font-size: 20px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+.saddcircle,
+.sassigncircle{
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+div.tfoot{
+  border-top: 1px solid #aaa;
+}
+#contraint_done{
+  border: 0px;
+  box-shadow: none;
+  cursor: pointer;
+}
+.print_acolor i{
+  font-size: 30px;
+  margin-top: 5px;
+  color: #000;
+}
+.print_acolor span{
+  font-size: 40px;
+  margin-top: 3px;
+  color: #000;
+}
+#duration_print_option{
+  max-width: 300px;
+  margin-top: 10px;
+  display: none;
+}
+.respcolor{
+  width: 20px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #666;
+}
+#duration_print_option input.tt{
+  max-width: 60px;
+}
+/*=====================*/
 
 @media (max-width: 768px) {
 
