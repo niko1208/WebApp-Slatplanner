@@ -224,12 +224,61 @@ include("header.php");
                 <div class="col col-sm-3">
                     <div class='setting_item sel' id='setting_item_user'>User Privilege</div>
                     <div class='setting_item' id='setting_item_resp'>Responsible</div>
+                    <div class='setting_item' id='setting_item_snapshot'>Snapshot</div>
+                    <div class='setting_item' id='setting_item_calendar'>Calendars</div>
                     <div class='setting_item' id='setting_item_location'>Locations</div>
                     <div class='setting_item' id='setting_item_priority'>Priorities</div>
                     <div class='setting_item' id='setting_item_constraint'>Contraints</div>
                     <div class='setting_item' id='setting_item_delay'>Delay Reasons</div>
                 </div>
                 <div class="col col-sm-9">
+                    <div class='setting_tab' id='setting_calendar'>
+                        <div class="setting_tab_title">Calendars</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Calendar Name</td>
+                                    <td>Work Week</td>
+                                    <td>Holidays</td>
+                                    <td>Default</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="4">
+                                        <button type="button" class="btn btn-success" id='bt_setting_calendar_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class='setting_tab' id='setting_snapshot'>
+                        <div class="setting_tab_title">Snapshots</div>
+                        <table class='table'>
+                            <thead>
+                                <tr>
+                                    <td width="50"></td>
+                                    <td>Date</td>
+                                    <td>Description</td>
+                                    <td>Creation Date</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                    <td colspan="3">
+                                        <button type="button" class="btn btn-success" id='bt_setting_snapshot_save'>Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                     <div class='setting_tab' id='setting_user'>
                         <div class="setting_tab_title">Edit All Tasks</div>
                         <table class='table'>
@@ -622,12 +671,15 @@ include("header.php");
                         <div class="div_snapshot" style="max-width:150px; float: left; margin-right: 25px;">
                             <select class="form-control snapshot" id="snapshot"></select>
                         </div>
+                        <!--
                         <div style='float:left;margin-left:10px;'>
                             <button type="button" class="btn btn-success bt_ssadd">Add</button>
                             <button type="button" class="btn btn-danger bt_ssremove">Remove</button>
                         </div>
+                        -->
                     </div>
                 </div>
+                <!--
                 <div class="col col-sm-3">
                     <div>Snapshot Description</div>
                     <div>
@@ -640,23 +692,25 @@ include("header.php");
                         <input type='text' class="form-control" id="snapshot_date" readonly="true" />
                     </div>
                 </div>
+                -->
             </div>
             <br/>
 
             <div class="row">
 
                 <div class="col col-sm-2">
-
+                    <!--
                     <div>Filter</div>
 
                     <select class="form-control" id='filter'>
 
                     </select>
+                    -->
 
                 </div>
 
                 <div class="col col-sm-2">
-
+                    <!--
                     <div>Work Week</div>
 
                     <select class="form-control" id='work_week'>
@@ -668,11 +722,12 @@ include("header.php");
                         <option value='0'>7 Days</option>
 
                     </select>
+                    -->
 
                 </div>
 
                 <div class="col col-sm-3">
-
+                    <!--
                     <div>Holidays</div>
 
                     <div style="float:left;width: 150px;position:relative;">
@@ -689,7 +744,7 @@ include("header.php");
                         <button type="button" class="btn btn-danger" id='bt_hremove'>Remove</button>
                         
                     </div>
-
+                    -->
                 </div>
 
                 
@@ -701,7 +756,7 @@ include("header.php");
 
                     <button type="button" class="btn btn-danger" id='bt_adelete'>Delete</button>
 
-                    <button type="button" class="btn btn-danger" id='bt_aclear'>Clear</button>
+                    <!--<button type="button" class="btn btn-danger" id='bt_aclear'>Clear</button>-->
 
                 </div>
 

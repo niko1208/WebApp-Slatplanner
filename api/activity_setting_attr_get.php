@@ -5,7 +5,11 @@
     $pid   = $_REQUEST["pid"];
 	$tbname = $_REQUEST["tbname"];
 
-	mysql_query("create table tbl_".$tbname."(project_id int, value varchar(200), color varchar(100))");
+	if($tbname == 'calendar') {
+		mysql_query("create table tbl_".$tbname."(project_id int, cname varchar(200), cweek varchar(100), choliday varchar(250), cdefault varchar(100), id int auto_increment, primary key(id))");
+	} else {
+		mysql_query("create table tbl_".$tbname."(project_id int, value varchar(200), color varchar(100))");
+	}
 	$result = mysql_query("select * from tbl_".$tbname." where project_id=" . $pid . " order by id");
 
 	$ret = array();

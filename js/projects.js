@@ -628,98 +628,186 @@ $(document).ready(function(){
             
             var options = {
             };
-            var doc = new jsPDF('p', 'pt', 'a4');
+            var doc;
 
-            ptx = 72 / 96;
+            pxtopt = 72/96;
             x = 0;
             y = 0;
-            w = 190;
-            h = 160;
             i = 0;
-            margin_top = 20;
-            margin_left = 20;
-            row_num = 3;
-            hm = 100;
-            if ($('#print_mode').val() != 'A') {
-                var doc = new jsPDF('l', 'pt', 'a4');
+
+            if ($('#print_mode').val() == 'A') {
+                var doc = new jsPDF('l', 'in', [8.5, 11]);
+                row_num = 3;
+                w = 3;
+                h = 2.5;
+                hm = 1.9;
+                margin_top = 0.5-0.14;
+                margin_left = 1.0-0.04;
+            } else {
+                var doc = new jsPDF('p', 'in', [8.5, 11]);
                 row_num = 2;
-                h = 180;
-                hm = 120;
+                w = 3;
+                h = 2.875;
+                hm = 2.275;
+                margin_top = 0.465-0.22;
+                margin_left = 1.0-0.05;
             }
+
             $('.cont .div_qr').each(function(){
                 if(i != 0 && i % (row_num*3) == 0) {
                     doc.addPage();
                     i = 0;
                 }
                 doc.setFont("Arial");
-                x = (i % 3)*w+margin_left;
-                y = Math.floor(i / 3)*h+margin_top;
-                doc.setFontSize(22);
-                doc.text(x, y+30, $(this).find('.print_aname').html());
-                doc.setFontSize(12);
-                milestone = $(this).find('.print_milestone').html();
-                if(milestone.indexOf('Finish') > -1) {
-                    if(milestone.indexOf('Finish Milestone') > -1) {
-                        doc.text(x+w-60-85, y+hm-2, milestone);
-                    } else {
-                        doc.text(x+w-60-35, y+hm-2, milestone);
+                spw = 0;
+                sph = 0
+                if(row_num == 2) {
+                    spw = (i % row_num) * 0.6;
+                    if(Math.floor(i / row_num) > 0) {
+                        sph = 0.345*Math.floor(i / row_num);
                     }
                 } else {
-                    doc.text(x, y+hm-2, milestone);    
+                    spw = (i % row_num) * 0.09;
+                    if(Math.floor(i / row_num) > 0) {
+                        sph = 0.07*Math.floor(i / row_num);
+                    }
                 }
-                
-                doc.setDrawColor(0);
-                
-                bgcolor = $(this).find('.print_acolor').css('background-color'); 
-                bgcolor = bgcolor.replace('rgb(', '').replace(')', '');
-                bgcolor = bgcolor.split(','); 
-                if(bgcolor[0].indexOf("rgba") > -1) {
-                    bgc1 = 255;
-                    bgc2 = 255;
-                    bgc3 = 255;
-                } else {
-                    bgc1 = eval(bgcolor[0]);
-                    bgc2 = eval(bgcolor[1]);
-                    bgc3 = eval(bgcolor[2]);
-                }
-                doc.setFillColor(bgc1,bgc2,bgc3);
-                doc.rect(x, y+hm, w-60, 25, 'F');
-                cid = $(this).find('.print_qr canvas').attr('id');
-                canvas = document.getElementById(cid);
-                imgData = canvas.toDataURL(); 
-                doc.addImage(imgData, 'JPEG', x+140, y+hm, 40, 40);
-                doc.text(x, y+(hm+40), $(this).find('.print_aid').html());
-                doc.text(x+50, y+(hm+40), $(this).find('.print_acode').html());
+                x = (i % row_num)*w+margin_left+spw;
+                y = Math.floor(i / row_num)*h+margin_top+sph;
 
-                if($(this).find('.print_acolor span').length > 0) {
-                    if(milestone.indexOf('Milestone') < 0) {
-                        doc.setLineWidth(2);
-                        if($(this).find('.print_acolor span.sarrow:first-child').css('display') != 'none') {
-                            doc.triangle(x+10, y+(hm+5), x+5, y+(hm+12), x+10, y+(hm+19), 'F'); 
-                            doc.line(x+20, y+(hm+12), x+6, y+(hm+12));
-                            doc.line(x, y+hm, x, y+hm+25);
+                if ($('#print_type').val() == 0){ 
+                    doc.setFontSize(22);
+                    aname = $(this).find('.print_aname').html();
+                    ary = aname.split(" ");
+                    aw = 12/72;
+                    aname= ""; enterCount = 0;
+                    atemp = "";
+                    for(ii =0; ii<ary.length; ii++) {
+                        if(enterCount < 3) {
+                            if(atemp == "") atemp += ary[ii];
+                            else atemp += " " + ary[ii];
+                            if(ii!= 0 && (atemp.length*aw) > w) {
+                                aname += "\n";
+                                enterCount ++;
+                                atemp = "";
+                                ii--;
+                            } else {
+                                if(atemp == "") aname += ary[ii];
+                                else aname += " " + ary[ii];
+                            }
                         } else {
-                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-5, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
-                            doc.line(x+(w-60)-20, y+(hm+12), x+(w-60)-6, y+(hm+12));
-                            doc.line(x+w-60, y+hm, x+w-60, y+hm+25);
+                            break;
+                        }
+                    } 
+                    doc.text(x, y+30/72, aname);
+                    doc.setFontSize(12);
+                    milestone = $(this).find('.print_milestone').html();
+                    if(milestone.indexOf('Finish') > -1) {
+                        if(milestone.indexOf('Finish Milestone') > -1) {
+                            doc.text(x+w-50/72-85/72, y+hm-2/72, milestone);
+                        } else {
+                            doc.text(x+w-50/72-35/72, y+hm-2/72, milestone);
                         }
                     } else {
-                        doc.setLineWidth(1);
-                        doc.setFillColor(0,0,0);
-                        if(milestone.indexOf('Finish Milestone') < 0) {
-                            doc.triangle(x+10, y+(hm+5), x+5, y+(hm+12), x+10, y+(hm+19), 'F');                            
-                            doc.triangle(x+10, y+(hm+5), x+15, y+(hm+12), x+10, y+(hm+19), 'F');
+                        doc.text(x, y+hm-2/72, milestone);
+                    }
+                    
+                    doc.setDrawColor(0);
+                    //doc.setLineWidth(1/72);
+                    //doc.rect(x, y, w, h);
+                    
+                    bgcolor = $(this).find('.print_acolor').css('background-color'); 
+                    bgcolor = bgcolor.replace('rgb(', '').replace(')', '');
+                    bgcolor = bgcolor.split(','); 
+                    if(bgcolor[0].indexOf("rgba") > -1) {
+                        bgc1 = 255;
+                        bgc2 = 255;
+                        bgc3 = 255;
+                    } else {
+                        bgc1 = eval(bgcolor[0]);
+                        bgc2 = eval(bgcolor[1]);
+                        bgc3 = eval(bgcolor[2]);
+                    }
+                    doc.setFillColor(bgc1,bgc2,bgc3);
+                    doc.rect(x, y+hm, w-50/72, 25/72, 'F');
+                    cid = $(this).find('.print_qr canvas').attr('id');
+                    canvas = document.getElementById(cid);
+                    imgData = canvas.toDataURL(); 
+                    doc.addImage(imgData, 'JPEG', x+(w-42/72), y+hm, 40/72, 40/72);
+                    doc.text(x, y+(hm+40/72), $(this).find('.print_aid').html());
+                    pcode = $(this).find('.print_acode').html();
+                    pcodew = $(this).find('.print_acode').width();
+                    doc.text(x+(w-42/72-pcodew/72), y+(hm+40/72), pcode);
+
+                    if($(this).find('.print_acolor span').length > 0) {
+                        if(milestone.indexOf('Milestone') < 0) {
+                            doc.setLineWidth(1);
+                            if($(this).find('.print_acolor span.sarrow:first-child').css('display') != 'none') {
+                                doc.triangle(x+10/72, y+(hm+5/72), x+5/72, y+(hm+12/72), x+10/72, y+(hm+19/72), 'F'); 
+                                doc.setLineWidth(1/72);
+                                doc.line(x+20/72, y+(hm+12/72), x+6/72, y+(hm+12/72));
+                                doc.setLineWidth(5/72);
+                                doc.line(x+2.5/72, y+hm, x+2.5/72, y+hm+25/72);
+                            } else {
+                                doc.triangle(x+(w-50/72)-10/72, y+(hm+5/72), x+(w-50/72)-5/72, y+(hm+12/72), x+(w-50/72)-10/72, y+(hm+19/72), 'F');
+                                doc.setLineWidth(1/72);
+                                doc.line(x+(w-50/72)-20/72, y+(hm+12/72), x+(w-50/72)-6/72, y+(hm+12/72));
+                                doc.setLineWidth(5/72);
+                                doc.line(x+w-50/72, y+hm, x+w-50/72, y+hm+25/72);
+                            }
                         } else {
-                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-5, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
-                            doc.triangle(x+(w-60)-10, y+(hm+5), x+(w-60)-15, y+(hm+12), x+(w-60)-10, y+(hm+19), 'F');
+                            doc.setLineWidth(1);
+                            doc.setFillColor(0,0,0);
+                            if(milestone.indexOf('Finish Milestone') < 0) {
+                                doc.triangle(x+10/72, y+(hm+5/72), x+5/72, y+(hm+12/72), x+10/72, y+(hm+19/72), 'F');                            
+                                doc.triangle(x+10/72, y+(hm+5/72), x+15/72, y+(hm+12/72), x+10/72, y+(hm+19/72), 'F');
+                            } else {
+                                doc.triangle(x+(w-50/72)-10/72, y+(hm+5/72), x+(w-50/72)-5/72, y+(hm+12/72), x+(w-50/72)-10/72, y+(hm+19/72), 'F');
+                                doc.triangle(x+(w-50/72)-10/72, y+(hm+5/72), x+(w-50/72)-15/72, y+(hm+12/72), x+(w-50/72)-10/72, y+(hm+19/72), 'F');
+                            }
                         }
                     }
+                } else if ($('#print_type').val() == 1){ 
+                    doc.setFontSize(22);
+                    doc.text(x+60/72, y+40/72, $(this).find('.print_weekday').html());
+                    doc.setFontSize(52);
+                    doc.text(x+40/72, y+100/72, $(this).find('.print_md').html());
+                    doc.setFontSize(22);
+                    doc.text(x+50/72, y+hm+10/72, $(this).find('.print_y').html());
+                    cid = $(this).find('.print_qr canvas').attr('id');
+                    canvas = document.getElementById(cid);
+                    imgData = canvas.toDataURL(); 
+                    doc.addImage(imgData, 'JPEG', x+(w-42/72), y+hm, 40/72, 40/72);
+                } else if ($('#print_type').val() == 2){ 
+                    bgcolor = $(this).find('.print_acolor').css('background-color'); 
+                    bgcolor = bgcolor.replace('rgb(', '').replace(')', '');
+                    bgcolor = bgcolor.split(','); 
+                    if(bgcolor[0].indexOf("rgba") > -1) {
+                        bgc1 = 255;
+                        bgc2 = 255;
+                        bgc3 = 255;
+                    } else {
+                        bgc1 = eval(bgcolor[0]);
+                        bgc2 = eval(bgcolor[1]);
+                        bgc3 = eval(bgcolor[2]);
+                    }
+                    doc.setFillColor(bgc1,bgc2,bgc3);
+                    doc.rect(x, y+hm, w, 25/72, 'F');
+                    pcode = $(this).find('.print_acode').html();
+                    pcodew = $(this).find('.print_acode').width();
+                    doc.text(x+(w-2/72-pcodew/72), y+(hm+40/72), pcode);
                 }
 
                 i++;
             })
-            doc.save('pageContent.pdf');
 
+            if ($('#print_mode').val() == 'A') {
+                doc.save('Slat-Notes-sticker.pdf');
+            } else {
+                doc.save('Sticky-Notes-sticker.pdf');
+            }
+
+            hideAlert();
             return;
 
             if ($('#print_type').val() == 0){
@@ -1033,7 +1121,7 @@ $(document).ready(function(){
                         if(data[i][4]*1 != 0) 
                             strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'Finish Milestone').replace('textalign', 'right').replace('textalign', 'right');
                     }
-                } else {
+                } else { 
                     strHtml = `<div class='div_qr' style='float:left;width: 288px;height:276px;border:0px;padding:10px;color:#333;font-family:Opensans-Bold;margin:0 48px 21.6px 0;'>
 
                                     <div class='print_aname' style='float:left;font-size:35px;line-height:45px;text-align:left;height: 135px;width: 268px;overflow: hidden;'>`+data[i][1]+`</div>
@@ -1059,7 +1147,7 @@ $(document).ready(function(){
 
                             </div>`;
 
-                    if(data[i][2]*1 != 0) {
+                    if(data[i][2]*1 != 0 || (data[i][2]*1 == 0 && data[i][3]*1 == 0 && data[i][4]*1 == 0)) {
                         strHtml_start = strHtml.replace("***", 's').replace('startfinish', 'start').replace('textalign', 'left').replace('dispright', 'none').replace('textalign', 'left');   
                         strHtml_finish = strHtml.replace("***", 'f').replace('startfinish', 'finish').replace('textalign', 'right').replace('displeft', 'none').replace('textalign', 'right');   
                     } else {

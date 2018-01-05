@@ -53,6 +53,8 @@ session_start();
 
     <link rel="stylesheet" href="libs/css/jquery-ui.css">
 
+    <link rel="stylesheet" href="libs/css/jquery-ui.multidatespicker.css">
+
 
 
     <link rel="stylesheet" href="libs/css/ie10-viewport-bug-workaround.css">

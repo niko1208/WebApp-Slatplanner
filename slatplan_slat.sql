@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2017 at 07:45 AM
+-- Generation Time: Dec 25, 2017 at 06:15 PM
 -- Server version: 5.6.32-78.1-log
 -- PHP Version: 5.6.30
 
@@ -25,7 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tbl_activity`
 --
-use `db_slat`;
+
+use 'db_slat';
 
 CREATE TABLE IF NOT EXISTS `tbl_activity` (
   `id` int(11) NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `tbl_activity` (
   `note` varchar(255) NOT NULL,
   `pid` varchar(255) NOT NULL,
   `sid` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3465 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5475 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_activity`
@@ -691,134 +692,307 @@ INSERT INTO `tbl_activity` (`id`, `activity_id`, `activity_name`, `duration`, `s
 (3239, 'A034', 'Activity 34', '12', '1/29/18', '2/13/18', '14', '', 'Steve', 'Floor 1', 'Medium', '', '', '89', 23),
 (3240, 'A036', 'Activity 36', '14', '1/21/18', '2/8/18', '0', '', 'Todd', 'Floor 2', 'Low', '', '', '89', 23),
 (3241, 'A037', 'Activity 37', '10', '2/14/18', '2/27/18', '3', '', 'Stan', 'Floor 2', 'Low', '', '', '89', 23),
-(3242, 'A001', 'Activity 01', '16', '10/9/17', '10/30/17', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '89', 22),
-(3243, 'A002', 'Activity 02', '9', '10/27/17', '11/8/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 02', '89', 22),
-(3244, 'A003', 'Activity 03', '22', '11/1/17', '11/30/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '89', 22),
-(3245, 'A004', 'Activity 04', '20', '10/12/17', '11/8/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '89', 22),
-(3246, 'A005', 'Activity 05', '21', '10/14/17', '11/13/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '89', 22),
-(3247, 'A006', 'Activity 06', '10', '11/17/17', '11/30/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '89', 22),
-(3248, 'A007', 'Activity 07', '9', '10/19/17', '10/31/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '89', 22);
+(3649, 'A001', 'Activity 01', '16', '10/9/17', '10/30/17', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '89', 22),
+(3650, 'A002', 'Activity 02', '9', '10/27/17', '11/8/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 02', '89', 22),
+(3651, 'A003', 'Activity 03', '22', '11/1/17', '11/30/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '89', 22),
+(3652, 'A004', 'Activity 04', '20', '10/12/17', '11/8/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '89', 22),
+(3653, 'A005', 'Activity 05', '21', '10/14/17', '11/13/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '89', 22),
+(3654, 'A006', 'Activity 06', '10', '11/17/17', '11/30/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '89', 22),
+(3655, 'A007', 'Activity 07', '9', '10/19/17', '10/31/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '89', 22);
 INSERT INTO `tbl_activity` (`id`, `activity_id`, `activity_name`, `duration`, `start`, `finish`, `size`, `color`, `code`, `location`, `priority`, `url`, `note`, `pid`, `sid`) VALUES
-(3249, 'A008', 'Activity 08', '23', '12/4/17', '1/3/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '89', 22),
-(3250, 'A009', 'Activity 09', '6', '1/24/18', '1/31/18', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '89', 22),
-(3251, 'A010', 'Activity 10', '19', '1/23/18', '2/16/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '89', 22),
-(3252, 'A011', 'Activity 11', '14', '2/3/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '89', 22),
-(3253, 'A012', 'Activity 12', '9', '1/23/18', '2/2/18', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '89', 22),
-(3254, 'A013', 'Activity 13', '217', '12/17/17', '10/16/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '89', 22),
-(3255, 'A014', 'Activity 14', '27', '12/24/17', '1/30/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '89', 22),
-(3256, 'A015', 'Activity 15', '8', '11/19/17', '11/29/17', '11', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 15', '89', 22),
-(3257, 'A016', 'Activity 16', '10', '11/3/17', '11/16/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 16', '89', 22),
-(3258, 'A017', 'Activity 17', '12', '11/14/17', '11/29/17', '5', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 17', '89', 22),
-(3259, 'A018', 'Activity 18', '19', '11/18/17', '12/14/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 18', '89', 22),
-(3260, 'A019', 'Activity 19', '11', '11/27/17', '12/11/17', '1', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 19', '89', 22),
-(3261, 'A020', 'Activity 20', '21', '12/22/17', '1/19/18', '11', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 20', '89', 22),
-(3262, 'A021', 'Activity 21', '8', '12/6/17', '12/15/17', '5', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 21', '89', 22),
-(3263, 'A022', 'Activity 22', '5', '12/16/17', '12/22/17', '13', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 22', '89', 22),
-(3264, 'A023', 'Activity 23', '9', '1/2/18', '1/12/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 23', '89', 22),
-(3265, 'A024', 'Activity 24', '6', '1/24/18', '1/31/18', '6', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 24', '89', 22),
-(3266, 'A025', 'Activity 25', '20', '1/24/18', '2/20/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 25', '89', 22),
-(3267, 'A026', 'Activity 26', '2', '1/4/18', '1/5/18', '15', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 26', '89', 22),
-(3268, 'A027', 'Activity 27', '25', '2/5/18', '3/9/18', '5', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 27', '89', 22),
-(3269, 'A028', 'Activity 28', '2', '2/24/18', '2/27/18', '11', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 28', '89', 22),
-(3270, 'A029', 'Activity 29', '19', '2/22/18', '3/20/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 29', '89', 22),
-(3271, 'A030', 'Activity 30', '16', '2/21/18', '3/14/18', '14', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 22),
-(3272, 'A031', 'Activity 31', '14', '2/16/18', '3/7/18', '10', '', 'Todd', 'Floor 1', 'Medium', '', '', '89', 22),
-(3273, 'A032', 'Activity 32', '16', '2/1/18', '2/22/18', '8', '', 'Stan', 'Floor 2', 'High', '', '', '89', 22),
-(3274, 'A033', 'Activity 33', '10', '2/7/18', '2/20/18', '6', '', 'Steve', 'Floor 2', 'Low', '', '', '89', 22),
-(3275, 'A034', 'Activity 34', '12', '1/29/18', '2/13/18', '14', '', 'Steve', 'Floor 1', 'Medium', '', '', '89', 22),
-(3276, 'A036', 'Activity 36', '14', '1/21/18', '2/8/18', '0', '', 'Todd', 'Floor 2', 'Low', '', '', '89', 22),
-(3277, 'A037', 'Activity 37', '10', '2/14/18', '2/27/18', '3', '', 'Stan', 'Floor 2', 'Low', '', '', '89', 22),
-(3360, 'ST00440', 'Prep Slab/Pour 2 (J-R)', '5', '', '', '3', '', 'Concrete', 'Area A', 'High', 'www.slatplanner.com', 'Random notesâ€¦', '90', 0),
-(3361, 'ST00450', 'Prep Slab/Pour 3 (R-Y)', '5', '', '', '11', '', 'Concrete', 'Area B', 'Medium', 'www.procore.com', '', '90', 0),
-(3362, 'ST00570', 'Erect and Detail Canopy', '2', '', '', '8', '', 'Steel', 'Area C', 'Low', '', 'Any info here.', '90', 0),
-(3363, 'ST00580', 'Deck Canopy', '3', '', '', '13', '', 'Steel', 'Area B', 'Medium', '', '', '90', 0),
-(3364, 'ST00600', 'SOMD Floor 2 (M-U)', '5', '', '', '6', '', 'Concrete', 'Area B', 'Medium', '', '', '90', 0),
-(3365, 'ST00601', 'SOMD Floor 3 (M-U)', '5', '', '', '3', '', 'Concrete', 'Area B', 'Medium', '', '', '90', 0),
-(3366, 'ST00605', 'SOMD Floor 4 (M-U)', '5', '', '', '14', '', 'Concrete', 'Area C', 'Low', '', '', '90', 0),
-(3367, 'ST00616', 'SOMD Roof (M-U)', '5', '', '', '3', '', 'Concrete', 'Area C', 'Low', 'www.procore.com', 'Testing notes.', '90', 0),
-(3368, 'ST00625', 'Exterior Framing & Sheathing - NE', '7', '', '', '5', '', 'Framing', 'Area A', 'Low', 'www.assemble.com', 'Testing notes.', '90', 0),
-(3369, 'ST00627', 'Exterior Framing & Sheathing - SW', '9', '', '', '8', '', 'Framing', 'Area A', 'High', '', '', '90', 0),
-(3370, 'ST00630', 'Fluid Applied Barrier', '40', '', '', '10', '', 'Framing', 'Area A', 'High', '', '', '90', 0),
-(3371, 'ST00710', 'Rain Water Leaders and risers', '15', '', '', '9', '', 'Roofing', 'Area A', 'High', '', '', '90', 0),
-(3372, 'ST00730', 'Roof - Metal', '10', '', '', '4', '', 'Roofing', 'Area A', 'Low', 'www.slatplanner.com', 'Any info here.', '90', 0),
-(3373, 'ST00770', 'Brick Masonry and Stone Cladding - NW', '25', '', '', '1', '', 'Masonry', 'Area C', 'Medium', '', '', '90', 0),
-(3374, 'ST00880', 'Install Scaffolding - NW', '4', '', '', '6', '', 'Scaffolding', 'Area B', 'Medium', 'www.assemble.com', '', '90', 0),
-(3375, 'ST00950', 'Exterior Grade Beams (8-14) - Garage', '5', '', '', '8', '', 'Concrete', 'Area B', 'Low', 'www.slatplanner.com', 'Any info here.', '90', 0),
-(3376, 'ST00965', 'Rough-In Slab (8-14) - Garage', '2', '', '', '12', '', 'MEP', 'Area B', 'Low', '', '', '90', 0),
-(3377, 'ST00984', 'Prep and Pour Ramp and Level 1 (8-14) - Garage', '11', '', '', '11', '', 'Concrete', 'Area B', 'Low', '', '', '90', 0),
-(3378, 'ST01015', 'Prep and Pour Ramp and SOG (8-14) - Garage', '5', '', '', '15', '', 'Concrete', 'Area B', 'High', '', '', '90', 0),
-(3379, 'ST01080', 'Monumental Stair - F1', '10', '', '', '8', '', 'Steel', 'Area C', 'High', '', '', '90', 0),
-(3380, 'ST01140', 'Overhead HVAC RI - F1', '15', '', '', '2', '', 'HVAC', 'Area C', 'High', '', '', '90', 0),
-(3381, 'ST01150', 'Overhead Hydronic RI - F1', '10', '', '', '5', '', 'HVAC', 'Area C', 'High', 'www.slatplanner.com', 'Any info here.', '90', 0),
-(3382, 'ST01160', 'Overhead Plumbing RI - F1', '20', '', '', '2', '', 'Plumbing', 'Area C', 'High', '', 'Any info here.', '90', 0),
-(3383, 'ST01170', 'Overhead Electrical RI - F1', '15', '', '', '9', '', 'Electrical', 'Area A', 'Low', '', '', '90', 0),
-(3384, 'ST01180', 'Overhead FP RI - F1', '15', '', '', '12', '', 'Plumbing', 'Area A', 'Low', '', '', '90', 0),
-(3385, 'ST01190', 'In wall MEP RI - F1', '15', '', '', '13', '', 'MEP', 'Area A', 'Medium', 'www.procore.com', 'Random notesâ€¦', '90', 0),
-(3386, 'ST01200', 'Frame interior walls and soffits - F1', '10', '', '', '5', '', 'Framing', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '90', 0),
-(3387, 'ST01210', 'RF shielding - F1', '5', '', '', '8', '', 'Electrical', 'Area C', 'Medium', '', '', '90', 0),
-(3388, 'ST01220', 'Install VAVs/complete branch lines - F1', '10', '', '', '5', '', 'HVAC', 'Area B', 'Medium', '', '', '90', 0),
-(3389, 'ST01230', 'Rough-in soffits and ceilings - F1', '10', '', '', '10', '', 'MEP', 'Area B', 'Medium', 'www.assemble.com', '', '90', 0),
-(3390, 'ST01240', 'Insulate Overhead - F1', '10', '', '', '8', '', 'Insulation', 'Area B', 'High', '', '', '90', 0),
-(3391, 'ST01250', 'Insulate In wall - F1', '5', '', '', '12', '', 'Insulation', 'Area A', 'High', 'www.procore.com', 'Any info here.', '90', 0),
-(3392, 'ST01560', 'Frame and top out priority walls - F2', '14', '', '', '3', '', 'Framing', 'Area A', 'High', 'www.assemble.com', 'Any info here.', '90', 0),
-(3393, 'ST01570', 'Overhead HVAC RI - F2', '25', '', '', '5', '', 'HVAC', 'Area A', 'High', '', '', '90', 0),
-(3394, 'ST01590', 'Overhead Plumbing RI - F2', '15', '', '', '5', '', 'Plumbing', 'Area A', 'High', '', '', '90', 0),
-(3395, 'ST01600', 'Overhead Electrical RI - F2', '26', '', '', '14', '', 'Electrical', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '90', 0),
-(3396, 'ST01630', 'Frame interior walls and soffits - F2', '17', '', '', '3', '', 'Framing', 'Area A', 'Medium', 'www.slatplanner.com', '', '90', 0),
-(3397, 'ST01650', 'Rough-in soffits and ceilings - F2', '10', '', '', '8', '', 'MEP', 'Area B', 'Medium', '', '', '90', 0),
-(3398, 'ST02080', 'Frame and top out priority walls - F4', '14', '', '', '14', '', 'Framing', 'Area B', 'Low', '', 'Random notesâ€¦', '90', 0),
-(3399, 'ST02090', 'Overhead HVAC RI - F4', '25', '', '', '9', '', 'HVAC', 'Area C', 'Low', 'www.slatplanner.com', '', '90', 0),
-(3400, 'ST02110', 'Overhead Plumbing RI - F4', '12', '', '', '1', '', 'Plumbing', 'Area C', 'Low', 'www.procore.com', 'Random notesâ€¦', '90', 0),
-(3401, 'A001', 'Activity 01', '16', '10/9/17', '10/30/17', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '89', 0),
-(3402, 'A002', 'Activity 02', '9', '10/27/17', '11/8/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 02', '89', 0),
-(3403, 'A003', 'Activity 03', '22', '11/1/17', '11/30/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '89', 0),
-(3404, 'A004', 'Activity 04', '20', '10/12/17', '11/8/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '89', 0),
-(3405, 'A005', 'Activity 05', '21', '10/14/17', '11/13/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '89', 0),
-(3406, 'A006', 'Activity 06', '10', '11/17/17', '11/30/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '89', 0),
-(3407, 'A007', 'Activity 07', '9', '10/19/17', '10/31/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '89', 0),
-(3408, 'A008', 'Activity 08', '22', '12/4/17', '1/2/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '89', 0),
-(3409, 'A009', 'Activity 09', '6', '1/22/18', '1/29/18', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '89', 0),
-(3410, 'A010', 'Activity 10', '19', '1/22/18', '2/15/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '89', 0),
-(3411, 'A011', 'Activity 11', '14', '2/3/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '89', 0),
-(3412, 'A012', 'Activity 12', '8', '1/23/18', '2/1/18', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '89', 0),
-(3413, 'A013', 'Activity 13', '17', '12/17/17', '1/9/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '89', 0),
-(3414, 'A014', 'Activity 14', '27', '12/24/17', '1/30/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '89', 0),
-(3415, 'A015', 'Activity 15', '8', '11/19/17', '11/29/17', '11', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 15', '89', 0),
-(3416, 'A016', 'Activity 16', '10', '11/3/17', '11/16/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 16', '89', 0),
-(3417, 'A017', 'Activity 17', '12', '11/14/17', '11/29/17', '5', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 17', '89', 0),
-(3418, 'A018', 'Activity 18', '19', '11/18/17', '12/14/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 18', '89', 0),
-(3419, 'A019', 'Activity 19', '11', '11/27/17', '12/11/17', '1', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 19', '89', 0),
-(3420, 'A020', 'Activity 20', '21', '12/22/17', '1/19/18', '11', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 20', '89', 0),
-(3421, 'A021', 'Activity 21', '8', '12/6/17', '12/15/17', '5', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 21', '89', 0),
-(3422, 'A022', 'Activity 22', '5', '12/16/17', '12/22/17', '13', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 22', '89', 0),
-(3423, 'A023', 'Activity 23', '9', '1/1/18', '1/11/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 23', '89', 0),
-(3424, 'A024', 'Activity 24', '6', '1/23/18', '1/30/18', '6', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 24', '89', 0),
-(3425, 'A025', 'Activity 25', '21', '1/23/18', '2/20/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 25', '89', 0),
-(3426, 'A026', 'Activity 26', '2', '1/3/18', '1/4/18', '15', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 26', '89', 0),
-(3427, 'A027', 'Activity 27', '25', '2/6/18', '3/12/18', '5', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 27', '89', 0),
-(3428, 'A028', 'Activity 28', '2', '2/24/18', '2/27/18', '11', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 28', '89', 0),
-(3429, 'A029', 'Activity 29', '19', '2/22/18', '3/20/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 29', '89', 0),
-(3430, 'A030', 'Activity 30', '16', '2/21/18', '3/14/18', '14', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3431, 'A031', 'Activity 31', '14', '2/16/18', '3/7/18', '10', '', 'Todd', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3432, 'A032', 'Activity 32', '16', '2/4/18', '2/26/18', '8', '', 'Stan', 'Floor 2', 'High', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3433, 'A033', 'Activity 33', '10', '2/7/18', '2/20/18', '6', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3434, 'A034', 'Activity 34', '12', '1/29/18', '2/13/18', '14', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3435, 'A036', 'Activity 36', '12', '1/21/18', '2/6/18', '0', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3436, 'A037', 'Activity 37', '10', '2/14/18', '2/27/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
-(3451, 'A001', 'Activity 01', '16', '', '11/27/17', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '88', 0),
-(3452, 'A002', 'Activity 02', '7', '11/12/17', '11/21/17', '1', '', 'Todd', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 02', '88', 0),
-(3453, 'A003', 'Activity 03', '22', '11/2/17', '12/1/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '88', 0),
-(3454, 'A004', 'Activity 04', '25', '10/12/17', '11/15/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '88', 0),
-(3455, 'A005', 'Activity 05', '19', '10/14/17', '11/9/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '88', 0),
-(3456, 'A006', 'Activity 06', '8', '11/14/17', '11/23/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '88', 0),
-(3457, 'A007', 'Activity 07', '8', '10/19/17', '10/30/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '88', 0),
-(3458, 'A008', 'Activity 08', '22', '12/2/17', '1/2/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '88', 0),
-(3459, 'A009', 'Activity 09', '6', '1/18/18', '1/25/18', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '88', 0),
-(3460, 'A010', 'Activity 10', '19', '1/23/18', '2/16/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '88', 0),
-(3461, 'A011', 'Activity 11', '14', '2/4/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '88', 0),
-(3462, 'A012', 'Activity 12', '4', '12/6/2017', '2/6/18', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '88', 0),
-(3463, 'A013', 'Activity 13', '20', '12/6/2017', '1/12/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '88', 0),
-(3464, 'A014', 'Activity 14', '25', '12/6/2017', '1/23/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '88', 0);
+(3656, 'A008', 'Activity 08', '23', '12/4/17', '1/3/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '89', 22),
+(3657, 'A009', 'Activity 09', '6', '1/24/18', '1/31/18', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '89', 22),
+(3658, 'A010', 'Activity 10', '19', '1/23/18', '2/16/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '89', 22),
+(3659, 'A011', 'Activity 11', '14', '2/3/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '89', 22),
+(3660, 'A012', 'Activity 12', '9', '1/23/18', '2/2/18', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '89', 22),
+(3661, 'A013', 'Activity 13', '17', '12/17/17', '1/9/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '89', 22),
+(3662, 'A014', 'Activity 14', '27', '12/24/17', '1/30/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '89', 22),
+(3663, 'A015', 'Activity 15', '8', '11/19/17', '11/29/17', '11', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 15', '89', 22),
+(3664, 'A016', 'Activity 16', '10', '11/3/17', '11/16/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 16', '89', 22),
+(3665, 'A017', 'Activity 17', '12', '11/14/17', '11/29/17', '5', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 17', '89', 22),
+(3666, 'A018', 'Activity 18', '19', '11/18/17', '12/14/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 18', '89', 22),
+(3667, 'A019', 'Activity 19', '11', '11/27/17', '12/11/17', '1', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 19', '89', 22),
+(3668, 'A020', 'Activity 20', '21', '12/22/17', '1/19/18', '11', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 20', '89', 22),
+(3669, 'A021', 'Activity 21', '8', '12/6/17', '12/15/17', '5', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 21', '89', 22),
+(3670, 'A022', 'Activity 22', '5', '12/16/17', '12/22/17', '13', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 22', '89', 22),
+(3671, 'A023', 'Activity 23', '9', '1/2/18', '1/12/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 23', '89', 22),
+(3672, 'A024', 'Activity 24', '6', '1/24/18', '1/31/18', '6', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 24', '89', 22),
+(3673, 'A025', 'Activity 25', '20', '1/24/18', '2/20/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 25', '89', 22),
+(3674, 'A026', 'Activity 26', '2', '1/4/18', '1/5/18', '15', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 26', '89', 22),
+(3675, 'A027', 'Activity 27', '25', '2/5/18', '3/9/18', '5', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 27', '89', 22),
+(3676, 'A028', 'Activity 28', '2', '2/24/18', '2/27/18', '11', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 28', '89', 22),
+(3677, 'A029', 'Activity 29', '19', '2/22/18', '3/20/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 29', '89', 22),
+(3678, 'A030', 'Activity 30', '16', '2/21/18', '3/14/18', '14', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 22),
+(3679, 'A031', 'Activity 31', '14', '2/16/18', '3/7/18', '10', '', 'Todd', 'Floor 1', 'Medium', '', '', '89', 22),
+(3680, 'A032', 'Activity 32', '16', '2/1/18', '2/22/18', '8', '', 'Stan', 'Floor 2', 'High', '', '', '89', 22),
+(3681, 'A033', 'Activity 33', '10', '2/7/18', '2/20/18', '6', '', 'Steve', 'Floor 2', 'Low', '', '', '89', 22),
+(3682, 'A034', 'Activity 34', '12', '1/29/18', '2/13/18', '14', '', 'Steve', 'Floor 1', 'Medium', '', '', '89', 22),
+(3683, 'A036', 'Activity 36', '14', '1/21/18', '2/8/18', '0', '', 'Todd', 'Floor 2', 'Low', '', '', '89', 22),
+(3684, 'A037', 'Activity 37', '10', '2/14/18', '2/27/18', '3', '', 'Stan', 'Floor 2', 'Low', '', '', '89', 22),
+(3685, 'ST00440', 'Prep Slab/Pour 2 (J-R)', '5', '', '', '3', '', 'Concrete', 'Area A', 'High', 'www.slatplanner.com', 'Random notesâ€¦', '90', 0),
+(3686, 'ST00450', 'Prep Slab/Pour 3 (R-Y)', '5', '', '', '11', '', 'Concrete', 'Area B', 'Medium', 'www.procore.com', '', '90', 0),
+(3687, 'ST00570', 'Erect and Detail Canopy', '2', '', '', '8', '', 'Steel', 'Area C', 'Low', '', 'Any info here.', '90', 0),
+(3688, 'ST00580', 'Deck Canopy', '3', '', '', '13', '', 'Steel', 'Area B', 'Medium', '', '', '90', 0),
+(3689, 'ST00600', 'SOMD Floor 2 (M-U)', '5', '', '', '6', '', 'Concrete', 'Area B', 'Medium', '', '', '90', 0),
+(3690, 'ST00601', 'SOMD Floor 3 (M-U)', '5', '', '', '3', '', 'Concrete', 'Area B', 'Medium', '', '', '90', 0),
+(3691, 'ST00605', 'SOMD Floor 4 (M-U)', '5', '', '', '14', '', 'Concrete', 'Area C', 'Low', '', '', '90', 0),
+(3692, 'ST00616', 'SOMD Roof (M-U)', '5', '', '', '3', '', 'Concrete', 'Area C', 'Low', 'www.procore.com', 'Testing notes.', '90', 0),
+(3693, 'ST00625', 'Exterior Framing & Sheathing - NE', '7', '', '', '5', '', 'Framing', 'Area A', 'Low', 'www.assemble.com', 'Testing notes.', '90', 0),
+(3694, 'ST00627', 'Exterior Framing & Sheathing - SW', '9', '', '', '8', '', 'Framing', 'Area A', 'High', '', '', '90', 0),
+(3695, 'ST00630', 'Fluid Applied Barrier', '40', '', '', '10', '', 'Framing', 'Area A', 'High', '', '', '90', 0),
+(3696, 'ST00710', 'Rain Water Leaders and risers', '15', '', '', '9', '', 'Roofing', 'Area A', 'High', '', '', '90', 0),
+(3697, 'ST00730', 'Roof - Metal', '10', '', '', '4', '', 'Roofing', 'Area A', 'Low', 'www.slatplanner.com', 'Any info here.', '90', 0),
+(3698, 'ST00770', 'Brick Masonry and Stone Cladding - NW', '25', '', '', '1', '', 'Masonry', 'Area C', 'Medium', '', '', '90', 0),
+(3699, 'ST00880', 'Install Scaffolding - NW', '4', '', '', '6', '', 'Scaffolding', 'Area B', 'Medium', 'www.assemble.com', '', '90', 0),
+(3700, 'ST00950', 'Exterior Grade Beams (8-14) - Garage', '5', '', '', '8', '', 'Concrete', 'Area B', 'Low', 'www.slatplanner.com', 'Any info here.', '90', 0),
+(3701, 'ST00965', 'Rough-In Slab (8-14) - Garage', '2', '', '', '12', '', 'MEP', 'Area B', 'Low', '', '', '90', 0),
+(3702, 'ST00984', 'Prep and Pour Ramp and Level 1 (8-14) - Garage', '11', '', '', '11', '', 'Concrete', 'Area B', 'Low', '', '', '90', 0),
+(3703, 'ST01015', 'Prep and Pour Ramp and SOG (8-14) - Garage', '5', '', '', '15', '', 'Concrete', 'Area B', 'High', '', '', '90', 0),
+(3704, 'ST01080', 'Monumental Stair - F1', '10', '', '', '8', '', 'Steel', 'Area C', 'High', '', '', '90', 0),
+(3705, 'ST01140', 'Overhead HVAC RI - F1', '15', '', '', '2', '', 'HVAC', 'Area C', 'High', '', '', '90', 0),
+(3706, 'ST01150', 'Overhead Hydronic RI - F1', '10', '', '', '5', '', 'HVAC', 'Area C', 'High', 'www.slatplanner.com', 'Any info here.', '90', 0),
+(3707, 'ST01160', 'Overhead Plumbing RI - F1', '20', '', '', '2', '', 'Plumbing', 'Area C', 'High', '', 'Any info here.', '90', 0),
+(3708, 'ST01170', 'Overhead Electrical RI - F1', '15', '', '', '9', '', 'Electrical', 'Area A', 'Low', '', '', '90', 0),
+(3709, 'ST01180', 'Overhead FP RI - F1', '15', '', '', '12', '', 'Plumbing', 'Area A', 'Low', '', '', '90', 0),
+(3710, 'ST01190', 'In wall MEP RI - F1', '15', '', '', '13', '', 'MEP', 'Area A', 'Medium', 'www.procore.com', 'Random notesâ€¦', '90', 0),
+(3711, 'ST01200', 'Frame interior walls and soffits - F1', '10', '', '', '5', '', 'Framing', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '90', 0),
+(3712, 'ST01210', 'RF shielding - F1', '5', '', '', '8', '', 'Electrical', 'Area C', 'Medium', '', '', '90', 0),
+(3713, 'ST01220', 'Install VAVs/complete branch lines - F1', '10', '', '', '5', '', 'HVAC', 'Area B', 'Medium', '', '', '90', 0),
+(3714, 'ST01230', 'Rough-in soffits and ceilings - F1', '10', '', '', '10', '', 'MEP', 'Area B', 'Medium', 'www.assemble.com', '', '90', 0),
+(3715, 'ST01240', 'Insulate Overhead - F1', '10', '', '', '8', '', 'Insulation', 'Area B', 'High', '', '', '90', 0),
+(3716, 'ST01250', 'Insulate In wall - F1', '5', '', '', '12', '', 'Insulation', 'Area A', 'High', 'www.procore.com', 'Any info here.', '90', 0),
+(3717, 'ST01560', 'Frame and top out priority walls - F2', '14', '', '', '3', '', 'Framing', 'Area A', 'High', 'www.assemble.com', 'Any info here.', '90', 0),
+(3718, 'ST01570', 'Overhead HVAC RI - F2', '25', '', '', '5', '', 'HVAC', 'Area A', 'High', '', '', '90', 0),
+(3719, 'ST01590', 'Overhead Plumbing RI - F2', '15', '', '', '5', '', 'Plumbing', 'Area A', 'High', '', '', '90', 0),
+(3720, 'ST01600', 'Overhead Electrical RI - F2', '26', '', '', '14', '', 'Electrical', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '90', 0),
+(3721, 'ST01630', 'Frame interior walls and soffits - F2', '17', '', '', '3', '', 'Framing', 'Area A', 'Medium', 'www.slatplanner.com', '', '90', 0),
+(3722, 'ST01650', 'Rough-in soffits and ceilings - F2', '10', '', '', '8', '', 'MEP', 'Area B', 'Medium', '', '', '90', 0),
+(3723, 'ST02080', 'Frame and top out priority walls - F4', '14', '', '', '14', '', 'Framing', 'Area B', 'Low', '', 'Random notesâ€¦', '90', 0),
+(3724, 'ST02090', 'Overhead HVAC RI - F4', '25', '', '', '9', '', 'HVAC', 'Area C', 'Low', 'www.slatplanner.com', '', '90', 0),
+(3725, 'ST02110', 'Overhead Plumbing RI - F4', '12', '', '', '1', '', 'Plumbing', 'Area C', 'Low', 'www.procore.com', 'Random notesâ€¦', '90', 0),
+(3726, 'TEst', 'test', '', '', '', '', '', '', '', '', '', '', '91', 0),
+(3992, 'A001', 'Test 001', '0', '12/13/17', '', '5', '', 'Steve', 'Floor 1', 'High', '', '', '99', 0),
+(3993, 'A002', 'Test 002', '0', '', '12/3/17', '4', '', 'Stan', 'Floor 2', 'Medium', '', '', '99', 0),
+(3994, 'A003', 'Test 003', '', '', '12/3/17', '', '', '', '', '', '', '', '99', 0),
+(3995, '', '', '', '', '', '', '', '', '', '', '', '', '99', 0),
+(4400, 'A001', 'Excavate Area A', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4401, 'A002', 'Excavate Area B', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4402, 'A003', 'Excavate Area C', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4403, 'A004', 'Form Area A', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4404, 'A005', 'Form Area B', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4405, 'A006', 'Form Area C', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4406, 'A007', 'Rebar Area A', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4407, 'A008', 'Rebar Area B', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4408, 'A009', 'Rebar Area C', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4409, 'A010', 'Pour Area A', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4410, 'A011', 'Pour Area B', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4411, 'A012', 'Pour Area C', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4412, 'A013', 'Strip Area A', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4413, 'A014', 'Strip Area B', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4414, 'A015', 'Strip Area C', '', '', '', '4', '', '', '', '', '', '', '94', 0),
+(4415, 'A016', 'Erect Steel Area A', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4416, 'A017', 'Erect Steel Area B', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4417, 'A018', 'Erect Steel Area C', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4418, 'A019', 'Metal Decking Area A', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4419, 'A020', 'Metal Decking Area B', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4420, 'A021', 'Metal Decking Area C', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4421, 'A022', 'SOMD Area A', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4422, 'A023', 'SOMD Area B', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4423, 'A024', 'SOMD Area C', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4424, 'A025', 'Exterior Framing Area A', '', '', '', '7', '', '', '', '', '', '', '94', 0),
+(4425, 'A026', 'Exterior Framing Area B', '', '', '', '7', '', '', '', '', '', '', '94', 0),
+(4426, 'A027', 'Exterior Framing Area C', '', '', '', '7', '', '', '', '', '', '', '94', 0),
+(4427, 'A028', 'Sheathing Area A', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4428, 'A029', 'Sheathing Area B', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4429, 'A030', 'Sheathing Area C', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4430, 'A031', 'Interior Framing Area A', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4431, 'A032', 'Interior Framing Area B', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4432, 'A033', 'Interior Framing Area C', '', '', '', '6', '', '', '', '', '', '', '94', 0),
+(4433, 'A034', 'Rough HVAC Area A', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4434, 'A035', 'Rough HVAC Area B', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4435, 'A036', 'Rough HVAC Area C', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4436, 'A037', 'Rough Plumbing Area A', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4437, 'A038', 'Rough Plumbing Area B', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4438, 'A039', 'Rough Plumbing Area C', '', '', '', '5', '', '', '', '', '', '', '94', 0),
+(4439, 'A040', 'Interior Layout', '', '', '', '2', '', '', '', '', '', '', '94', 0),
+(4440, 'M001', 'Notice to Proceed', '', '', '', '', '', '', '', '', '', '', '94', 0),
+(4441, 'M002', 'Begin Structure', '', '', '', '', '', '', '', '', '', '', '94', 0),
+(4442, 'M003', 'Structure Complete', '', '', '', '', '', '', '', '', '', '', '94', 0),
+(4443, 'M004', 'Foundation Complete', '', '', '', '', '', '', '', '', '', '', '94', 0),
+(4611, 'A001', 'Activity 01', '7', '10/10/17', '10/18/17', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '92', 0),
+(4612, 'A002', 'Activity 02', '0', '', '1/2/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 02', '92', 0),
+(4613, 'A003', 'Activity 03', '5', '10/15/17', '10/20/17', '4', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '92', 0),
+(4614, 'A004', 'Activity 04', '14', '10/2/17', '10/19/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '92', 0),
+(4615, 'A005', 'Activity 05', '0', '10/1/17', '', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '92', 0),
+(4616, 'A006', 'Activity 06', '0', '', '1/2/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '92', 0),
+(4617, 'A007', 'Activity 07', '0', '', '10/19/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '92', 0),
+(4618, 'A008', 'Activity 08', '22', '12/2/17', '1/2/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '92', 0),
+(4619, 'A009', 'Activity 09', '0', '1/2/17', '', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '92', 0),
+(4620, 'A010', 'Activity 10', '10', '1/23/18', '2/5/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '92', 0),
+(4621, 'A011', 'Activity 11', '14', '2/4/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '92', 0),
+(4622, 'A012', 'Activity 12', '0', '', '1/3/17', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '92', 0),
+(4623, 'A013', 'Activity 13', '11', '12/18/17', '1/1/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '92', 0),
+(4624, 'A014', 'Activity 14', '16', '12/20/17', '1/10/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '92', 0),
+(4625, 'A015', 'Activity 15', '0', '11/5/17', '', '11', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 15', '92', 0),
+(4626, 'A016', 'Activity 16', '0', '', '1/3/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 16', '92', 0),
+(4627, 'A017', 'Activity 17', '12', '11/12/17', '11/28/17', '5', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 17', '92', 0),
+(4628, 'A018', 'Activity 18', '20', '11/18/17', '12/15/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 18', '92', 0),
+(4629, 'A019', 'Activity 19', '5', '11/27/17', '12/1/17', '1', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 19', '92', 0),
+(4630, 'A020', 'Activity 20', '21', '12/24/17', '1/22/18', '11', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 20', '92', 0),
+(4631, 'A021', 'Activity 21', '8', '12/3/17', '12/13/17', '5', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 21', '92', 0),
+(4632, 'A022', 'Activity 22', '0', '1/2/17', '', '13', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 22', '92', 0),
+(4633, 'A023', 'Activity 23', '7', '1/7/17', '1/17/17', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 23', '92', 0),
+(4634, 'A024', 'Activity 24', '1', '1/12/17', '1/12/17', '6', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 24', '92', 0),
+(4635, 'A025', 'Activity 25', '11', '1/23/17', '2/6/17', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 25', '92', 0),
+(4636, 'A026', 'Activity 26', '3', '1/22/17', '1/25/17', '15', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 26', '92', 0),
+(4637, 'A027', 'Activity 27', '25', '2/5/17', '3/10/17', '5', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 27', '92', 0),
+(4638, 'A028', 'Activity 28', '2', '2/19/17', '2/21/17', '11', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 28', '92', 0),
+(4639, 'A029', 'Activity 29', '7', '2/23/17', '3/3/17', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 29', '92', 0),
+(4640, 'A030', 'Activity 30', '7', '2/17/17', '2/27/17', '14', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '92', 0),
+(4758, 'ST00440', 'Prep Slab/Pour 2 (J-R)', '0', '', '', '3', '', 'Concrete', 'Area A', 'High', 'www.slatplanner.com', 'Random notesâ€¦', '100', 0),
+(4759, 'ST00450', 'Prep Slab/Pour 3 (R-Y)', '0', '', '', '11', '', 'Concrete', 'Area B', 'Medium', 'www.procore.com', '', '100', 0),
+(4760, 'ST00570', 'Erect and Detail Canopy', '0', '', '', '8', '', 'Steel', 'Area C', 'Low', '', 'Any info here.', '100', 0),
+(4761, 'ST00580', 'Deck Canopy', '0', '', '', '13', '', 'Steel', 'Area B', 'Medium', '', '', '100', 0),
+(4762, 'ST00600', 'SOMD Floor 2 (M-U)', '0', '', '', '6', '', 'Concrete', 'Area B', 'Medium', '', '', '100', 0),
+(4763, 'ST00601', 'SOMD Floor 3 (M-U)', '0', '', '', '3', '', 'Concrete', 'Area B', 'Medium', '', '', '100', 0),
+(4764, 'ST00605', 'SOMD Floor 4 (M-U)', '0', '', '', '14', '', 'Concrete', 'Area C', 'Low', '', '', '100', 0),
+(4765, 'ST00616', 'SOMD Roof (M-U)', '0', '', '', '3', '', 'Concrete', 'Area C', 'Low', 'www.procore.com', 'Testing notes.', '100', 0),
+(4766, 'ST00625', 'Exterior Framing & Sheathing - NE', '0', '', '', '5', '', 'Framing', 'Area A', 'Low', 'www.assemble.com', 'Testing notes.', '100', 0),
+(4767, 'ST00627', 'Exterior Framing & Sheathing - SW', '0', '', '', '8', '', 'Framing', 'Area A', 'High', '', '', '100', 0),
+(4768, 'ST00630', 'Fluid Applied Barrier', '0', '', '', '10', '', 'Framing', 'Area A', 'High', '', '', '100', 0),
+(4769, 'ST00710', 'Rain Water Leaders and risers', '0', '', '', '9', '', 'Roofing', 'Area A', 'High', '', '', '100', 0),
+(4770, 'ST00730', 'Roof - Metal', '0', '', '', '4', '', 'Roofing', 'Area A', 'Low', 'www.slatplanner.com', 'Any info here.', '100', 0),
+(4771, 'ST00770', 'Brick Masonry and Stone Cladding - NW', '0', '', '', '1', '', 'Masonry', 'Area C', 'Medium', '', '', '100', 0),
+(4772, 'ST00880', 'Install Scaffolding - NW', '0', '', '', '6', '', 'Scaffolding', 'Area B', 'Medium', 'www.assemble.com', '', '100', 0),
+(4773, 'ST00950', 'Exterior Grade Beams (8-14) - Garage', '0', '', '', '8', '', 'Concrete', 'Area B', 'Low', 'www.slatplanner.com', 'Any info here.', '100', 0),
+(4774, 'ST00965', 'Rough-In Slab (8-14) - Garage', '0', '', '', '12', '', 'MEP', 'Area B', 'Low', '', '', '100', 0),
+(4775, 'ST00984', 'Prep and Pour Ramp and Level 1 (8-14) - Garage', '0', '', '', '11', '', 'Concrete', 'Area B', 'Low', '', '', '100', 0),
+(4776, 'ST01015', 'Prep and Pour Ramp and SOG (8-14) - Garage', '0', '', '', '15', '', 'Concrete', 'Area B', 'High', '', '', '100', 0),
+(4777, 'ST01080', 'Monumental Stair - F1', '0', '', '', '8', '', 'Steel', 'Area C', 'High', '', '', '100', 0),
+(4778, 'ST01140', 'Overhead HVAC RI - F1', '0', '', '', '2', '', 'HVAC', 'Area C', 'High', '', '', '100', 0),
+(4779, 'ST01150', 'Overhead Hydronic RI - F1', '0', '', '', '5', '', 'HVAC', 'Area C', 'High', 'www.slatplanner.com', 'Any info here.', '100', 0),
+(4780, 'ST01160', 'Overhead Plumbing RI - F1', '0', '', '', '2', '', 'Plumbing', 'Area C', 'High', '', 'Any info here.', '100', 0),
+(4781, 'ST01170', 'Overhead Electrical RI - F1', '0', '', '', '9', '', 'Electrical', 'Area A', 'Low', '', '', '100', 0),
+(4782, 'ST01180', 'Overhead FP RI - F1', '0', '', '', '12', '', 'Plumbing', 'Area A', 'Low', '', '', '100', 0),
+(4783, 'ST01190', 'In wall MEP RI - F1', '0', '', '', '13', '', 'MEP', 'Area A', 'Medium', 'www.procore.com', 'Random notesâ€¦', '100', 0),
+(4784, 'ST01200', 'Frame interior walls and soffits - F1', '0', '', '', '5', '', 'Framing', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '100', 0),
+(4785, 'ST01210', 'RF shielding - F1', '0', '', '', '8', '', 'Electrical', 'Area C', 'Medium', '', '', '100', 0),
+(4786, 'ST01220', 'Install VAVs/complete branch lines - F1', '0', '', '', '5', '', 'HVAC', 'Area B', 'Medium', '', '', '100', 0),
+(4787, 'ST01230', 'Rough-in soffits and ceilings - F1', '0', '', '', '10', '', 'MEP', 'Area B', 'Medium', 'www.assemble.com', '', '100', 0),
+(4788, 'ST01240', 'Insulate Overhead - F1', '0', '', '', '8', '', 'Insulation', 'Area B', 'High', '', '', '100', 0),
+(4789, 'ST01250', 'Insulate In wall - F1', '0', '', '', '12', '', 'Insulation', 'Area A', 'High', 'www.procore.com', 'Any info here.', '100', 0),
+(4790, 'ST01560', 'Frame and top out priority walls - F2', '0', '', '', '3', '', 'Framing', 'Area A', 'High', 'www.assemble.com', 'Any info here.', '100', 0),
+(4791, 'ST01570', 'Overhead HVAC RI - F2', '0', '', '', '5', '', 'HVAC', 'Area A', 'High', '', '', '100', 0),
+(4792, 'ST01590', 'Overhead Plumbing RI - F2', '0', '', '', '5', '', 'Plumbing', 'Area A', 'High', '', '', '100', 0),
+(4793, 'ST01600', 'Overhead Electrical RI - F2', '0', '', '', '14', '', 'Electrical', 'Area A', 'Medium', 'www.assemble.com', 'Random notesâ€¦', '100', 0),
+(4794, 'ST01630', 'Frame interior walls and soffits - F2', '0', '', '', '3', '', 'Framing', 'Area A', 'Medium', 'www.slatplanner.com', '', '100', 0),
+(4795, 'ST01650', 'Rough-in soffits and ceilings - F2', '0', '', '', '8', '', 'MEP', 'Area B', 'Medium', '', '', '100', 0),
+(4796, 'ST02080', 'Frame and top out priority walls - F4', '0', '', '', '14', '', 'Framing', 'Area B', 'Low', '', 'Random notesâ€¦', '100', 0),
+(4797, 'ST02090', 'Overhead HVAC RI - F4', '0', '', '', '9', '', 'HVAC', 'Area C', 'Low', 'www.slatplanner.com', '', '100', 0),
+(4798, 'ST02110', 'Overhead Plumbing RI - F4', '0', '', '', '1', '', 'Plumbing', 'Area C', 'Low', 'www.procore.com', 'Random notesâ€¦', '100', 0),
+(4989, 'A001', 'Activity 01', '', '', '12/20/2017', '12', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '88', 0),
+(4990, 'A002', 'Activity 02', '', '12/20/2017', '12/22/2017', '1', '', 'Todd', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 02', '88', 0),
+(4991, 'A003', 'Activity 03', '', '11/2/17', '12/1/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '88', 0),
+(4992, 'A004', 'Activity 04', '', '10/12/17', '11/15/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '88', 0),
+(4993, 'A005', 'Activity 05', '', '10/14/17', '11/9/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '88', 0),
+(4994, 'A006', 'Activity 06', '', '11/14/17', '11/23/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '88', 0),
+(4995, 'A007', 'Activity 07', '', '10/19/17', '10/30/17', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '88', 0),
+(4996, 'A008', 'Activity 08', '', '12/2/17', '1/2/18', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '88', 0),
+(4997, 'A009', 'Activity 09', '', '1/18/18', '1/25/18', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '88', 0),
+(4998, 'A010', 'Activity 10', '', '1/23/18', '2/16/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '88', 0),
+(4999, 'A011', 'Activity 11', '', '2/4/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '88', 0),
+(5000, 'A012', 'Activity 12', '', '12/6/2017', '2/6/18', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '88', 0),
+(5001, 'A013', 'Activity 13', '', '12/6/2017', '1/12/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '88', 0),
+(5002, 'A014', 'Activity 14', '', '12/6/2017', '1/23/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '88', 0),
+(5114, 'A001', 'Activity 01', '', '', '11/29/17', '12', '', 'Steve', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 01', '89', 0),
+(5115, 'A002', 'Activity 02', '', '', '11/1/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 02', '89', 0),
+(5116, 'A003', 'Activity 03', '', '11/1/17', '11/8/17', '4', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 03', '89', 0),
+(5117, 'A004', 'Activity 04', '', '10/12/17', '10/23/17', '2', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 04', '89', 0),
+(5118, 'A005', 'Activity 05', '', '10/14/17', '11/6/17', '8', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 05', '89', 0),
+(5119, 'A006', 'Activity 06', '', '11/17/17', '11/17/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 06', '89', 0),
+(5120, 'A007', 'Activity 07', '', '10/19/17', '', '10', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 07', '89', 0),
+(5121, 'A008', 'Activity 08', '', '12/4/17', '12/19/17', '1', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 08', '89', 0),
+(5122, 'A009', 'Activity 09', '', '1/22/18', '', '10', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 09', '89', 0),
+(5123, 'A010', 'Activity 10', '', '1/22/18', '2/1/18', '3', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 10', '89', 0),
+(5124, 'A011', 'Activity 11', '', '2/3/18', '2/22/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 11', '89', 0),
+(5125, 'A012', 'Activity 12', '', '1/23/18', '', '8', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 12', '89', 0),
+(5126, 'A013', 'Activity 13', '', '12/17/17', '1/9/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 13', '89', 0),
+(5127, 'A014', 'Activity 14', '', '12/24/17', '1/30/18', '12', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 14', '89', 0),
+(5128, 'A015', 'Activity 15', '', '11/19/17', '11/29/17', '11', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 15', '89', 0),
+(5129, 'A016', 'Activity 16', '', '', '11/3/17', '1', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 16', '89', 0),
+(5130, 'A017', 'Activity 17', '', '11/14/17', '11/15/17', '5', '', 'Todd', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 17', '89', 0),
+(5131, 'A018', 'Activity 18', '', '11/18/17', '12/14/17', '12', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 18', '89', 0),
+(5132, 'A019', 'Activity 19', '', '11/27/17', '11/27/17', '1', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 19', '89', 0),
+(5133, 'A020', 'Activity 20', '', '12/22/17', '1/5/18', '11', '', 'Stan', 'Floor 1', 'High', 'www.slatplanner.com/test', 'Notes for Activity 20', '89', 0),
+(5134, 'A021', 'Activity 21', '', '12/6/17', '', '5', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 21', '89', 0),
+(5135, 'A022', 'Activity 22', '', '12/16/17', '12/22/17', '13', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 22', '89', 0),
+(5136, 'A023', 'Activity 23', '', '1/1/18', '', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 23', '89', 0),
+(5137, 'A024', 'Activity 24', '', '1/23/18', '', '6', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 24', '89', 0),
+(5138, 'A025', 'Activity 25', '', '1/23/18', '2/9/18', '6', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 25', '89', 0),
+(5139, 'A026', 'Activity 26', '', '2/15/18', '', '15', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 26', '89', 0),
+(5140, 'A027', 'Activity 27', '', '2/6/18', '2/23/18', '5', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 27', '89', 0),
+(5141, 'A028', 'Activity 28', '', '2/24/18', '2/27/18', '11', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 28', '89', 0),
+(5142, 'A029', 'Activity 29', '', '2/22/18', '3/2/18', '15', '', 'Steve', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 29', '89', 0),
+(5143, 'A030', 'Activity 30', '', '2/21/18', '2/26/18', '14', '', 'Todd', 'Floor 2', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5144, 'A031', 'Activity 31', '', '2/16/18', '2/21/18', '10', '', 'Todd', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5145, 'A032', 'Activity 32', '', '2/4/18', '2/26/18', '8', '', 'Stan', 'Floor 2', 'High', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5146, 'A033', 'Activity 33', '', '2/7/18', '2/7/18', '6', '', 'Steve', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5147, 'A034', 'Activity 34', '', '1/29/18', '1/30/18', '14', '', 'Steve', 'Floor 1', 'Medium', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5148, 'A036', 'Activity 36', '', '1/21/18', '2/6/18', '0', '', 'Todd', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5149, 'A037', 'Activity 37', '', '2/14/18', '2/14/18', '3', '', 'Stan', 'Floor 2', 'Low', 'www.slatplanner.com/test', 'Notes for Activity 30', '89', 0),
+(5150, 'Atest', 'Very Long Activity Description', '', '2/22/18', '3/2/18', '2', '', 'Steve', 'Floor 1', 'Low', '', '', '89', 0),
+(5415, 'A001', 'Excavate Area A', '', '2/11/2018', '2/13/18', '4', '', 'Stan', 'Area A', 'High', '', '', '102', 0),
+(5416, 'A002', 'Form Foundations Area A', '', '2/14/2018', '2/16/2018', '5', '', 'Paul', 'Area A', 'High', '', '', '102', 0),
+(5417, 'A003', 'Rebar Foundations Area A', '', '2/17/2018', '2/20/18', '6', '', 'Paul', 'Area A', 'High', '', '', '102', 0),
+(5418, 'A004', 'Pour Foundations Area A', '', '2/21/2018', '2/21/18', '7', '', 'Paul', 'Area A', 'High', '', '', '102', 0),
+(5419, 'A005', 'Strip Foundations Area A', '', '2/22/2018', '2/22/18', '3', '', 'Paul', 'Area A', 'Low', '', '', '102', 0),
+(5420, 'A006', 'Erect Steel Area A', '', '2/23/2018', '2/26/2018', '6', '', 'Sue', 'Area A', 'High', '', '', '102', 0),
+(5421, 'A007', 'Metal Decking Area A', '', '2/27/2018', '3/1/2018', '5', '', 'Sue', 'Area A', 'Medium', '', '', '102', 0),
+(5422, 'A008', 'Form and Pour SOMD Area A', '', '3/2/2018', '3/2/18', '6', '', 'Paul', 'Area A', 'Medium', '', '', '102', 0),
+(5423, 'A009', 'Exterior Framing Area A', '', '3/4/2018', '3/5/18', '6', '', 'John', 'Area A', 'Low', '', '', '102', 0),
+(5424, 'A010', 'Exterior Sheathing Area A', '', '3/6/2018', '3/6/18', '5', '', 'John', 'Area A', 'Low', '', '', '102', 0),
+(5425, 'A011', 'Interior Framing Area A', '', '3/9/2018', '3/9/18', '6', '', 'John', 'Area A', 'High', '', '', '102', 0),
+(5426, 'A012', 'Rough HVAC Area A', '', '3/5/2018', '3/5/18', '5', '', 'Ted', 'Area A', 'High', '', '', '102', 0),
+(5427, 'A013', 'Rough Plumbing Area A', '', '3/7/2018', '3/7/18', '5', '', 'Tom', 'Area A', 'High', '', '', '102', 0),
+(5428, 'A014', 'Excavate Area B', '', '2/12/2018', '2/13/18', '4', '', 'Stan', 'Area B', 'High', '', '', '102', 0),
+(5429, 'A015', 'Form Foundations Area B', '', '2/15/2018', '2/16/18', '5', '', 'Paul', 'Area B', 'High', '', '', '102', 0),
+(5430, 'A016', 'Rebar Foundations Area B', '', '2/18/2018', '2/21/18', '6', '', 'Paul', 'Area B', 'High', '', '', '102', 0),
+(5431, 'A017', 'Pour Foundations Area B', '', '2/22/2018', '2/22/18', '7', '', 'Paul', 'Area B', 'High', '', '', '102', 0),
+(5432, 'A018', 'Strip Foundations Area B', '', '2/23/2018', '2/23/18', '3', '', 'Paul', 'Area B', 'Low', '', '', '102', 0),
+(5433, 'A019', 'Erect Steel Area B', '', '2/24/2018', '2/27/2018', '6', '', 'Sue', 'Area B', 'High', '', '', '102', 0),
+(5434, 'A020', 'Metal Decking Area B', '', '2/28/2018', '3/1/18', '5', '', 'Sue', 'Area B', 'Medium', '', '', '102', 0),
+(5435, 'A021', 'Form and Pour SOMD Area B', '', '3/3/2018', '3/5/18', '6', '', 'Paul', 'Area B', 'Medium', '', '', '102', 0),
+(5436, 'A022', 'Exterior Framing Area B', '', '3/5/2018', '3/5/18', '6', '', 'John', 'Area B', 'Low', '', '', '102', 0),
+(5437, 'A023', 'Exterior Sheathing Area B', '', '3/7/2018', '3/7/18', '5', '', 'John', 'Area B', 'Low', '', '', '102', 0),
+(5438, 'A024', 'Interior Framing Area B', '', '3/10/2018', '3/12/18', '6', '', 'John', 'Area B', 'High', '', '', '102', 0),
+(5439, 'A025', 'Rough HVAC Area B', '', '3/6/2018', '3/6/18', '5', '', 'Ted', 'Area B', 'High', '', '', '102', 0),
+(5440, 'A026', 'Rough Plumbing Area B', '', '3/8/2018', '3/8/18', '5', '', 'Tom', 'Area B', 'High', '', '', '102', 0),
+(5441, 'A027', 'Excavate Area C', '', '2/13/2018', '2/14/18', '4', '', 'Stan', 'Area C', 'High', '', '', '102', 0),
+(5442, 'A028', 'Form Foundations Area C', '', '2/16/2018', '2/16/18', '5', '', 'Paul', 'Area C', 'High', '', '', '102', 0),
+(5443, 'A029', 'Rebar Foundations Area C', '', '2/19/2018', '2/21/18', '6', '', 'Paul', 'Area C', 'High', '', '', '102', 0),
+(5444, 'A030', 'Pour Foundations Area C', '', '2/23/2018', '2/23/18', '7', '', 'Paul', 'Area C', 'High', '', '', '102', 0),
+(5445, 'A031', 'Strip Foundations Area C', '', '2/24/2018', '2/26/18', '3', '', 'Paul', 'Area C', 'Low', '', '', '102', 0),
+(5446, 'A032', 'Erect Steel Area C', '', '2/25/2018', '2/28/18', '6', '', 'Sue', 'Area C', 'High', '', '', '102', 0),
+(5447, 'A033', 'Metal Decking Area C', '', '3/1/2018', '3/2/18', '5', '', 'Sue', 'Area C', 'Medium', '', '', '102', 0),
+(5448, 'A034', 'Form and Pour SOMD Area C', '', '3/4/2018', '3/5/18', '6', '', 'Paul', 'Area C', 'Medium', '', '', '102', 0),
+(5449, 'A035', 'Exterior Framing Area C', '', '3/6/2018', '3/6/18', '6', '', 'John', 'Area C', 'Low', '', '', '102', 0),
+(5450, 'A036', 'Exterior Sheathing Area C', '', '3/8/2018', '3/8/18', '5', '', 'John', 'Area C', 'Low', '', '', '102', 0),
+(5451, 'A037', 'Interior Framing Area C', '', '3/11/2018', '3/12/2018', '6', '', 'John', 'Area C', 'High', '', '', '102', 0),
+(5452, 'A038', 'Rough HVAC Area C', '', '3/7/2018', '3/7/18', '5', '', 'Ted', 'Area C', 'High', '', '', '102', 0),
+(5453, 'A039', 'Rough Plumbing Area C', '', '3/9/2018', '3/9/18', '5', '', 'Tom', 'Area C', 'High', '', '', '102', 0),
+(5454, 'A040', 'Site Layout', '', '2/12/2018', '2/12/18', '3', '', 'General', 'General', 'Medium', '', '', '102', 0),
+(5455, 'M001', 'Notice to Proceed', '', '2/11/2018', '', '', '', 'General', 'General', '', '', '', '102', 0),
+(5456, 'M002', 'Start Structural', '', '2/23/2018', '', '', '', 'General', 'General', '', '', '', '102', 0),
+(5457, 'M003', 'Building Dried In', '', '', '3/9/2018', '', '', 'General', 'General', '', '', '', '102', 0),
+(5458, 'M004', 'Fondations Complete', '', '', '2/24/2018', '', '', 'General', 'General', '', '', '', '102', 0),
+(5467, 'A001', 'activity 001 002 003', '', '12/14/17', '', '', '', 'Todd', '', '', '', '', '101', 0),
+(5468, 'A002', '', '', '', '12/15/17', '', '', 'Todd', '', '', '', '', '101', 0),
+(5469, 'A003', '', '1', '12/17/17', '12/18/17', '', '', 'Todd', '', '', '', '', '101', 0),
+(5470, '', '', '0', '', '12/15/17', '', '', 'Todd', '', '', '', '', '101', 0),
+(5471, 'M001', 'Milestone 1', '0', '11/3/17', '', '', '', 'Todd', '', '', '', '', '101', 0),
+(5472, 'M002', 'Milestone 2', '0', '11/2/17', '', '', '', 'Todd', '', '', '', '', '101', 0),
+(5473, 'M003', 'Milestone 3', '0', '', '11/2/17', '', '', 'Todd', '', '', '', '', '101', 0),
+(5474, 'M004', 'Milestone 4', '0', '', '11/7/17', '', '', 'Todd', '', '', '', '', '101', 0);
 
 -- --------------------------------------------------------
 
@@ -837,7 +1011,7 @@ CREATE TABLE IF NOT EXISTS `tbl_activity_constraint` (
   `resp` varchar(250) DEFAULT NULL,
   `driving` varchar(250) DEFAULT NULL,
   `done` varchar(250) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=241 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_activity_constraint`
@@ -858,15 +1032,27 @@ INSERT INTO `tbl_activity_constraint` (`id`, `pid`, `type`, `actid`, `desc`, `st
 (55, 88, 'Activity', 'a005', 'Activity 05', '10/14/17', '11/9/17', 'Stan', '', '0'),
 (56, 88, 'Activity', 'A001', 'Activity 01', '10/11/17', '11/1/17', 'Todd', 'A002', '0'),
 (57, 88, 'Activity', 'A003', 'Activity 03', '11/2/17', '12/1/17', 'Todd', '', '0'),
-(73, 89, 'Inspection', 'IN001', 'Inspection Necessary', '', '10/19/17', 'Steve', 'A009', '0'),
-(72, 89, 'Action Item', 'AI001', 'Action Needed', '', '11/27', 'Stan', 'A023', '0'),
-(71, 89, 'Activity', 'A003', 'Activity 03', '11/1/17', '11/30/17', 'Todd', 'A008', '0'),
-(70, 89, 'Activity', 'A002', 'Activity 02', '10/27/17', '11/8/17', 'Todd', 'A004', '0'),
-(69, 89, 'Activity', 'A001', 'Activity 01', '10/9/17', '10/30/17', 'Todd', 'A002', '0'),
-(68, 89, 'Procurement', 'P001', 'Procure Items', '', '12/24/17', 'Todd', 'A001', '0'),
-(74, 89, 'Design', 'D001', 'Design Required', '', '11/2/17', 'Steve', 'A012', '0'),
-(75, 89, 'Inspection', 'IN002', 'Another Inspection', '', '11/22/17', 'Todd', 'A007', '0'),
-(76, 89, 'Activity', 'A009', 'Activity 09', '1/22/18', '1/29/18', 'Steve', 'A001', '0');
+(240, 89, 'Design', 'D3334', 'D Const. D3334', '', '10/27/17', 'Steve', 'A003', '1'),
+(239, 89, 'Design', 'D3333', 'Design Constraing 3333', '', '11/5/17', 'Stan', 'A003', '0'),
+(238, 89, 'Procurement', 'P3535', 'Procurement Test', '', '11/27/17', 'Stan', 'A001', '0'),
+(237, 89, 'Inspection', 'I2234', 'Inspection 2234', '', '11/5/17', 'Todd', 'A002', '0'),
+(236, 89, 'Design', 'D001', 'D001 description', '11/11/17', '', 'Todd', 'A001', '0'),
+(235, 89, 'Procurement', 'P2525', 'Test Procurement Activity', '', '11/2/17', 'Stan', 'A001', '0'),
+(234, 89, 'Design', 'D020', 'Design Issue', '', '10/27/17', 'Stan', 'A002', '1'),
+(233, 89, 'Procurement', 'P020', 'Random Procurement Issue', '10/7/17', '10/13/17', 'Todd', 'A001', '1'),
+(232, 89, 'Action Item', 'AI0067', 'Action Item 67', '', '10/26/17', 'Todd', 'A002', '1'),
+(231, 89, 'Inspection', 'I0067', 'Inspection Required', '', '10/29/17', 'Stan', 'A002', '1'),
+(230, 89, 'Design', 'A007', 'Activity 07', '10/19/17', '10/31/17', 'Steve', 'A002', '1'),
+(229, 89, 'Design', 'A007', 'Activity 07', '10/19/17', '10/31/17', 'Steve', 'A002', '1'),
+(228, 89, 'Design', 'A009', 'Activity 09', '1/22/18', '1/29/18', 'Steve', 'A001', '0'),
+(227, 89, 'Inspection', 'IN002', 'Another Inspection', '', '11/22/17', 'Todd', 'A007', '0'),
+(226, 89, 'Design', 'D001', 'Design Required', '', '11/2/17', 'Steve', 'A012', '0'),
+(225, 89, 'Inspection', 'IN001', 'Inspection Necessary', '', '10/19/17', 'Steve', 'A009', '1'),
+(224, 89, 'Action Item', 'AI001', 'Action Needed', '', '11/27', 'Stan', 'A023', '0'),
+(223, 89, 'Design', 'A003', 'Activity 03', '11/1/17', '11/30/17', 'Todd', 'A008', '0'),
+(222, 89, 'Design', 'A002', 'Activity 02', '10/27/17', '11/8/17', 'Todd', 'A004', '0'),
+(221, 89, 'Procurement', 'A001', 'Activity 01', '10/9/17', '10/30/17', 'Todd', 'A002', '1'),
+(220, 89, 'Procurement', 'P001', 'Procure Items', '', '12/24/17', 'Todd', 'A001', '0');
 
 -- --------------------------------------------------------
 
@@ -880,7 +1066,7 @@ CREATE TABLE IF NOT EXISTS `tbl_activity_snapshot_history` (
   `sid` varchar(250) DEFAULT NULL,
   `aid` varchar(250) DEFAULT NULL,
   `reason` varchar(250) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=515 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=840 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_activity_snapshot_history`
@@ -926,16 +1112,15 @@ INSERT INTO `tbl_activity_snapshot_history` (`id`, `pid`, `sid`, `aid`, `reason`
 (369, 88, '0', 'A003', ''),
 (418, 88, '0', 'A001', ''),
 (404, 88, '0', 'A002', ''),
-(509, 89, '0', 'A001', ''),
-(512, 89, '19', 'A001', ''),
-(513, 89, '18', 'A001', ''),
-(514, 89, '17', 'A001', ''),
+(618, 89, '0', 'A001', ''),
+(837, 89, '19', 'A001', ''),
+(839, 89, '17', 'A001', ''),
 (429, 89, '21', 'A001', ''),
 (430, 89, '20', 'A001', ''),
 (497, 89, '0', 'A003', ''),
-(500, 89, '19', 'A003', ''),
-(501, 89, '18', 'A003', ''),
-(502, 89, '17', 'A003', ''),
+(804, 89, '19', 'A003', ''),
+(805, 89, '18', 'A003', ''),
+(806, 89, '17', 'A003', ''),
 (435, 89, '21', 'A003', ''),
 (436, 89, '20', 'A003', ''),
 (437, 89, '0', 'A005', ''),
@@ -945,21 +1130,37 @@ INSERT INTO `tbl_activity_snapshot_history` (`id`, `pid`, `sid`, `aid`, `reason`
 (441, 89, '21', 'A005', ''),
 (442, 89, '20', 'A005', ''),
 (443, 89, '0', 'A004', ''),
-(444, 89, '19', 'A004', ''),
-(445, 89, '18', 'A004', ''),
-(446, 89, '17', 'A004', ''),
+(831, 89, '19', 'A004', ''),
+(833, 89, '17', 'A004', ''),
 (447, 89, '21', 'A004', ''),
 (448, 89, '20', 'A004', ''),
-(510, 89, '22', 'A001', ''),
-(511, 89, '23', 'A001', ''),
-(498, 89, '22', 'A003', ''),
-(499, 89, '23', 'A003', ''),
-(503, 89, '0', 'A002', ''),
-(504, 89, '22', 'A002', ''),
-(505, 89, '23', 'A002', ''),
-(506, 89, '19', 'A002', ''),
-(507, 89, '18', 'A002', ''),
-(508, 89, '17', 'A002', '');
+(835, 89, '22', 'A001', ''),
+(836, 89, '23', 'A001', ''),
+(802, 89, '22', 'A003', ''),
+(803, 89, '23', 'A003', ''),
+(612, 89, '0', 'A002', ''),
+(790, 89, '22', 'A002', ''),
+(791, 89, '23', 'A002', ''),
+(794, 89, '17', 'A002', ''),
+(521, 92, '0', 'A001', ''),
+(834, 89, '0', 'undefined', ''),
+(838, 89, '18', 'A001', 'Design'),
+(792, 89, '19', 'A002', 'Materials'),
+(793, 89, '18', 'A002', 'Materials'),
+(809, 92, '0', 'undefined', ''),
+(764, 89, '22', 'A010', 'Manpower'),
+(765, 89, '23', 'A010', ''),
+(766, 89, '19', 'A010', ''),
+(767, 89, '18', 'A010', ''),
+(768, 89, '17', 'A010', ''),
+(758, 89, '22', 'A011', ''),
+(759, 89, '23', 'A011', ''),
+(760, 89, '19', 'A011', ''),
+(761, 89, '18', 'A011', ''),
+(762, 89, '17', 'A011', ''),
+(829, 89, '22', 'A004', ''),
+(830, 89, '23', 'A004', ''),
+(832, 89, '18', 'A004', 'Manpower');
 
 -- --------------------------------------------------------
 
@@ -980,7 +1181,7 @@ CREATE TABLE IF NOT EXISTS `tbl_activity_tracking` (
   `reason` varchar(200) DEFAULT NULL,
   `pid` varchar(200) DEFAULT NULL,
   `sid` varchar(200) DEFAULT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2698 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3154 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_activity_tracking`
@@ -994,7 +1195,6 @@ INSERT INTO `tbl_activity_tracking` (`id`, `aid`, `desc`, `resp`, `start`, `fini
 (1872, 'A011', 'Notes for Activity 11', 'Stan', '2/4/18', '2/22/18', '0', '2/14/18', '3/5/18', 'Weather', '88', '12'),
 (1870, 'A009', 'Notes for Activity 09', 'Steve', '1/18/18', '1/25/18', '0', '1/18/18', '1/25/18', 'Weather', '88', '12'),
 (1868, 'A007', 'Notes for Activity 07', 'Steve', '10/19/17', '10/30/17', '0', '10/19/17', '10/30/17', 'Weather', '88', '12'),
-(2697, 'A037', 'Activity 37', 'Stan', '2/14/18', '2/27/18', '0', '2/14/18', '2/27/18', '', '89', '22'),
 (742, 'A014', 'Notes for Activity 14', 'Steve', '12/21/17', '1/24/18', '0', '12/20/17', '1/23/18', 'Weather', '88', '11'),
 (741, 'A013', 'Notes for Activity 13', 'Stan', '12/17/17', '1/12/18', '0', '12/20/17', '1/16/18', 'Weather', '88', '11'),
 (740, 'A012', 'Notes for Activity 12', 'Todd', '2/10/18', '2/15/18', '0', '2/1/18', '2/6/18', 'Weather', '88', '11'),
@@ -1067,34 +1267,25 @@ INSERT INTO `tbl_activity_tracking` (`id`, `aid`, `desc`, `resp`, `start`, `fini
 (757, 'A001', 'Notes for Activity 01', 'Todd', '10/11/17', '11/1/17', '0', '10/8/17', '11/1/17', 'Weather', '88', '13'),
 (1806, 'A001', 'Notes for Activity 01', 'Todd', '11/2/17', '11/23/17', '0', '10/12/17', '11/2/17', 'Workforce', '88', '15'),
 (1866, 'A005', 'Notes for Activity 05', 'Stan', '10/16/17', '11/9/17', '0', '10/16/17', '11/9/17', 'Weather', '88', '12'),
-(2696, 'A036', 'Activity 36', 'Todd', '1/21/18', '2/8/18', '0', '1/21/18', '2/8/18', '', '89', '22'),
-(2481, '', '', '', '', '', '0', '', '', '', '89', '19'),
-(2479, 'A031', '', 'Todd', '2/12/18', '2/27/18', '0', '', '', '', '89', '19'),
-(2480, 'A032', '', 'Stan', '1/31/18', '2/21/18', '0', '', '', '', '89', '19'),
-(2477, 'A029', 'Notes for Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/23/18', '3/21/18', '', '89', '19'),
-(2478, 'A030', 'Notes for Activity 30', 'Todd', '2/18/18', '3/12/18', '0', '2/17/18', '3/12/18', '', '89', '19'),
-(2476, 'A028', 'Notes for Activity 28', 'Steve', '2/21/18', '2/22/18', '0', '2/19/18', '2/20/18', '', '89', '19'),
-(2475, 'A027', 'Notes for Activity 27', 'Stan', '2/4/18', '3/9/18', '0', '2/5/18', '3/9/18', '', '89', '19'),
-(2474, 'A026', 'Notes for Activity 26', 'Todd', '1/3/18', '1/4/18', '0', '1/2/18', '1/3/18', '', '89', '19'),
-(2473, 'A025', 'Notes for Activity 25', 'Stan', '1/21/18', '2/16/18', '0', '1/23/18', '2/19/18', '', '89', '19'),
-(2472, 'A024', 'Notes for Activity 24', 'Todd', '1/21/18', '1/29/18', '0', '1/19/18', '1/25/18', '', '89', '19'),
-(2471, 'A023', 'Notes for Activity 23', 'Steve', '1/5/18', '1/15/18', '0', '1/7/18', '1/16/18', '', '89', '19'),
-(2470, 'A022', 'Notes for Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/18/17', '12/22/17', '', '89', '19'),
-(2469, 'A021', 'Notes for Activity 21', 'Steve', '12/4/17', '12/13/17', '0', '12/3/17', '12/13/17', '', '89', '19'),
-(2468, 'A020', 'Notes for Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/24/17', '1/22/18', '', '89', '19'),
-(2467, 'A019', 'Notes for Activity 19', 'Stan', '11/27/17', '12/12/17', '0', '11/27/17', '12/14/17', '', '89', '19'),
-(2466, 'A018', 'Notes for Activity 18', 'Stan', '11/18/17', '12/18/17', '0', '11/18/17', '12/15/17', 'Design', '89', '19'),
-(2465, 'A017', 'Notes for Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/12/17', '11/28/17', 'Manpower', '89', '19'),
-(2461, 'A013', 'Notes for Activity 13', 'Stan', '12/17/17', '1/12/18', '0', '12/18/17', '1/12/18', '', '89', '19'),
-(2462, 'A014', 'Notes for Activity 14', 'Steve', '12/22/17', '1/25/18', '0', '12/20/17', '1/23/18', '', '89', '19'),
-(2463, 'A015', 'Notes for Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/17/17', '11/28/17', 'Too Much Planned', '89', '19'),
-(2464, 'A016', 'Notes for Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '19'),
-(2460, 'A012', 'Notes for Activity 12', 'Todd', '1/23/18', '1/26/18', '0', '2/1/18', '2/6/18', '', '89', '19'),
-(2459, 'A011', 'Notes for Activity 11', 'Stan', '2/7/18', '2/26/18', '0', '2/4/18', '2/22/18', '', '89', '19'),
-(2458, 'A010', 'Notes for Activity 10', 'Todd', '1/24/18', '2/19/18', '0', '1/23/18', '2/16/18', '', '89', '19'),
-(2456, 'A008', 'Notes for Activity 08', 'Steve', '12/3/17', '1/1/18', '0', '12/2/17', '1/2/18', '', '89', '19'),
-(2451, 'A003', 'Notes for Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/2/17', '12/1/17', '', '89', '19'),
-(2452, 'A004', 'Notes for Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/13/17', '11/16/17', '', '89', '19'),
+(3149, 'A032', 'Activity 32', 'Stan', '2/1/18', '2/22/18', '0', '2/1/18', '2/22/18', '', '89', '22'),
+(3036, 'A024', 'Activity 24', 'Todd', '1/21/18', '1/29/18', '0', '1/19/18', '1/25/18', '', '89', '19'),
+(3035, 'A023', 'Activity 23', 'Steve', '1/5/18', '1/15/18', '0', '1/7/18', '1/16/18', '', '89', '19'),
+(3034, 'A022', 'Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/18/17', '12/22/17', '', '89', '19'),
+(3033, 'A021', 'Activity 21', 'Steve', '12/4/17', '12/13/17', '0', '12/3/17', '12/13/17', '', '89', '19'),
+(3032, 'A020', 'Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/24/17', '1/22/18', '', '89', '19'),
+(3031, 'A019', 'Activity 19', 'Stan', '11/27/17', '12/12/17', '0', '11/27/17', '12/14/17', '', '89', '19'),
+(3030, 'A018', 'Activity 18', 'Stan', '11/18/17', '12/18/17', '0', '11/18/17', '12/15/17', 'Design', '89', '19'),
+(3029, 'A017', 'Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/12/17', '11/28/17', 'Manpower', '89', '19'),
+(3028, 'A016', 'Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '19'),
+(3027, 'A015', 'Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/17/17', '11/28/17', 'Manpower', '89', '19'),
+(3026, 'A014', 'Activity 14', 'Steve', '12/22/17', '1/25/18', '0', '12/20/17', '1/23/18', '', '89', '19'),
+(3025, 'A013', 'Activity 13', 'Stan', '12/17/17', '1/12/18', '0', '12/18/17', '1/12/18', '', '89', '19'),
+(3024, 'A012', 'Activity 12', 'Todd', '1/23/18', '1/26/18', '0', '2/1/18', '2/6/18', '', '89', '19'),
+(3023, 'A011', 'Activity 11', 'Stan', '2/7/18', '2/26/18', '0', '2/4/18', '2/22/18', '', '89', '19'),
+(3022, 'A010', 'Activity 10', 'Todd', '1/24/18', '2/19/18', '0', '1/23/18', '2/16/18', '', '89', '19'),
+(3021, 'A009', 'Activity 09', 'Steve', '1/18/18', '1/25/18', '0', '1/18/18', '1/25/18', '', '89', '19'),
+(3020, 'A008', 'Activity 08', 'Steve', '12/3/17', '1/1/18', '0', '12/2/17', '1/2/18', '', '89', '19'),
+(3019, 'A007', 'Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/30/17', '', '89', '19'),
 (2274, 'A030', 'Notes for Activity 30', 'Todd', '2/17/18', '3/12/18', '0', '2/17/18', '3/12/18', '', '89', '18'),
 (2273, 'A029', 'Notes for Activity 29', 'Steve', '2/23/18', '3/21/18', '0', '2/23/18', '3/21/18', '', '89', '18'),
 (2272, 'A028', 'Notes for Activity 28', 'Steve', '2/19/18', '2/20/18', '0', '2/19/18', '2/20/18', '', '89', '18'),
@@ -1184,94 +1375,104 @@ INSERT INTO `tbl_activity_tracking` (`id`, `aid`, `desc`, `resp`, `start`, `fini
 (958, 'A034', '', 'Steve', '1/29/17', '2/14/17', '0', '1/29', '2/13/01', '', '89', '21'),
 (959, 'A036', '', 'Todd', '1/21/17', '2/9/17', '0', '', '', '', '89', '21'),
 (960, 'A037', '', 'Stan', '2/14', '2/27/01', '0', '', '', '', '89', '21'),
-(2695, 'A034', 'Activity 34', 'Steve', '1/29/18', '2/13/18', '0', '1/29/18', '2/13/18', '', '89', '22'),
-(2694, 'A033', 'Activity 33', 'Steve', '2/7/18', '2/20/18', '0', '2/7/18', '2/20/18', '', '89', '22'),
-(2693, 'A032', 'Activity 32', 'Stan', '2/1/18', '2/22/18', '0', '2/1/18', '2/22/18', '', '89', '22'),
-(2692, 'A031', 'Activity 31', 'Todd', '2/16/18', '3/7/18', '0', '2/16/18', '3/7/18', '', '89', '22'),
-(2691, 'A030', 'Activity 30', 'Todd', '2/21/18', '3/14/18', '0', '2/21/18', '3/14/18', '', '89', '22'),
-(2690, 'A029', 'Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/22/18', '3/20/18', '', '89', '22'),
-(2689, 'A028', 'Activity 28', 'Steve', '2/24/18', '2/27/18', '0', '2/24/18', '2/27/18', '', '89', '22'),
-(2688, 'A027', 'Activity 27', 'Stan', '2/5/18', '3/9/18', '0', '2/5/18', '3/9/18', '', '89', '22'),
-(2687, 'A026', 'Activity 26', 'Todd', '1/4/18', '1/5/18', '0', '1/3/18', '1/4/18', 'Weather', '89', '22'),
-(2686, 'A025', 'Activity 25', 'Stan', '1/24/18', '2/20/18', '0', '1/23/18', '2/19/18', 'Too Much Planned', '89', '22'),
-(2685, 'A024', 'Activity 24', 'Todd', '1/24/18', '1/31/18', '0', '1/23/18', '1/30/18', 'Materials', '89', '22'),
-(2684, 'A023', 'Activity 23', 'Steve', '1/2/18', '1/12/18', '0', '1/1/18', '1/11/18', 'Design', '89', '22'),
-(2683, 'A022', 'Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/16/17', '12/22/17', '', '89', '22'),
-(2682, 'A021', 'Activity 21', 'Steve', '12/6/17', '12/15/17', '0', '12/6/17', '12/15/17', '', '89', '22'),
-(2681, 'A020', 'Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/22/17', '1/19/18', '', '89', '22'),
-(2680, 'A019', 'Activity 19', 'Stan', '11/27/17', '12/11/17', '0', '11/27/17', '12/11/17', '', '89', '22'),
-(2679, 'A018', 'Activity 18', 'Stan', '11/18/17', '12/14/17', '0', '11/18/17', '12/14/17', '', '89', '22'),
-(2678, 'A017', 'Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/14/17', '11/29/17', '', '89', '22'),
-(2676, 'A015', 'Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/19/17', '11/29/17', '', '89', '22'),
-(2677, 'A016', 'Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '22'),
-(2675, 'A014', 'Activity 14', 'Steve', '12/24/17', '1/30/18', '0', '12/24/17', '1/30/18', '', '89', '22'),
-(2671, 'A010', 'Activity 10', 'Todd', '1/23/18', '2/16/18', '0', '1/22/18', '2/15/18', 'Manpower', '89', '22'),
-(2669, 'A008', 'Activity 08', 'Steve', '12/4/17', '1/3/18', '0', '12/4/17', '1/2/18', 'Materials', '89', '22'),
-(2673, 'A012', 'Activity 12', 'Todd', '1/23/18', '2/2/18', '0', '1/23/18', '2/1/18', 'Materials', '89', '22'),
-(2672, 'A011', 'Activity 11', 'Stan', '2/3/18', '2/22/18', '0', '2/3/18', '2/22/18', '', '89', '22'),
-(2445, 'A033', '', 'Steve', '2/7/18', '2/20/18', '0', '', '', '', '89', '23'),
-(2443, 'A031', '', 'Todd', '2/16/18', '3/7/18', '0', '2/12/18', '2/27/18', '', '89', '23'),
-(2444, 'A032', '', 'Stan', '2/1/18', '2/22/18', '0', '1/31/18', '2/21/18', '', '89', '23'),
-(2442, 'A030', 'Notes for Activity 30', 'Todd', '2/21/18', '3/14/18', '0', '2/18/18', '3/12/18', '', '89', '23'),
-(2441, 'A029', 'Notes for Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/22/18', '3/20/18', '', '89', '23'),
-(2439, 'A027', 'Notes for Activity 27', 'Stan', '2/5/18', '3/9/18', '0', '2/4/18', '3/9/18', '', '89', '23'),
-(2440, 'A028', 'Notes for Activity 28', 'Steve', '2/24/18', '2/27/18', '0', '2/21/18', '2/22/18', '', '89', '23'),
-(2438, 'A026', 'Notes for Activity 26', 'Todd', '1/3/18', '1/4/18', '0', '1/3/18', '1/4/18', '', '89', '23'),
-(2436, 'A024', 'Notes for Activity 24', 'Todd', '1/23/18', '1/30/18', '0', '1/21/18', '1/29/18', '', '89', '23'),
-(2437, 'A025', 'Notes for Activity 25', 'Stan', '1/23/18', '2/19/18', '0', '1/21/18', '2/16/18', '', '89', '23'),
-(2435, 'A023', 'Notes for Activity 23', 'Steve', '1/1/18', '1/11/18', '0', '1/5/18', '1/15/18', '', '89', '23'),
-(2434, 'A022', 'Notes for Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/16/17', '12/22/17', '', '89', '23'),
-(2433, 'A021', 'Notes for Activity 21', 'Steve', '12/6/17', '12/15/17', '0', '12/4/17', '12/13/17', 'Manpower', '89', '23'),
-(2432, 'A020', 'Notes for Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/22/17', '1/19/18', '', '89', '23'),
-(2431, 'A019', 'Notes for Activity 19', 'Stan', '11/27/17', '12/11/17', '0', '11/27/17', '12/12/17', '', '89', '23'),
-(2429, 'A017', 'Notes for Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/14/17', '11/29/17', '', '89', '23'),
-(2430, 'A018', 'Notes for Activity 18', 'Stan', '11/18/17', '12/14/17', '0', '11/18/17', '12/18/17', '', '89', '23'),
-(2428, 'A016', 'Notes for Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '23'),
-(2427, 'A015', 'Notes for Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/19/17', '11/29/17', '', '89', '23'),
-(2426, 'A014', 'Notes for Activity 14', 'Steve', '12/24/17', '1/30/18', '0', '12/22/17', '1/25/18', 'Too Much Planned', '89', '23'),
-(2425, 'A013', 'Notes for Activity 13', 'Stan', '12/17/17', '1/9/18', '0', '12/17/17', '1/12/18', 'Manpower', '89', '23'),
-(2424, 'A012', 'Notes for Activity 12', 'Todd', '1/23/18', '2/1/18', '0', '1/23/18', '1/26/18', '', '89', '23'),
-(2423, 'A011', 'Notes for Activity 11', 'Stan', '2/3/18', '2/22/18', '0', '2/7/18', '2/26/18', '', '89', '23'),
+(3150, 'A033', 'Activity 33', 'Steve', '2/7/18', '2/20/18', '0', '2/7/18', '2/20/18', '', '89', '22'),
+(3147, 'A030', 'Activity 30', 'Todd', '2/21/18', '3/14/18', '0', '2/21/18', '3/14/18', '', '89', '22'),
+(3148, 'A031', 'Activity 31', 'Todd', '2/16/18', '3/7/18', '0', '2/16/18', '3/7/18', '', '89', '22'),
+(3146, 'A029', 'Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/22/18', '3/20/18', '', '89', '22'),
+(3145, 'A028', 'Activity 28', 'Steve', '2/24/18', '2/27/18', '0', '2/24/18', '2/27/18', '', '89', '22'),
+(3144, 'A027', 'Activity 27', 'Stan', '2/5/18', '3/9/18', '0', '2/5/18', '3/9/18', '', '89', '22'),
+(3143, 'A026', 'Activity 26', 'Todd', '1/4/18', '1/5/18', '0', '1/3/18', '1/4/18', 'Weather', '89', '22'),
+(3142, 'A025', 'Activity 25', 'Stan', '1/24/18', '2/20/18', '0', '1/23/18', '2/19/18', 'Too Much Planned', '89', '22'),
+(3141, 'A024', 'Activity 24', 'Todd', '1/24/18', '1/31/18', '0', '1/23/18', '1/30/18', 'Materials', '89', '22'),
+(3140, 'A023', 'Activity 23', 'Steve', '1/2/18', '1/12/18', '0', '1/1/18', '1/11/18', 'Design', '89', '22'),
+(3139, 'A022', 'Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/16/17', '12/22/17', '', '89', '22'),
+(3137, 'A020', 'Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/22/17', '1/19/18', '', '89', '22'),
+(3138, 'A021', 'Activity 21', 'Steve', '12/6/17', '12/15/17', '0', '12/6/17', '12/15/17', '', '89', '22'),
+(3136, 'A019', 'Activity 19', 'Stan', '11/27/17', '12/11/17', '0', '11/27/17', '12/11/17', '', '89', '22'),
+(3135, 'A018', 'Activity 18', 'Stan', '11/18/17', '12/14/17', '0', '11/18/17', '12/14/17', '', '89', '22'),
+(3134, 'A017', 'Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/14/17', '11/29/17', '', '89', '22'),
+(3133, 'A016', 'Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '22'),
+(2973, 'A033', 'Activity 33', 'Steve', '2/7/18', '2/20/18', '0', '', '', '', '89', '23'),
+(2972, 'A032', 'Activity 32', 'Stan', '2/1/18', '2/22/18', '0', '1/31/18', '2/21/18', '', '89', '23'),
+(2971, 'A031', 'Activity 31', 'Todd', '2/16/18', '3/7/18', '0', '2/12/18', '2/27/18', '', '89', '23'),
+(2970, 'A030', 'Activity 30', 'Todd', '2/21/18', '3/14/18', '0', '2/18/18', '3/12/18', '', '89', '23'),
+(2969, 'A029', 'Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/22/18', '3/20/18', '', '89', '23'),
+(2968, 'A028', 'Activity 28', 'Steve', '2/24/18', '2/27/18', '0', '2/21/18', '2/22/18', '', '89', '23'),
+(2967, 'A027', 'Activity 27', 'Stan', '2/5/18', '3/9/18', '0', '2/4/18', '3/9/18', '', '89', '23'),
+(2966, 'A026', 'Activity 26', 'Todd', '1/3/18', '1/4/18', '0', '1/3/18', '1/4/18', '', '89', '23'),
+(2965, 'A025', 'Activity 25', 'Stan', '1/23/18', '2/19/18', '0', '1/21/18', '2/16/18', '', '89', '23'),
+(2964, 'A024', 'Activity 24', 'Todd', '1/23/18', '1/30/18', '0', '1/21/18', '1/29/18', '', '89', '23'),
+(2963, 'A023', 'Activity 23', 'Steve', '1/1/18', '1/11/18', '0', '1/5/18', '1/15/18', '', '89', '23'),
+(2962, 'A022', 'Activity 22', 'Steve', '12/16/17', '12/22/17', '0', '12/16/17', '12/22/17', '', '89', '23'),
+(2961, 'A021', 'Activity 21', 'Steve', '12/6/17', '12/15/17', '0', '12/4/17', '12/13/17', 'Manpower', '89', '23'),
+(2960, 'A020', 'Activity 20', 'Stan', '12/22/17', '1/19/18', '0', '12/22/17', '1/19/18', '', '89', '23'),
+(2959, 'A019', 'Activity 19', 'Stan', '11/27/17', '12/11/17', '0', '11/27/17', '12/12/17', '', '89', '23'),
+(2958, 'A018', 'Activity 18', 'Stan', '11/18/17', '12/14/17', '0', '11/18/17', '12/18/17', '', '89', '23'),
+(2957, 'A017', 'Activity 17', 'Todd', '11/14/17', '11/29/17', '0', '11/14/17', '11/29/17', '', '89', '23'),
+(2956, 'A016', 'Activity 16', 'Todd', '11/3/17', '11/16/17', '0', '11/3/17', '11/16/17', '', '89', '23'),
+(2955, 'A015', 'Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/19/17', '11/29/17', '', '89', '23'),
+(2954, 'A014', 'Activity 14', 'Steve', '12/24/17', '1/30/18', '0', '12/22/17', '1/25/18', 'Too Much Planned', '89', '23'),
+(2953, 'A013', 'Activity 13', 'Stan', '12/17/17', '1/9/18', '0', '12/17/17', '1/12/18', 'Manpower', '89', '23'),
+(2952, 'A012', 'Activity 12', 'Todd', '1/23/18', '2/1/18', '0', '1/23/18', '1/26/18', '', '89', '23'),
 (2251, 'A007', 'Notes for Activity 07', 'Steve', '10/19/17', '10/30/17', '0', '10/19/17', '10/30/17', '', '89', '18'),
 (2248, 'A004', 'Notes for Activity 04', 'Stan', '10/13/17', '11/16/17', '0', '10/12/17', '11/15/17', 'Manpower', '89', '18'),
-(2674, 'A013', 'Activity 13', 'Stan', '12/17/17', '10/16/18', '0', '12/17/17', '1/9/18', 'Materials', '89', '22'),
-(2662, 'A001', 'Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/9/17', '10/30/17', '', '89', '22'),
-(2663, 'A002', 'Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/27/17', '11/8/17', '', '89', '22'),
-(2422, 'A010', 'Notes for Activity 10', 'Todd', '1/22/18', '2/15/18', '0', '1/24/18', '2/19/18', '', '89', '23'),
-(2421, 'A009', 'Notes for Activity 09', 'Steve', '1/22/18', '1/29/18', '0', '1/18/18', '1/25/18', '', '89', '23'),
-(2420, 'A008', 'Notes for Activity 08', 'Steve', '12/4/17', '1/2/18', '0', '12/3/17', '1/1/18', 'Design', '89', '23'),
-(2419, 'A007', 'Notes for Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/31/17', '', '89', '23'),
-(2418, 'A006', 'Notes for Activity 06', 'Stan', '11/17/17', '11/30/17', '0', '11/17/17', '11/29/17', '', '89', '23'),
-(2457, 'A009', 'Notes for Activity 09', 'Steve', '1/18/18', '1/25/18', '0', '1/18/18', '1/25/18', '', '89', '19'),
-(2417, 'A005', 'Notes for Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/14/17', '11/13/17', '', '89', '23'),
+(3132, 'A015', 'Activity 15', 'Todd', '11/19/17', '11/29/17', '0', '11/19/17', '11/29/17', '', '89', '22'),
+(2951, 'A011', 'Activity 11', 'Stan', '2/3/18', '2/22/18', '0', '2/7/18', '2/26/18', '', '89', '23'),
+(2950, 'A010', 'Activity 10', 'Todd', '1/22/18', '2/15/18', '0', '1/24/18', '2/19/18', '', '89', '23'),
+(2949, 'A009', 'Activity 09', 'Steve', '1/22/18', '1/29/18', '0', '1/18/18', '1/25/18', '', '89', '23'),
+(2948, 'A008', 'Activity 08', 'Steve', '12/4/17', '1/2/18', '0', '12/3/17', '1/1/18', 'Design', '89', '23'),
+(2947, 'A007', 'Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/31/17', '', '89', '23'),
+(3018, 'A006', 'Activity 06', 'Stan', '11/17/17', '11/29/17', '0', '11/17/17', '11/28/17', 'Weather', '89', '19'),
+(2946, 'A006', 'Activity 06', 'Stan', '11/17/17', '11/30/17', '0', '11/17/17', '11/29/17', '', '89', '23'),
 (1865, 'A004', 'Notes for Activity 04', 'Stan', '10/12/17', '11/15/17', '0', '10/12/17', '11/15/17', 'Weather', '88', '12'),
 (1863, 'A002', 'Notes for Activity 02', 'Todd', '10/27/17', '11/6/17', '0', '10/27/17', '11/6/17', 'Weather', '88', '12'),
 (1862, 'A001', 'Notes for Activity 01', 'Todd', '10/8/17', '11/1/17', '0', '10/10/17', '10/31/17', 'Materials', '88', '12'),
 (1818, 'A013', 'Notes for Activity 13', 'Stan', '12/18/17', '1/12/18', '0', '12/18/17', '1/12/18', '', '88', '15'),
 (1819, 'A014', 'Notes for Activity 14', 'Steve', '12/20/17', '1/23/18', '0', '12/20/17', '1/23/18', '', '88', '15'),
-(2455, 'A007', 'Notes for Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/30/17', '', '89', '19'),
-(2454, 'A006', 'Notes for Activity 06', 'Stan', '11/17/17', '11/29/17', '0', '11/17/17', '11/28/17', 'Weather', '89', '19'),
-(2453, 'A005', 'Notes for Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/15/17', '11/9/17', 'Manpower', '89', '19'),
-(2450, 'A002', 'Notes for Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/28/17', '11/7/17', 'Materials', '89', '19'),
+(3017, 'A005', 'Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/15/17', '11/9/17', 'Too Much Planned', '89', '19'),
+(3016, 'A004', 'Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/13/17', '11/16/17', '', '89', '19'),
+(3015, 'A003', 'Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/2/17', '12/1/17', '', '89', '19'),
+(3014, 'A002', 'Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/28/17', '11/7/17', 'Materials', '89', '19'),
+(3013, 'A001', 'Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/10/17', '10/31/17', '', '89', '19'),
 (2250, 'A006', 'Notes for Activity 06', 'Stan', '11/17/17', '11/28/17', '0', '11/17/17', '11/28/17', '', '89', '18'),
 (2249, 'A005', 'Notes for Activity 05', 'Stan', '10/15/17', '11/9/17', '0', '10/14/17', '11/9/17', 'Materials', '89', '18'),
 (2247, 'A003', 'Notes for Activity 03', 'Todd', '11/2/17', '12/1/17', '0', '11/2/17', '12/1/17', '', '89', '18'),
 (2245, 'A001', 'Notes for Activity 01', 'Todd', '10/10/17', '10/31/17', '0', '10/9/17', '10/30/17', 'Design', '89', '18'),
 (2246, 'A002', 'Notes for Activity 02', 'Todd', '10/28/17', '11/7/17', '0', '10/27/17', '11/6/17', 'Materials', '89', '18'),
-(2416, 'A004', 'Notes for Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/12/17', '11/8/17', '', '89', '23'),
-(2415, 'A003', 'Notes for Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/1/17', '11/30/17', '', '89', '23'),
-(2414, 'A002', 'Notes for Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/27/17', '11/8/17', '', '89', '23'),
-(2413, 'A001', 'Notes for Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/9/17', '10/30/17', '', '89', '23'),
-(2449, 'A001', 'Notes for Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/10/17', '10/31/17', '', '89', '19'),
-(2670, 'A009', 'Activity 09', 'Steve', '1/24/18', '1/31/18', '0', '1/22/18', '1/29/18', 'Too Much Planned', '89', '22'),
-(2668, 'A007', 'Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/31/17', '', '89', '22'),
-(2667, 'A006', 'Activity 06', 'Stan', '11/17/17', '11/30/17', '0', '11/17/17', '11/30/17', '', '89', '22'),
-(2666, 'A005', 'Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/14/17', '11/13/17', '', '89', '22'),
-(2665, 'A004', 'Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/12/17', '11/8/17', '', '89', '22'),
-(2664, 'A003', 'Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/1/17', '11/30/17', '', '89', '22'),
-(2446, 'A034', '', 'Steve', '1/29/18', '2/13/18', '0', '', '', '', '89', '23'),
-(2447, 'A036', '', 'Todd', '1/21/18', '2/8/18', '0', '', '', '', '89', '23'),
-(2448, 'A037', '', 'Stan', '2/14/18', '2/27/18', '0', '', '', '', '89', '23');
+(2945, 'A005', 'Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/14/17', '11/13/17', '', '89', '23'),
+(2944, 'A004', 'Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/12/17', '11/8/17', '', '89', '23'),
+(2943, 'A003', 'Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/1/17', '11/30/17', '', '89', '23'),
+(3131, 'A014', 'Activity 14', 'Steve', '12/24/17', '1/30/18', '0', '12/24/17', '1/30/18', '', '89', '22'),
+(3130, 'A013', 'Activity 13', 'Stan', '12/17/17', '1/9/18', '0', '12/17/17', '1/9/18', 'Materials', '89', '22'),
+(3129, 'A012', 'Activity 12', 'Todd', '1/23/18', '2/2/18', '0', '1/23/18', '2/1/18', 'Materials', '89', '22'),
+(3128, 'A011', 'Activity 11', 'Stan', '2/3/18', '2/22/18', '0', '2/3/18', '2/22/18', '', '89', '22'),
+(2942, 'A002', 'Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/27/17', '11/8/17', '', '89', '23'),
+(2941, 'A001', 'Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/9/17', '10/30/17', '', '89', '23'),
+(3127, 'A010', 'Activity 10', 'Todd', '1/23/18', '2/16/18', '0', '1/22/18', '2/15/18', 'Manpower', '89', '22'),
+(3126, 'A009', 'Activity 09', 'Steve', '1/24/18', '1/31/18', '0', '1/22/18', '1/29/18', 'Design', '89', '22'),
+(3125, 'A008', 'Activity 08', 'Steve', '12/4/17', '1/3/18', '0', '12/4/17', '1/2/18', 'Materials', '89', '22'),
+(3124, 'A007', 'Activity 07', 'Steve', '10/19/17', '10/31/17', '0', '10/19/17', '10/31/17', '', '89', '22'),
+(3123, 'A006', 'Activity 06', 'Stan', '11/17/17', '11/30/17', '0', '11/17/17', '11/30/17', '', '89', '22'),
+(2974, 'A034', 'Activity 34', 'Steve', '1/29/18', '2/13/18', '0', '', '', '', '89', '23'),
+(2975, 'A036', 'Activity 36', 'Todd', '1/21/18', '2/8/18', '0', '', '', '', '89', '23'),
+(2976, 'A037', 'Activity 37', 'Stan', '2/14/18', '2/27/18', '0', '', '', '', '89', '23'),
+(3122, 'A005', 'Activity 05', 'Stan', '10/14/17', '11/13/17', '0', '10/14/17', '11/13/17', '', '89', '22'),
+(3037, 'A025', 'Activity 25', 'Stan', '1/21/18', '2/16/18', '0', '1/23/18', '2/19/18', '', '89', '19'),
+(3038, 'A026', 'Activity 26', 'Todd', '1/3/18', '1/4/18', '0', '1/2/18', '1/3/18', '', '89', '19'),
+(3039, 'A027', 'Activity 27', 'Stan', '2/4/18', '3/9/18', '0', '2/5/18', '3/9/18', '', '89', '19'),
+(3040, 'A028', 'Activity 28', 'Steve', '2/21/18', '2/22/18', '0', '2/19/18', '2/20/18', '', '89', '19'),
+(3041, 'A029', 'Activity 29', 'Steve', '2/22/18', '3/20/18', '0', '2/23/18', '3/21/18', '', '89', '19'),
+(3042, 'A030', 'Activity 30', 'Todd', '2/18/18', '3/12/18', '0', '2/17/18', '3/12/18', '', '89', '19'),
+(3043, 'A031', 'Activity 31', 'Todd', '2/12/18', '2/27/18', '0', '', '', '', '89', '19'),
+(3044, 'A032', 'Activity 32', 'Stan', '1/31/18', '2/21/18', '0', '', '', '', '89', '19'),
+(3045, '', '', '', '', '', '0', '', '', '', '89', '19'),
+(3151, 'A034', 'Activity 34', 'Steve', '1/29/18', '2/13/18', '0', '1/29/18', '2/13/18', '', '89', '22'),
+(3121, 'A004', 'Activity 04', 'Stan', '10/12/17', '11/8/17', '0', '10/12/17', '11/8/17', '', '89', '22'),
+(3120, 'A003', 'Activity 03', 'Todd', '11/1/17', '11/30/17', '0', '11/1/17', '11/30/17', '', '89', '22'),
+(3119, 'A002', 'Activity 02', 'Todd', '10/27/17', '11/8/17', '0', '10/27/17', '11/8/17', '', '89', '22'),
+(3118, 'A001', 'Activity 01', 'Todd', '10/9/17', '10/30/17', '0', '10/9/17', '10/30/17', '', '89', '22'),
+(3152, 'A036', 'Activity 36', 'Todd', '1/21/18', '2/8/18', '0', '1/21/18', '2/8/18', '', '89', '22'),
+(3153, 'A037', 'Activity 37', 'Stan', '2/14/18', '2/27/18', '0', '2/14/18', '2/27/18', '', '89', '22');
 
 -- --------------------------------------------------------
 
@@ -1282,29 +1483,39 @@ INSERT INTO `tbl_activity_tracking` (`id`, `aid`, `desc`, `resp`, `start`, `fini
 CREATE TABLE IF NOT EXISTS `tbl_constraint` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_constraint`
 --
 
-INSERT INTO `tbl_constraint` (`project_id`, `value`, `color`) VALUES
-(75, 'Action Item', '#176516'),
-(75, 'Materials', '#1a94a8'),
-(75, 'Inspection', '#9abb5d'),
-(61, 'Activity', ''),
-(61, 'Activity Item', ''),
-(88, 'Procurement', '#71b458'),
-(88, 'Inspection', '#927a7a'),
-(88, 'Action Item', '#d01313'),
-(89, 'Design', '#9d2525'),
-(89, 'Procurement', '#c82454'),
-(89, 'Action Item', '#4e9b19'),
-(89, 'Inspection', '#db2525'),
-(90, 'Action Item', '#df1f1f'),
-(90, 'Inspection', '#eadd35'),
-(90, 'Procurement', '#2ac73d');
+INSERT INTO `tbl_constraint` (`project_id`, `value`, `color`, `id`) VALUES
+(75, 'Action Item', '#176516', 1),
+(75, 'Materials', '#1a94a8', 2),
+(75, 'Inspection', '#9abb5d', 3),
+(61, 'Activity', '', 4),
+(61, 'Activity Item', '', 5),
+(88, 'Procurement', '#71b458', 6),
+(88, 'Inspection', '#927a7a', 7),
+(88, 'Action Item', '#d01313', 8),
+(89, 'Action Item', '#4e9b19', 22),
+(89, 'Procurement', '#c82454', 21),
+(89, 'Design', '#9d2525', 20),
+(90, 'Action Item', '#df1f1f', 13),
+(90, 'Inspection', '#eadd35', 14),
+(90, 'Procurement', '#2ac73d', 15),
+(89, 'Inspection', '#db2525', 23),
+(89, 'Constraint', '#b28484', 24),
+(94, 'Procurement', '#19a725', 37),
+(94, 'Inspection', '#93aa31', 36),
+(94, 'Constraint', '#c52c2c', 35),
+(94, 'Design', '#4e43d2', 38),
+(102, 'Inpection', '#ae1818', 44),
+(102, 'Procurement', '#74b039', 45),
+(102, 'Design', '#213fbb', 46),
+(102, 'Constraint', '#c0db23', 47);
 
 -- --------------------------------------------------------
 
@@ -1315,34 +1526,46 @@ INSERT INTO `tbl_constraint` (`project_id`, `value`, `color`) VALUES
 CREATE TABLE IF NOT EXISTS `tbl_delay` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_delay`
 --
 
-INSERT INTO `tbl_delay` (`project_id`, `value`, `color`) VALUES
-(75, 'Design', '#e57a7a'),
-(75, 'Weather', '#7d5d5d'),
-(75, 'Procurement', '#2bc113'),
-(75, 'Manpower', '#121872'),
-(75, 'Too Much Work', '#3daa1c'),
-(88, 'Weather', '#b60808'),
-(88, 'Workforce', '#aa5d5d'),
-(88, 'Materials', '#4cb446'),
-(88, 'Too Much Planned', '#cc2ba1'),
-(88, 'Design', '#1adbdd'),
-(89, 'Design', '#c12d2d'),
-(89, 'Materials', '#1738bd'),
-(89, 'Manpower', '#2cbd31'),
-(89, 'Too Much Planned', '#785555'),
-(89, 'Weather', '#2fa8d6'),
-(90, 'Weather', '#d61a1a'),
-(90, 'Manpower', '#54d038'),
-(90, 'Design', '#1d1aa1'),
-(90, 'Materials', '#d63ac8'),
-(90, 'Workspace', '#d06a26');
+INSERT INTO `tbl_delay` (`project_id`, `value`, `color`, `id`) VALUES
+(75, 'Design', '#e57a7a', 1),
+(75, 'Weather', '#7d5d5d', 2),
+(75, 'Procurement', '#2bc113', 3),
+(75, 'Manpower', '#121872', 4),
+(75, 'Too Much Work', '#3daa1c', 5),
+(88, 'Weather', '#b60808', 6),
+(88, 'Workforce', '#aa5d5d', 7),
+(88, 'Materials', '#4cb446', 8),
+(88, 'Too Much Planned', '#cc2ba1', 9),
+(88, 'Design', '#1adbdd', 10),
+(89, 'Design', '#c12d2d', 11),
+(89, 'Materials', '#1738bd', 12),
+(89, 'Manpower', '#2cbd31', 13),
+(89, 'Too Much Planned', '#785555', 14),
+(89, 'Weather', '#2fa8d6', 15),
+(90, 'Weather', '#d61a1a', 16),
+(90, 'Manpower', '#54d038', 17),
+(90, 'Design', '#1d1aa1', 18),
+(90, 'Materials', '#d63ac8', 19),
+(90, 'Workspace', '#d06a26', 20),
+(94, 'Weather', '#4a6721', 26),
+(94, 'Manpower', '#b44b4b', 27),
+(94, 'Too Much Planned', '#e32626', 28),
+(94, 'Design', '#5058ce', 29),
+(94, 'Materials', '#7050a5', 30),
+(102, 'Other', '#8e8282', 48),
+(102, 'Workspace', '#ac49c1', 47),
+(102, 'Manpower', '#d0994e', 46),
+(102, 'Materials', '#46c3ca', 45),
+(102, 'Design', '#2bb25f', 44),
+(102, 'Weather', '#175aa8', 43);
 
 -- --------------------------------------------------------
 
@@ -1354,7 +1577,7 @@ CREATE TABLE IF NOT EXISTS `tbl_holiday` (
   `id` int(11) NOT NULL,
   `project_id` int(11) DEFAULT NULL,
   `holiday` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_holiday`
@@ -1385,7 +1608,8 @@ INSERT INTO `tbl_holiday` (`id`, `project_id`, `holiday`) VALUES
 (24, 4, '2/5/2017'),
 (25, 19, '1/5/2016'),
 (26, 19, '1/8/2015'),
-(27, 19, '2/7/2017');
+(27, 19, '2/7/2017'),
+(59, 92, 'current');
 
 -- --------------------------------------------------------
 
@@ -1396,32 +1620,93 @@ INSERT INTO `tbl_holiday` (`id`, `project_id`, `holiday`) VALUES
 CREATE TABLE IF NOT EXISTS `tbl_location` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_location`
 --
 
-INSERT INTO `tbl_location` (`project_id`, `value`, `color`) VALUES
-(75, 'Floor 1', '#d45151'),
-(75, 'Floor 2', '#68aa6b'),
-(79, 'Floor 1', '#ae2525'),
-(79, 'Floor 2', '#221654'),
-(61, 'Floor 1', '#b62121'),
-(61, 'Floor 2', '#488c9b'),
-(84, 'Floor 1', '#ce4141'),
-(84, 'Floor 2', '#493030'),
-(83, 'Floor 1', '#f47f10'),
-(87, 'Floor 1', '#9b9595'),
-(87, 'Floor 2', '#141212'),
-(88, 'Floor 1', '#d61f1f'),
-(88, 'Floor 2', '#2da0a7'),
-(89, 'Floor 1', '#948c8c'),
-(89, 'Floor 2', '#7cb989'),
-(90, 'Area A', '#90d966'),
-(90, 'Area B', '#3f7fa3'),
-(90, 'Area C', '#9826ca');
+INSERT INTO `tbl_location` (`project_id`, `value`, `color`, `id`) VALUES
+(75, 'Floor 1', '#d45151', 1),
+(75, 'Floor 2', '#68aa6b', 2),
+(79, 'Floor 1', '#ae2525', 3),
+(79, 'Floor 2', '#221654', 4),
+(61, 'Floor 1', '#b62121', 5),
+(61, 'Floor 2', '#488c9b', 6),
+(84, 'Floor 1', '#ce4141', 7),
+(84, 'Floor 2', '#493030', 8),
+(83, 'Floor 1', '#f47f10', 9),
+(87, 'Floor 1', '#9b9595', 10),
+(87, 'Floor 2', '#141212', 11),
+(88, 'Floor 1', '#d61f1f', 12),
+(88, 'Floor 2', '#2da0a7', 13),
+(89, 'Floor 2', '#7cb989', 27),
+(89, 'Floor 1', '#ac5b5b', 26),
+(90, 'Area A', '#90d966', 16),
+(90, 'Area B', '#3f7fa3', 17),
+(90, 'Area C', '#9826ca', 18),
+(92, 'Floor 2', '#2f991e', 23),
+(92, 'Floor 1', '#ce5e5e', 22),
+(94, 'Area C', '#31397d', 37),
+(94, 'Area B', '#74c762', 36),
+(94, 'Area A', '#d04f4f', 35),
+(94, 'General', '#c34ab3', 38),
+(102, 'Area A', '#db2121', 43),
+(102, 'Area B', '#3eac37', 44),
+(102, 'Area C', '#3156b2', 45),
+(102, 'General', '#9f9696', 46);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_permission`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_permission` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `permission` varchar(255) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_permission`
+--
+
+INSERT INTO `tbl_permission` (`id`, `email`, `permission`, `pid`) VALUES
+(38, 'test2@mail.com', 'Edit Responsible Tasks', 92),
+(39, 'test3@mail.com', 'Read-Only', 92),
+(40, 'test2@mail.com', 'Administrator', 99),
+(41, 'test3@mail.com', 'Administrator', 69),
+(10, 'test2@mail.com', 'Edit Responsible Tasks', 89),
+(43, 'test3@mail.com', 'Administrator', 71),
+(42, 'test3@mail.com', 'Administrator', 70),
+(37, 'test1@mail.com', 'Edit All Tasks', 92),
+(36, 'test@mail.com', 'Administrator', 98),
+(35, 'test@mail.com', 'Administrator', 97),
+(34, 'test@mail.com', 'Administrator', 96),
+(33, 'test@mail.com', 'Administrator', 95),
+(32, 'test@mail.com', 'Administrator', 94),
+(31, 'test@mail.com', 'Administrator', 92),
+(30, 'test@mail.com', 'Administrator', 90),
+(29, 'test@mail.com', 'Administrator', 89),
+(28, 'test@mail.com', 'Administrator', 88),
+(44, 'test1@mail.com', 'Edit Responsible Tasks', 94),
+(45, 'test2@mail.com', 'Edit Responsible Tasks', 94),
+(46, 'test3@mail.com', 'Edit Responsible Tasks', 94),
+(47, 'smoore.us@gmail.com', 'Read-Only', 94),
+(48, 'test1@mail.com', 'Administrator', 65),
+(49, 'test1@mail.com', 'Administrator', 66),
+(50, 'test1@mail.com', 'Administrator', 67),
+(51, 'test1@mail.com', 'Administrator', 68),
+(52, 'test1@mail.com', 'Administrator', 93),
+(53, 'test@mail.com', 'Administrator', 100),
+(54, 'test@mail.com', 'Administrator', 101),
+(55, 'smoore.us@gmail.com', 'Administrator', 79),
+(56, 'smoore.us@gmail.com', 'Administrator', 87),
+(57, 'smoore.us@gmail.com', 'Administrator', 102);
 
 -- --------------------------------------------------------
 
@@ -1432,39 +1717,49 @@ INSERT INTO `tbl_location` (`project_id`, `value`, `color`) VALUES
 CREATE TABLE IF NOT EXISTS `tbl_priority` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_priority`
 --
 
-INSERT INTO `tbl_priority` (`project_id`, `value`, `color`) VALUES
-(75, 'High', '#f60d0d'),
-(75, 'Medium', '#f0eb2b'),
-(75, 'Low', '#309d34'),
-(79, 'High', '#df0808'),
-(79, 'Medium', '#abbf3b'),
-(79, 'Low', '#3cbd15'),
-(61, 'High', '#e50f0f'),
-(61, 'Medium', '#babd25'),
-(61, 'Low', '#123d0d'),
-(84, 'High', '#d80e0e'),
-(84, 'Medium', '#d9c73b'),
-(84, 'Low', '#358716'),
-(83, 'High', '#2055c1'),
-(87, 'High', '#dd1515'),
-(87, 'Medium', '#d7ea38'),
-(87, 'Low', '#2bce2a'),
-(88, 'High', '#df2020'),
-(88, 'Medium', '#c1d617'),
-(88, 'Low', '#336512'),
-(89, 'High', '#db0b0b'),
-(89, 'Medium', '#e4f273'),
-(89, 'Low', '#20d226'),
-(90, 'High', '#dd1a1a'),
-(90, 'Medium', '#eae522'),
-(90, 'Low', '#24df22');
+INSERT INTO `tbl_priority` (`project_id`, `value`, `color`, `id`) VALUES
+(75, 'High', '#f60d0d', 1),
+(75, 'Medium', '#f0eb2b', 2),
+(75, 'Low', '#309d34', 3),
+(79, 'High', '#df0808', 4),
+(79, 'Medium', '#abbf3b', 5),
+(79, 'Low', '#3cbd15', 6),
+(61, 'High', '#e50f0f', 7),
+(61, 'Medium', '#babd25', 8),
+(61, 'Low', '#123d0d', 9),
+(84, 'High', '#d80e0e', 10),
+(84, 'Medium', '#d9c73b', 11),
+(84, 'Low', '#358716', 12),
+(83, 'High', '#2055c1', 13),
+(87, 'High', '#dd1515', 14),
+(87, 'Medium', '#d7ea38', 15),
+(87, 'Low', '#2bce2a', 16),
+(88, 'High', '#df2020', 17),
+(88, 'Medium', '#c1d617', 18),
+(88, 'Low', '#336512', 19),
+(89, 'High', '#db0b0b', 20),
+(89, 'Medium', '#e4f273', 21),
+(89, 'Low', '#20d226', 22),
+(90, 'High', '#dd1a1a', 23),
+(90, 'Medium', '#eae522', 24),
+(90, 'Low', '#24df22', 25),
+(92, 'Low', '#54a82d', 34),
+(92, 'Medium', '#b5ce26', 33),
+(92, 'High', '#d23030', 32),
+(94, 'High', '#e31212', 38),
+(94, 'Medium', '#ece614', 39),
+(94, 'Low', '#167810', 40),
+(102, 'Low', '#36bf35', 49),
+(102, 'Medium', '#d3df1b', 48),
+(102, 'High', '#ea1414', 47);
 
 -- --------------------------------------------------------
 
@@ -1479,7 +1774,7 @@ CREATE TABLE IF NOT EXISTS `tbl_project` (
   `platform` varchar(255) NOT NULL,
   `user` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_project`
@@ -1490,9 +1785,6 @@ INSERT INTO `tbl_project` (`id`, `name`, `date`, `platform`, `user`, `user_id`) 
 (66, 'pp-test1', 'days', '0,2,', '', 2),
 (67, 'pp-test1-1', 'days', '0,', '', 2),
 (68, 'pp2-test1', 'days', '', '', 2),
-(69, 'test3', 'days', '', '', 4),
-(70, 'test4', 'days', '', '', 4),
-(71, 'test4', 'days', '', '', 4),
 (76, 'CMRI', 'days', '2,', '', 14),
 (77, 'CMRI', 'days', '2,', '', 14),
 (78, 'CMRI', 'days', '2,1,', '', 14),
@@ -1500,7 +1792,12 @@ INSERT INTO `tbl_project` (`id`, `name`, `date`, `platform`, `user`, `user_id`) 
 (87, 'Phone App Testing', 'days', '', '', 5),
 (88, 'Phase 5 Testing', 'days', '', '', 1),
 (89, 'Phase 5a Testing', 'days', '', '', 1),
-(90, 'UC Health Example', 'days', '', '', 1);
+(90, 'UC Health Example', 'days', '', '', 1),
+(92, 'Phase 7 Testing', 'days', '', '', 1),
+(99, 'Test User 2 Admin', 'days', '', '', 3),
+(100, 'Phase 8 Testing', 'days', '', '', 1),
+(101, 'Phase 8-1 Testing', 'days', '', '', 1),
+(102, 'Building Project', 'days', '', '', 5);
 
 -- --------------------------------------------------------
 
@@ -1511,51 +1808,70 @@ INSERT INTO `tbl_project` (`id`, `name`, `date`, `platform`, `user`, `user_id`) 
 CREATE TABLE IF NOT EXISTS `tbl_responsible` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `user` varchar(255) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_responsible`
 --
 
-INSERT INTO `tbl_responsible` (`project_id`, `value`, `color`) VALUES
-(61, 'Todd', '#f45d0a'),
-(61, 'Steve', '#10ea8c'),
-(75, 'Steve', '#893232'),
-(75, 'Todd', '#1b2170'),
-(75, 'George', '#3bb3b9'),
-(75, 'Ted', '#8a8a8a'),
-(75, 'Paul', '#dba54e'),
-(75, 'Sue', '#c32668'),
-(79, 'Todd', '#b04646'),
-(79, 'Stan', '#449847'),
-(79, 'Steve', '#3d2081'),
-(61, 'Stan', '#902d2d'),
-(61, 'Fred', '#515289'),
-(83, 'Todd', '#5df00a'),
-(84, 'Todd', '#c51b1b'),
-(84, 'Stan', '#649d53'),
-(84, 'Steve', '#29186c'),
-(87, 'Todd', '#b82727'),
-(87, 'Stan', '#238e11'),
-(87, 'Steve', '#2628a7'),
-(88, 'Todd', '#cc3333'),
-(88, 'Stan', '#3c8a57'),
-(88, 'Steve', '#0b14a5'),
-(89, 'Todd', '#dd2525'),
-(89, 'Stan', '#45c727'),
-(89, 'Steve', '#3328c3'),
-(90, 'Concrete', '#a7a5a5'),
-(90, 'Electrical', '#46a52a'),
-(90, 'Framing', '#a5744d'),
-(90, 'HVAC', '#c321c3'),
-(90, 'Insulation', '#ccdf29'),
-(90, 'Masonry', '#db9f3d'),
-(90, 'MEP', '#e55252'),
-(90, 'Plumbing', '#2a4bd6'),
-(90, 'Roofing', '#706a6a'),
-(90, 'Scaffolding', '#e4f20c'),
-(90, 'Steel', '#587bac');
+INSERT INTO `tbl_responsible` (`project_id`, `value`, `color`, `id`, `user`) VALUES
+(61, 'Todd', '#f45d0a', 1, ''),
+(61, 'Steve', '#10ea8c', 2, ''),
+(75, 'Steve', '#893232', 3, ''),
+(75, 'Todd', '#1b2170', 4, ''),
+(75, 'George', '#3bb3b9', 5, ''),
+(75, 'Ted', '#8a8a8a', 6, ''),
+(75, 'Paul', '#dba54e', 7, ''),
+(75, 'Sue', '#c32668', 8, ''),
+(79, 'Todd', '#b04646', 9, ''),
+(79, 'Stan', '#449847', 10, ''),
+(79, 'Steve', '#3d2081', 11, ''),
+(61, 'Stan', '#902d2d', 12, ''),
+(61, 'Fred', '#515289', 13, ''),
+(83, 'Todd', '#5df00a', 14, ''),
+(84, 'Todd', '#c51b1b', 15, ''),
+(84, 'Stan', '#649d53', 16, ''),
+(84, 'Steve', '#29186c', 17, ''),
+(87, 'Todd', '#b82727', 18, ''),
+(87, 'Stan', '#238e11', 19, ''),
+(87, 'Steve', '#2628a7', 20, ''),
+(88, 'Todd', '#cc3333', 21, ''),
+(88, 'Stan', '#3c8a57', 22, ''),
+(88, 'Steve', '#0b14a5', 23, ''),
+(89, 'Steve', '#3328c3', 125, ''),
+(89, 'Stan', '#40b624', 124, 'test2@mail.com'),
+(89, 'Todd', '#dd2525', 123, ''),
+(90, 'Concrete', '#a7a5a5', 27, ''),
+(90, 'Electrical', '#46a52a', 28, ''),
+(90, 'Framing', '#a5744d', 29, ''),
+(90, 'HVAC', '#c321c3', 30, ''),
+(90, 'Insulation', '#ccdf29', 31, ''),
+(90, 'Masonry', '#db9f3d', 32, ''),
+(90, 'MEP', '#e55252', 33, ''),
+(90, 'Plumbing', '#2a4bd6', 34, ''),
+(90, 'Roofing', '#706a6a', 35, ''),
+(90, 'Scaffolding', '#e4f20c', 36, ''),
+(90, 'Steel', '#587bac', 37, ''),
+(92, 'Steve', '#000', 61, 'smoore.us@gmail.com'),
+(92, 'Stan', '#45d644', 60, 'test2@mail.com'),
+(92, 'Todd', '#e72222', 59, 'test1@mail.com'),
+(99, '', '', 62, ''),
+(94, 'Sue', '#a023c3', 85, 'test3@mail.com'),
+(94, 'Jim', '#eca039', 84, 'test2@mail.com'),
+(94, 'Fred', '#ca2323', 82, 'test@mail.com'),
+(94, 'George', '#2aa333', 83, 'test1@mail.com'),
+(94, 'General', '#908484', 86, ''),
+(102, 'Tom', '#bebe24', 121, ''),
+(102, 'Ted', '#32d89e', 120, ''),
+(102, 'John', '#2f9298', 119, ''),
+(102, 'Paul', '#5cb42a', 117, ''),
+(102, 'Sue', '#b655c5', 118, ''),
+(102, 'Stan', '#c12929', 116, ''),
+(102, 'General', '#938787', 122, ''),
+(101, 'Todd', '#2fecee', 127, '');
 
 -- --------------------------------------------------------
 
@@ -1604,27 +1920,29 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   `name` varchar(200) NOT NULL,
   `company` varchar(200) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+  `password` varchar(200) NOT NULL,
+  `permission` varchar(250) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id`, `name`, `company`, `email`, `password`) VALUES
-(1, 'test user', 'test company', 'test@mail.com', 'test'),
-(2, 'test1 user', 'test1 company', 'test1@mail.com', 'test1'),
-(3, 'test2', 'test2', 'test2@mail.com', 'test2'),
-(4, 'test3', 'test3', 'test3@mail.com', 'test3'),
-(5, 'Steve Moore', 'SlatPlanner', 'smoore.us@gmail.com', 'rstlne'),
-(6, 'Susan', 'ABC', 'susan@gmail.com', '1234'),
-(8, 'Ringo', 'Boris', 'ringothedude@hotmail.com', 'ringo2017'),
-(9, 'demo', 'harmis Tehnology', 'nehal@harmistechnology.com', 'harmis123'),
-(10, 'Anish', 'na', 'walk2anish@gmail.com', 'anish78'),
-(11, 'Nikita', 'sdlc', 'ndnikki18@gmail.com', 'nikki'),
-(12, 'Nikita', 'sdlc', 'ndnikki18', 'nikki'),
-(13, '245676788', 'sdlc', '4365767', 'nikki'),
-(14, 'Adam Gurley', 'Robins & Morton', 'agurley@robinsmorton.com', '9484MccJ');
+INSERT INTO `tbl_user` (`id`, `name`, `company`, `email`, `password`, `permission`) VALUES
+(1, 'test user', 'test company', 'test@mail.com', 'test', 'Edit All Tasks'),
+(2, 'test1 user', 'test1 company', 'test1@mail.com', 'test1', ''),
+(3, 'test2', 'test2', 'test2@mail.com', 'test2', 'Edit Responsible Tasks'),
+(4, 'test3', 'test3', 'test3@mail.com', 'test3', 'Read-Only'),
+(5, 'Steve Moore', 'SlatPlanner', 'smoore.us@gmail.com', 'rstlne', ''),
+(6, 'Susan', 'ABC', 'susan@gmail.com', '1234', ''),
+(8, 'Ringo', 'Boris', 'ringothedude@hotmail.com', 'ringo2017', ''),
+(9, 'demo', 'harmis Tehnology', 'nehal@harmistechnology.com', 'harmis123', ''),
+(10, 'Anish', 'na', 'walk2anish@gmail.com', 'anish78', ''),
+(11, 'Nikita', 'sdlc', 'ndnikki18@gmail.com', 'nikki', ''),
+(12, 'Nikita', 'sdlc', 'ndnikki18', 'nikki', ''),
+(13, '245676788', 'sdlc', '4365767', 'nikki', ''),
+(14, 'Adam Gurley', 'Robins & Morton', 'agurley@robinsmorton.com', '9484MccJ', ''),
+(15, 'Ken Jones', 'LiteRailSys', 'LiteRailSys@att.net', 'sGIDNEYHUMEs_1456', '');
 
 -- --------------------------------------------------------
 
@@ -1635,18 +1953,19 @@ INSERT INTO `tbl_user` (`id`, `name`, `company`, `email`, `password`) VALUES
 CREATE TABLE IF NOT EXISTS `tbl_userlist` (
   `project_id` int(11) DEFAULT NULL,
   `value` varchar(200) DEFAULT NULL,
-  `color` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `color` varchar(100) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_userlist`
 --
 
-INSERT INTO `tbl_userlist` (`project_id`, `value`, `color`) VALUES
-(61, 'test@mail.com', ''),
-(75, 'smoore.us@gmail.com', ''),
-(75, 'pedro@mail.com', ''),
-(88, 'smoore.us@gmail.com', '');
+INSERT INTO `tbl_userlist` (`project_id`, `value`, `color`, `id`) VALUES
+(61, 'test@mail.com', '', 1),
+(75, 'smoore.us@gmail.com', '', 2),
+(75, 'pedro@mail.com', '', 3),
+(88, 'smoore.us@gmail.com', '', 4);
 
 --
 -- Indexes for dumped tables
@@ -1677,15 +1996,51 @@ ALTER TABLE `tbl_activity_tracking`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_constraint`
+--
+ALTER TABLE `tbl_constraint`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_delay`
+--
+ALTER TABLE `tbl_delay`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_holiday`
 --
 ALTER TABLE `tbl_holiday`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_location`
+--
+ALTER TABLE `tbl_location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_permission`
+--
+ALTER TABLE `tbl_permission`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_priority`
+--
+ALTER TABLE `tbl_priority`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_project`
 --
 ALTER TABLE `tbl_project`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_responsible`
+--
+ALTER TABLE `tbl_responsible`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1701,6 +2056,12 @@ ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_userlist`
+--
+ALTER TABLE `tbl_userlist`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1708,32 +2069,62 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_activity`
 --
 ALTER TABLE `tbl_activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3465;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5475;
 --
 -- AUTO_INCREMENT for table `tbl_activity_constraint`
 --
 ALTER TABLE `tbl_activity_constraint`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=241;
 --
 -- AUTO_INCREMENT for table `tbl_activity_snapshot_history`
 --
 ALTER TABLE `tbl_activity_snapshot_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=515;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=840;
 --
 -- AUTO_INCREMENT for table `tbl_activity_tracking`
 --
 ALTER TABLE `tbl_activity_tracking`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2698;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3154;
+--
+-- AUTO_INCREMENT for table `tbl_constraint`
+--
+ALTER TABLE `tbl_constraint`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT for table `tbl_delay`
+--
+ALTER TABLE `tbl_delay`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `tbl_holiday`
 --
 ALTER TABLE `tbl_holiday`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
+--
+-- AUTO_INCREMENT for table `tbl_location`
+--
+ALTER TABLE `tbl_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT for table `tbl_permission`
+--
+ALTER TABLE `tbl_permission`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+--
+-- AUTO_INCREMENT for table `tbl_priority`
+--
+ALTER TABLE `tbl_priority`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `tbl_project`
 --
 ALTER TABLE `tbl_project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=103;
+--
+-- AUTO_INCREMENT for table `tbl_responsible`
+--
+ALTER TABLE `tbl_responsible`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=128;
 --
 -- AUTO_INCREMENT for table `tbl_snapshot`
 --
@@ -1743,7 +2134,12 @@ ALTER TABLE `tbl_snapshot`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT for table `tbl_userlist`
+--
+ALTER TABLE `tbl_userlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -14,11 +14,14 @@
 	$query = "delete from tbl_".$tbname." where project_id='$pid'";
 	mysql_query($query);
 	$data = explode(",", $data); 
+	$num = 2;
+	if($tbname == 'snapshot') $num = 4;
+	if($tbname == 'calendar') $num = 4;
 	if($tbname == 'responsible') $semail  = explode(",", $semail); 
-	for($i=0; $i<count($data)/2; $i++) {
+	for($i=0; $i<count($data)/$num; $i++) {
 		$str = "";
-		for($j=0; $j<2; $j++) {
-			$str .= ", '" . $data[$i*2+$j] . "'";
+		for($j=0; $j<$num; $j++) {
+			$str .= ", '" . $data[$i*$num+$j] . "'";
 		}
 		$assign = ", ''";
 		if($tbname == 'responsible') {
@@ -28,6 +31,10 @@
 		}
 		if($tbname == 'responsible')
 			$query = "insert into tbl_" . $tbname . " values('$pid' " . $str . ", null " . $assign . ")";
+		else if($tbname == 'snapshot')
+			$query = "insert into tbl_" . $tbname . " values(null, '$pid' " . $str . ")";
+		else if($tbname == 'calendar')
+			$query = "insert into tbl_" . $tbname . " values('$pid' " . $str . ", null)";
 		else
 			$query = "insert into tbl_" . $tbname . " values('$pid' " . $str . ", null)";
 		mysql_query($query);

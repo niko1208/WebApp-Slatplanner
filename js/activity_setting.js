@@ -163,7 +163,7 @@ function loadSetting(pid, tbname, callback) {
         processData: false, 
         contentType: false,
         data: form_data,
-        success: function(data) { data1 = JSON.parse(JSON.stringify(data)); console.log(data1);
+        success: function(data) { 
         	if(tbname == 'responsible') {
         		respData_permission = [];
 	        	if(ppermission == 'Edit Responsible Tasks') { 
@@ -462,6 +462,12 @@ $(function(){
 		} else if($(this).attr('id') == 'setting_item_delay') {
 			$('#setting_delay').css('display', 'block');
 			getDelay();
+		} else if($(this).attr('id') == 'setting_item_snapshot') {
+			$('#setting_snapshot').css('display', 'block');
+			getSnapshot();
+		} else if($(this).attr('id') == 'setting_item_calendar') {
+			$('#setting_calendar').css('display', 'block');
+			getCalendar();
 		}
 	})
 
@@ -550,6 +556,57 @@ $(function(){
        	settingRespTrEvent();
        	$('#bt_setting_resp_save').click();
 	})
+
+	$('#setting_snapshot .saddcircle').click(function(){ 
+		if($('#newsnapshot').length > 0) return;
+		strHtml = `
+        			<tr id='newsnapshot'>
+	                    <td><i class="fa fa-trash-o sdelete" aria-hidden="true"></i></td>
+	                    <td class='td_uname'><input type='text' class='tt' value='' readonly/></td>
+	                    <td class='td_uemail'>
+	                    	<input type='text' class='tt' value=''/>
+	                    </td>
+	                    <td>
+	                        <div class='create_date'>`+today+`</div>
+	                    </td>
+	                </tr>
+        		`;
+       	$('#setting_snapshot table tbody').append(strHtml);
+       	settingSnapshotTrEvent();
+       	$('#bt_setting_snapshot_save').click();
+	})
+
+	$('#setting_calendar .saddcircle').click(function(){ 
+		if($('#newcalendar').length > 0) return;
+		strHtml = `
+        			<tr id='newcalendar'>
+	                    <td><i class="fa fa-trash-o sdelete" aria-hidden="true"></i></td>
+	                    <td class='td_uname'><input type='text' class='tt' value=''/></td>
+	                    <td class='td_week'>
+	                    	<select class='form-control'>
+	                    		<option value='5'>5 Days</option>
+	                    		<option value='6'>6 Days</option>
+	                    		<option value='7'>7 Days</option>
+	                    	</select>
+	                    </td>
+	                    <td class='td_cal'>
+	                    	<input type='text' />
+	                    	<i class="fa fa-calendar" aria-hidden="true"></i>
+	                    </td>
+	                    <td>
+	                        <div class='cdefault'></div>
+	                    </td>
+	                </tr>
+        		`;
+       	$('#setting_calendar table tbody').append(strHtml);
+       	if($('#setting_calendar table tbody tr').length == 1) {
+   			$('#setting_calendar table tbody tr:last-child .sdelete').css('display', 'none');
+   			$('#setting_calendar table tbody tr:last-child .cdefault').addClass('sel');
+   		}
+       	settingCalendarTrEvent();
+       	$('#bt_setting_calendar_save').click();
+	})
+
 	$('#setting_location .saddcircle').click(function(){ 
 		if($('#newlocation').length > 0) return;
 		strHtml = `
@@ -622,6 +679,7 @@ $(function(){
        	settingDelayTrEvent();
        	$('#bt_setting_delay_save').click();
 	})
+
 	$('#bt_setting_resp_save').click(function(){ 
 		sdata = [];
 		semail = [];
@@ -637,6 +695,33 @@ $(function(){
 		$('#newresp').attr('id', '');
 		saveSettingAttr('responsible', sdata, semail);
 	});
+
+	$('#bt_setting_snapshot_save').click(function(){ 
+		sdata = [];
+		$('#setting_snapshot table tbody tr').each(function(){
+			obj = $(this);
+			if(obj.find('.td_uname input').val() != "") {
+				sdata.push([obj.find('.td_uname input').val(), '', obj.find('.td_uemail input').val(), obj.find('.create_date').html()]);
+			}
+		});
+		$('#newsnapshot').attr('id', '');
+		saveSettingAttr('snapshot', sdata);
+	});
+
+	$('#bt_setting_calendar_save').click(function(){ 
+		sdata = [];
+		$('#setting_calendar table tbody tr').each(function(){
+			obj = $(this);
+			if(obj.find('.td_uname input').val() != "") {
+				holiday = obj.find('.td_cal input').val();
+				holiday = holiday.replace(/,/g , ":");
+				sdata.push([obj.find('.td_uname input').val(), obj.find('.td_week select').val(), holiday, obj.find('.cdefault').hasClass('sel')]);
+			}
+		});
+		$('#newcalendar').attr('id', '');
+		saveSettingAttr('calendar', sdata);
+	});
+
 	$('#bt_setting_location_save').click(function(){ 
 		sdata = [];
 		$('#setting_location table tbody tr').each(function(){
@@ -647,6 +732,7 @@ $(function(){
 		$('#newlocation').attr('id', '');
 		saveSettingAttr('location', sdata);
 	});
+
 	$('#bt_setting_priority_save').click(function(){ 
 		sdata = [];
 		$('#setting_priority table tbody tr').each(function(){
@@ -987,6 +1073,126 @@ function settingDelayTrEvent() {
 	})
 }
 
+//====== 6 - spanshot setting
+
+function getSnapshot() {
+	loadSetting(ppid, 'snapshot', function(data){
+		$('#setting_snapshot table tbody').html("");
+		for(i=0; i<data.length; i++) {
+			strHtml = `
+        			<tr id=''>
+	                    <td><i class="fa fa-trash-o sdelete" aria-hidden="true"></i></td>
+	                    <td class='td_uname'><input type='text' class='tt' value='`+data[i].value+`' readonly/></td>
+	                    <td class='td_uemail'>
+	                    	<input type='text' class='tt' value='`+data[i].desc+`'/>
+	                    </td>
+	                    <td>
+	                        <div class='create_date'>`+data[i].date+`</div>
+	                    </td>
+	                </tr>
+        		`;
+       		$('#setting_snapshot table tbody').append(strHtml);
+		}
+   		settingSnapshotTrEvent();
+	});
+
+}
+
+function settingSnapshotTrEvent() {
+	$('#setting_snapshot table tbody .td_uname input').each(function(){
+		obj = $(this);
+		date = obj.val(); 
+		obj.datepicker({
+          	inline: true,
+          	dateFormat: "mm/dd/y"
+        });
+		
+		if(date != "") {
+	        obj.datepicker("setDate", date);
+	    }
+	})
+	$('#setting_snapshot table tbody .sdelete').click(function(){
+		uid = $(this).parent().next().find('input').val();
+		showAlertDeleteSetting(2, uid);
+	})
+}
+
+//====== 7 - calendar setting
+
+function getCalendar() {
+	loadSetting(ppid, 'calendar', function(data){
+		$('#setting_calendar table tbody').html("");
+		for(i=0; i<data.length; i++) {
+			strHtml = `
+        			<tr id=''>
+	                    <td><i class="fa fa-trash-o sdelete" aria-hidden="true"></i></td>
+	                    <td class='td_uname'><input type='text' class='tt' value='`+data[i].cname+`' readonly/></td>
+	                    <td class='td_week'>
+	                    	<select class='form-control'>
+	                    		<option value='5'>5 Days</option>
+	                    		<option value='6'>6 Days</option>
+	                    		<option value='7'>7 Days</option>
+	                    	</select>
+	                    </td>
+	                    <td class='td_cal' value='`+data[i].choliday+`'>
+	                    	<input type='text' />
+	                    	<i class="fa fa-calendar" aria-hidden="true"></i>
+	                    </td>
+	                    <td>
+	                        <div class='cdefault'></div>
+	                    </td>
+	                </tr>
+        		`;
+       		$('#setting_calendar table tbody').append(strHtml);
+       		$('#setting_calendar table tbody tr:last-child .td_week select').val(data[i].cweek);
+       		if(i == 0) {
+       			$('#setting_calendar table tbody tr:last-child .sdelete').css('display', 'none');
+       		}
+       		if(data[i].cdefault == 'true') {
+       			$('#setting_calendar table tbody tr:last-child .cdefault').addClass('sel');
+       		}
+		}
+   		settingCalendarTrEvent();
+	});
+
+}
+
+function settingCalendarTrEvent() {
+	$('#setting_calendar table tbody .td_cal input').each(function(){
+		obj = $(this);
+		holiday = obj.parent().attr('value');
+		dates = [];
+		if(holiday && holiday != "") {
+			ary = holiday.split(':');
+			for(i=0;i<ary.length;i++) {
+				dates.push(ary[i].trim());
+			}
+			obj.multiDatesPicker({
+	      		onSelect: function(){
+	      			$('.td_uname input').focus();
+	      		},    	
+	      		addDates: dates
+	        });
+		} else {
+			obj.multiDatesPicker({
+	      		onSelect: function(){
+	      			$('.td_uname input').focus();
+	      		}
+	        });
+		}
+	})
+	$('#setting_calendar table tbody .cdefault').unbind('click');
+	$('#setting_calendar table tbody .cdefault').click(function(){
+		$('#setting_calendar table tbody .cdefault').removeClass('sel');
+		$(this).addClass('sel');
+	})
+	$('#setting_calendar table tbody .sdelete').unbind('click');
+	$('#setting_calendar table tbody .sdelete').click(function(){
+		uid = $(this).parent().next().find('input').val();
+		showAlertDeleteSetting(3, uid);
+	})
+}
+
 //==================================================================
 var myTimer = null;
 function settingClickInit() {
@@ -1082,6 +1288,9 @@ function showAlertDeleteSetting(itype, id) {
 	} else if(itype == 1) {
 		$('#alert_delete_setting .alert_title').html("Delete this responsible?");
 		$('#alert_delete_setting .bt_alert_yes').attr("id", id);
+	} else if(itype == 2) {
+		$('#alert_delete_setting .alert_title').html("Delete this snapshot?");
+		$('#alert_delete_setting .bt_alert_yes').attr("id", id);
 	}
 	$('#alert_delete_setting').fadeIn('fast');
 }
@@ -1099,6 +1308,11 @@ function alertEvent() {
 			form_data.append('pid', ppid);
 		    form_data.append('tbname', 'responsible');
 		    form_data.append('value', id);
+		} else if(setting_item_type == 2) {
+			sUrl = "api/activity_setting_attr_del.php";
+			form_data.append('pid', ppid);
+		    form_data.append('tbname', 'snapshot');
+		    form_data.append('value', id);
 		}
 	    $.ajax({
 	        type: "POST",
@@ -1112,6 +1326,8 @@ function alertEvent() {
 	        		getUser();
 	        	} else if(setting_item_type == 1) {
 	        		getResponsible();
+	        	} else if(setting_item_type == 2) {
+	        		getSnapshot();
 	        	}
 	        },
 	        error: function() {

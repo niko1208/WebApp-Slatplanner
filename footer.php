@@ -75,6 +75,8 @@
 
 
     <script src="libs/js/bootstrap-datetimepicker.min.js"></script>
+    
+    <script src="libs/js/jquery-ui.multidatespicker.js"></script>
 
 
 
