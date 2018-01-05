@@ -671,83 +671,11 @@ include("header.php");
                         <div class="div_snapshot" style="max-width:150px; float: left; margin-right: 25px;">
                             <select class="form-control snapshot" id="snapshot"></select>
                         </div>
-                        <!--
-                        <div style='float:left;margin-left:10px;'>
-                            <button type="button" class="btn btn-success bt_ssadd">Add</button>
-                            <button type="button" class="btn btn-danger bt_ssremove">Remove</button>
-                        </div>
-                        -->
                     </div>
-                </div>
-                <!--
-                <div class="col col-sm-3">
-                    <div>Snapshot Description</div>
-                    <div>
-                        <textarea class="form-control" id="snapshot_desc" rows='1'></textarea>
-                    </div>
-                </div>
-                <div class="col col-sm-5">
-                    <div>Creation Date</div>
-                    <div>
-                        <input type='text' class="form-control" id="snapshot_date" readonly="true" />
-                    </div>
-                </div>
-                -->
-            </div>
-            <br/>
-
-            <div class="row">
-
-                <div class="col col-sm-2">
-                    <!--
-                    <div>Filter</div>
-
-                    <select class="form-control" id='filter'>
-
-                    </select>
-                    -->
-
-                </div>
-
-                <div class="col col-sm-2">
-                    <!--
-                    <div>Work Week</div>
-
-                    <select class="form-control" id='work_week'>
-
-                        <option value='2'>5 Days</option>
-
-                        <option value='1'>6 Days</option>
-
-                        <option value='0'>7 Days</option>
-
-                    </select>
-                    -->
-
                 </div>
 
                 <div class="col col-sm-3">
-                    <!--
-                    <div>Holidays</div>
-
-                    <div style="float:left;width: 150px;position:relative;">
-
-                        <select class="form-control" id='holidays' style="width:100%;">
-
-                        </select>
-
-                    </div>
-
-                    <div style='float:left;margin-left:10px;'>
-
-                        <button type="button" class="btn btn-success" id='bt_hadd'>Add</button>
-                        <button type="button" class="btn btn-danger" id='bt_hremove'>Remove</button>
-                        
-                    </div>
-                    -->
                 </div>
-
-                
 
                 <div class="col col-sm-3" style='text-align: right;'>
                     <button type="button" class="btn btn-success" id='bt_arefresh'>Refresh</button>
@@ -767,7 +695,6 @@ include("header.php");
                     <textarea id='paste'></textarea>
 
                 </div>
-
             </div>
 
         </div>
