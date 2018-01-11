@@ -146,6 +146,7 @@ function loadSettingAll(pid, callback) {
 	loadSetting(pid, "priority");
 	loadSetting(pid, "constraint");
 	loadSetting(pid, "delay");
+	loadSetting(pid, "calendar");
 	loadSetting(pid, "userlist", function(){
 		if(callback) callback();
 	});
@@ -213,12 +214,17 @@ function loadSetting(pid, tbname, callback) {
             		`);
 	            }
 	        	$('#act_detail_resp').html("");
+	        	respVal = $('#filter_resp').val();
+	        	$('#filter_resp').html("<option value=''>All</option>");
 	        	for(i=0;i<data.length;i++) {
 	            	$('#act_detail_resp').append($('<option>', { 
 	                    value: data[i].value,
 	                    text : data[i].value 
 	                }));
+	                $('#filter_resp').append("<option value='"+data[i].value+"'>"+data[i].value+"</option>");
 	            }
+	            $('#filter_resp').val(respVal);
+
 	            $('.act_detail_const_resp').html("");
 	        	for(i=0;i<respData_permission.length;i++) {
 	            	$('.act_detail_const_resp').append($('<option>', { 
@@ -228,19 +234,23 @@ function loadSetting(pid, tbname, callback) {
 	            }
 	        } else if(tbname == 'location') {
 	        	$('#act_detail_location').html("");
+	        	$('#filter_location').html("<option value=''>All</option>");
 	        	for(i=0;i<data.length;i++) {
 	            	$('#act_detail_location').append($('<option>', { 
 	                    value: data[i].value,
 	                    text : data[i].value 
 	                }));
+	                $('#filter_location').append("<option value='"+data[i].value+"'>"+data[i].value+"</option>");
 	            }
 	        } else if(tbname == 'priority') {
 	        	$('#act_detail_priority').html("");
+	        	$('#filter_priority').html("<option value=''>All</option>");
 	        	for(i=0;i<data.length;i++) {
 	            	$('#act_detail_priority').append($('<option>', { 
 	                    value: data[i].value,
 	                    text : data[i].value 
 	                }));
+	                $('#filter_priority').append("<option value='"+data[i].value+"'>"+data[i].value+"</option>");
 	            }
 	        } else if(tbname == 'delay') {
 	        	$('#act_detail_delay').html("");
@@ -250,7 +260,12 @@ function loadSetting(pid, tbname, callback) {
 	                    text : data[i].value 
 	                }));
 	            }
-	        }
+	        } else if(tbname == 'calendar') {
+	        	$('#filter_calendar').html("<option value=''>All</option>");
+	        	for(i=0;i<data.length;i++) {
+	            	$('#filter_calendar').append("<option value='"+data[i].cname+"'>"+data[i].cname+"</option>");
+	            }
+	        } 
         },
         error: function() {
         },
@@ -1126,7 +1141,7 @@ function getCalendar() {
 			strHtml = `
         			<tr id=''>
 	                    <td><i class="fa fa-trash-o sdelete" aria-hidden="true"></i></td>
-	                    <td class='td_uname'><input type='text' class='tt' value='`+data[i].cname+`' readonly/></td>
+	                    <td class='td_uname'><input type='text' class='tt' value='`+data[i].cname+`'/></td>
 	                    <td class='td_week'>
 	                    	<select class='form-control'>
 	                    		<option value='5'>5 Days</option>
@@ -1169,15 +1184,21 @@ function settingCalendarTrEvent() {
 			}
 			obj.multiDatesPicker({
 	      		onSelect: function(){
-	      			$('.td_uname input').focus();
-	      		},    	
+	      			$(this).data("datepicker").inline = true;
+	      		},
+				onClose: function() {
+					$(this).data("datepicker").inline = false;
+				},    	
 	      		addDates: dates
 	        });
 		} else {
 			obj.multiDatesPicker({
-	      		onSelect: function(){
-	      			$('.td_uname input').focus();
-	      		}
+	      		onSelect: function() {
+					$(this).data("datepicker").inline = true;
+				},
+				onClose: function() {
+					$(this).data("datepicker").inline = false;
+				}
 	        });
 		}
 	})

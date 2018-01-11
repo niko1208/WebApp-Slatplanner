@@ -224,7 +224,7 @@ include("header.php");
                 <div class="col col-sm-3">
                     <div class='setting_item sel' id='setting_item_user'>User Privilege</div>
                     <div class='setting_item' id='setting_item_resp'>Responsible</div>
-                    <div class='setting_item' id='setting_item_snapshot'>Snapshot</div>
+                    <div class='setting_item' id='setting_item_snapshot'>Snapshots</div>
                     <div class='setting_item' id='setting_item_calendar'>Calendars</div>
                     <div class='setting_item' id='setting_item_location'>Locations</div>
                     <div class='setting_item' id='setting_item_priority'>Priorities</div>
@@ -262,9 +262,9 @@ include("header.php");
                             <thead>
                                 <tr>
                                     <td width="50"></td>
-                                    <td>Date</td>
+                                    <td width="150">Date</td>
                                     <td>Description</td>
-                                    <td>Creation Date</td>
+                                    <td width="200">Creation Date</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -702,40 +702,50 @@ include("header.php");
         <br/>
 
         <div class="td_wrapper">
-
+            <div class="sticky-table sticky-headers sticky-ltr-cells">
             <table class='table stable' id="table_activity">
 
                 <thead>
 
-                    <tr style="font-weight: bold; color: #333;">
+                    <tr class="sticky-row" style="font-weight: bold; color: #333;">
 
-                        <td style="width:50px;text-align: center;height: 42px;" class="selectall">
+                        <th style="width:50px;height: 42px;font-size: 18px;" class="selectall" colspan="2">
                             <i class="fa fa-check-square-o i-checked" aria-hidden="true"></i>
 
                             <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
-                        </td>
+                        </th>
+                        <th class='sort_aid' value='activity_id'><span>Activity ID</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span>
+                        </th>
 
-                        <td>Activity ID</td>
+                        <th class='sort_aname' value='activity_id' style="width: 200px;"><span>Activity Name</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <td>Activity Name</td>
+                        <th class='sort_aduration' value='duration'><span>Duration</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <td>Duration</td>
+                        <th class='sort_astart' value='start'><span>Start</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <td>Start</td>
+                        <th class='sort_afinish' value='finish'><span>Finish</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <td>Finish</td>
+                        <th class='sort_asize' value='size'><span>Crew Size</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <td>Crew Size</td>
+                        <th>Responsible<br>
+                            <select class='filter_actlist' id='filter_resp' value='code'></select>
+                        </th>
 
-                        <td>Responsible</td>
+                        <th>Location<br>
+                            <select class='filter_actlist' id='filter_location' value='location'></select>
+                        </th>
 
-                        <td>Location</td>
+                        <th>Priority<br>
+                            <select class='filter_actlist' id='filter_priority' value='priority'></select>
+                        </th>
 
-                        <td>Priority</td>
+                        <th>Calendar<br>
+                            <select class='filter_actlist' id='filter_calendar' value='calendar'></select>
+                        </th>
 
-                        <td>URL</td>
+                        <th>URL</th>
 
-                        <td>Notes</td>
+                        <th>Notes</th>
 
                     </tr>
 
@@ -748,11 +758,12 @@ include("header.php");
                 </tbody>
 
             </table>
+            </div>
+
+            <br/>
 
             <div>
-
-                <button type="button" class="btn btn-success" id='bt_aadd'>Add</button>
-
+                <i class="fa fa-plus-circle" aria-hidden="true" id='bt_aadd'></i>
             </div>
 
             <br/>

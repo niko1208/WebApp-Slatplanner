@@ -91,6 +91,7 @@
     <script src="libs/jsPDF-master/dist/jspdf.debug.js"></script>
     <script src="libs/jsPDF-master/plugins/total_pages.js"></script>
     
+    <script src="libs/js/jquery.stickytable.min.js"></script>
     <script src="js/index.js"></script>
 
 

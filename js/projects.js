@@ -130,10 +130,11 @@ $(document).ready(function(){
                 var tr_count = $('#table_activity tbody tr').length;
 
                 var strHtml = "";
+                $('#table_activity tbody').html("");
 
                 for(i=0; i<rows.length -1; i++) {
 
-                    strHtml += `<tr class='tr'>
+                    strHtml = `<tr class='tr grid'>
 
                                     <td class="psetting acheck">
 
@@ -143,35 +144,76 @@ $(document).ready(function(){
 
                                     </td>
 
-                                    <td class='aid'><input class="tt" type="text" value=''/></td>
+                                    <td class='eyeview'><i class="fa fa-eye bt_go_detail" aaid="" aid="" aria-hidden="true"></i></td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class='aid'><input class="tt tt01" type="text" value=''/></td>
 
-                                    <td class='aduration'><input class="tt" type="text" value=''/></td>
+                                    <td><input class="tt tt02" type="text" value=''/></td>
 
-                                    <td class='astart'><input class="tt" type="text" value=''/></td>
+                                    <td class='aduration'><input class="tt tt03" type="text" value=''/></td>
 
-                                    <td class='afinish'><input class="tt" type="text" value=''/></td>
+                                    <td class='astart'>
+                                        <input class="tt tt04" type="text" value=''/>
+                                        <div class='div_cal'>
+                                            <input type='text' value='' />
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class='afinish'>
+                                        <input class="tt tt05" type="text" value=''/>
+                                        <div class='div_cal'>
+                                            <input type='text' value='' />
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </td>
 
-                                    <td class="acolor" style='display:none'><input class="tt" type="text" maxlength="7" value=''/></td>
+                                    <td><input class="tt tt06" type="text" value=''/></td>
 
-                                    <td class="acode"><input class="tt" type="text" value=''/></td>
+                                    <td class="acolor" style='display:none'><input class="tt tt07" type="text" maxlength="7" value=''/></td>
 
-                                    <td class="alocation"><input class="tt" type="text" value=''/></td>
+                                    <td class="acode"><input class="tt tt08" type="text" value=''/></td>
 
-                                    <td class="apriority"><input class="tt" type="text" value=''/></td>
+                                    <td class="alocation"><input class="tt tt09" type="text" value=''/></td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class="apriority"><input class="tt tt10" type="text" value=''/></td>
 
-                                    <td><input class="tt" type="text" value=''/></td>
+                                    <td class='td_cal'>
+                                        <select class="form-control tt13">
+                                            <option value='5'>5 Days</option>
+                                            <option value='6'>6 Days</option>
+                                            <option value='7'>7 Days</option>
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <a target='_blank' href='http://'>
+                                            <i class="fa fa-external-link url" aria-hidden="true"></i>
+                                        </a>
+                                        <input class="tt tt11" type="text" value=''/>
+                                    </td>
+
+                                    <td>
+                                        <i class="fa fa-sticky-note-o note" aria-hidden="true"></i>
+                                        <input class="tt tt12" type="text" value=''/>
+                                        <div class='note_popup'>
+                                            <div></div>
+                                        </div>
+                                    </td>
 
                                 </tr>`;
 
+                                $('#table_activity tbody').append(strHtml);
+
+                                if(settingData['calendar']) {
+                                    for(j=0;j<settingData['calendar'].length;j++) {
+                                        $('#table_activity tbody tr:last-child td.td_cal select').append("<option value='"+settingData['calendar'][j].cname+"'>"+settingData['calendar'][j].cname+"</option>");
+                                    }
+                                }
+
                 }
 
-                $('#table_activity tbody').append(strHtml);
+                
 
                 
 
@@ -183,7 +225,7 @@ $(document).ready(function(){
 
                         var cells = rows[y].split("\t");
 
-                        var td_obj = tr_obj.find('td:nth-child(2)');
+                        var td_obj = tr_obj.find('td:nth-child(3)');
 
                         for(var x in cells) { 
                             if(td_obj.css('display') == 'none') {
@@ -191,6 +233,15 @@ $(document).ready(function(){
                                 td_obj = td_obj.next();
                             }
                             td_obj.find('input').val(cells[x]);
+                            if(td_obj.find('input').hasClass('tt11')) {
+                               td_obj.find('a').attr('href', 'http://'+cells[x]);
+                            }
+                            if(td_obj.find('input').hasClass('tt12')) {
+                               td_obj.find('.note_popup div').html(cells[x]);
+                            }
+                            if(td_obj.hasClass('td_cal')) {
+                                td_obj.find('select').val(cells[x]);
+                            }
                             td_obj = td_obj.next();
 
                         }
@@ -391,33 +442,61 @@ $(document).ready(function(){
 
 		                </td>
 
-		                <td class='aid'><input class="tt" type="text" value=''/></td>
+                        <td class='eyeview'><i class="fa fa-eye" aria-hidden="true"></i></td>
 
-		                <td><input class="tt" type="text" value=''/></td>
+		                <td class='aid'><input class="tt tt01" type="text" value=''/></td>
 
-		                <td class='aduration'><input class="tt" type="text" value=''/></td>
+		                <td><input class="tt tt02" type="text" value=''/></td>
 
-		                <td class='astart'><input class="tt" type="text" value=''/></td>
+		                <td class='aduration'><input class="tt tt03" type="text" value=''/></td>
 
-		                <td class='afinish'><input class="tt" type="text" value=''/></td>
+		                <td class='astart'>
+                            <input class="tt tt04" type="text" value=''/>
+                            <div class='div_cal'>
+                                <input type='text' value='' />
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                        </td>
 
-                        <td><input class="tt" type="text" value=''/></td>
+		                <td class='afinish'>
+                            <input class="tt tt05" type="text" value=''/>
+                            <div class='div_cal'>
+                                <input type='text' value='' />
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                        </td>
 
-                        <td class="acolor" style="display:none"><input class="tt" type="text" maxlength="7" value=''/></td>
+                        <td><input class="tt tt06" type="text" value=''/></td>
 
-		                <td class="acode"><div class='clr clr_responsible'></div><input class="tt" type="text" value=''/></td>
+                        <td class="acolor" style="display:none"><input class="tt tt07" type="text" maxlength="7" value=''/></td>
 
-                        <td class="alocation"><div class='clr clr_location'></div><input class="tt" type="text" value=''/></td>
+		                <td class="acode"><div class='clr clr_responsible'></div><input class="tt tt08" type="text" value=''/></td>
 
-                        <td class="apriority"><div class='clr clr_priority'></div><input class="tt" type="text" value=''/></td>
+                        <td class="alocation"><div class='clr clr_location'></div><input class="tt tt09" type="text" value=''/></td>
 
-		                <td><input class="tt" type="text" value=''/></td>
+                        <td class="apriority"><div class='clr clr_priority'></div><input class="tt tt10" type="text" value=''/></td>
 
-		                <td><input class="tt" type="text" value=''/></td>
+                        <td class='td_cal'>
+                            <select class="form-control tt13">
+                            </select>
+                        </td>
+
+		                <td><input class="tt tt11" type="text" value=''/></td>
+
+		                <td><input class="tt tt12" type="text" value=''/></td>
 
 		            </tr>`;
 
 		$('#table_activity tbody').append(strHtml);
+        var defaultCal = "";
+        if(settingData['calendar']) {
+            for(j=0;j<settingData['calendar'].length;j++) {
+                $('#table_activity tbody tr:last-child td.td_cal select').append("<option value='"+settingData['calendar'][j].cname+"'>"+settingData['calendar'][j].cname+"</option>");
+                if(settingData['calendar'][j].cdefault == 'true') 
+                    defaultCal = settingData['calendar'][j].cname;
+            } 
+            $('#table_activity tbody tr:last-child td.td_cal select').val(defaultCal);
+        }
 
 		trClickEvent();
 
@@ -441,11 +520,22 @@ $(document).ready(function(){
 
                 item = [];
 
-                $(this).find('td input').each(function(){
-
-                        item.push($(this).val());
-
-                });
+                // $(this).find('td input').each(function(){
+                //     item.push($(this).val());
+                // });
+                item.push($(this).find('input.tt01').val());
+                item.push($(this).find('input.tt02').val());
+                item.push($(this).find('input.tt03').val());
+                item.push($(this).find('input.tt04').val());
+                item.push($(this).find('input.tt05').val());
+                item.push($(this).find('input.tt06').val());
+                item.push($(this).find('input.tt07').val());
+                item.push($(this).find('input.tt08').val());
+                item.push($(this).find('input.tt09').val());
+                item.push($(this).find('input.tt10').val());
+                item.push($(this).find('input.tt11').val());
+                item.push($(this).find('input.tt12').val());
+                item.push($(this).find('.tt13').val());
 
                 data.push(item);
 
@@ -456,7 +546,7 @@ $(document).ready(function(){
         form_data.append('data', data);
 
         form_data.append('pid', $('#bt_asave').attr('pid'));
-        form_data.append('sid', ssid);
+        form_data.append('sid', ssid);   
 
         $.ajax({
 
@@ -475,9 +565,7 @@ $(document).ready(function(){
             success: function(data){
                 hideLoading();
 
-                colorChange();
-
-                setFilter();
+                loadActivity(ppid);
 
             },
 
@@ -595,7 +683,7 @@ $(document).ready(function(){
 
                         item = [];
 
-                        $(this).find('td input').each(function(){
+                        $(this).find('td input.tt').each(function(){
 
                                 item.push($(this).val());
 
@@ -1036,7 +1124,7 @@ $(document).ready(function(){
 
                 item = [];
 
-                $(this).find('td input').each(function(){
+                $(this).find('td input.tt').each(function(){
 
                         item.push($(this).val());
 
@@ -1423,12 +1511,21 @@ $(document).ready(function(){
 
 
 	$('#go_profile').click(function(){
+        if(history.length == 1)
+            history = [];
+        else
+            history.pop(); 
+        console.log(history);
+        if(history.length < 1) {
+    		$('#section_activity').fadeOut('fast');
 
-		$('#section_activity').fadeOut('fast');
+      		$('#section_projects').fadeIn();
 
-  		$('#section_projects').fadeIn();
-
-        loadProject();
+            loadProject();
+        } else {
+            pagename = history[history.length-1];
+            $('#'+pagename).click();
+        }
 
 	});
 
@@ -1458,102 +1555,141 @@ $(document).ready(function(){
 
 
 // ========== activity tabs event ================
+var selAct = "";
+var prevAct = "";
+var history = [];
+    
+    $('.list').click(function(){
+        selAct = $(this).attr('id');
+        if(history.indexOf(selAct) < 0) history.push(selAct);
+        console.log(history);
+
+        if(prevAct != "") {
+            if(prevAct == "act_list") {
+                $('#bt_asave').click();
+            } else if(prevAct == "act_detail") {
+                $('#bt_save_detail').click();
+            } else if(prevAct == "act_tracking") {
+                saveTracking();
+            } else if(prevAct == "act_constraints") {
+                saveConstraint();
+            }
+        }
+        prevAct = selAct;
+    })
+
+    var saveTime = 500;
 
 	$('#act_list').click(function(){
+        obj = $(this);
+        setTimeout(function(){
 
-		$('.list').removeClass('sel');
+    		$('.list').removeClass('sel');
 
-		$(this).addClass('sel');
+    		obj.addClass('sel');
 
 
-  		$('.acont').css('display', 'none');
+      		$('.acont').css('display', 'none');
 
-		$('#section_activity_list').fadeIn();
+    		$('#section_activity_list').fadeIn();
 
-        ssid = "0";
-        $('.div_snapshot .ui-widget.ui-widget-content').val(''); console.log(ppermission);
-        loadSnapshot(ppid);
-        //loadActivity(ppid);
+            ssid = "0";
+            $('.div_snapshot .ui-widget.ui-widget-content').val(''); 
+            loadSnapshot(ppid);
+            //loadActivity(ppid);
+        }, saveTime);
 
 	});
 
     $('#act_setting').click(function(){
+        obj = $(this);
+        setTimeout(function(){
 
-        if(ppermission != "Administrator") {
-            return;
-        }
+            if(ppermission != "Administrator") {
+                return;
+            }
 
-        $('.list').removeClass('sel');
+            $('.list').removeClass('sel');
 
-        $(this).addClass('sel');
+            obj.addClass('sel');
 
 
-        $('.acont').css('display', 'none');
+            $('.acont').css('display', 'none');
 
-        $('#section_activity_setting').fadeIn();
+            $('#section_activity_setting').fadeIn();
 
-        loadSettingAll(ppid);
+            loadSettingAll(ppid);
 
-        settingClickInit();
+            settingClickInit();
+        }, saveTime);
 
     });
 
     $('#act_detail').click(function(){
+        obj = $(this);
+        setTimeout(function(){
 
-        $('.list').removeClass('sel');
+            $('.list').removeClass('sel');
 
-        $(this).addClass('sel');
+            obj.addClass('sel');
 
 
-        $('.acont').css('display', 'none');
+            $('.acont').css('display', 'none');
 
-        $('#section_activity_detail').fadeIn();
+            $('#section_activity_detail').fadeIn();
 
-        //$('#bt_view_detail').click();
-        loadActivityDetail(ppid, aaid);
+            //$('#bt_view_detail').click();
+            loadActivityDetail(ppid, aaid);
 
-        setTimeout(function() {
-            changePermission();
-        }, 1500);
+            setTimeout(function() {
+                changePermission();
+            }, 1500);
+        }, saveTime);
 
     });
 
     $('#act_tracking').click(function(){
+        obj = $(this);
+        setTimeout(function(){
 
-        $('.list').removeClass('sel');
+            $('.list').removeClass('sel');
 
-        $(this).addClass('sel');
+            obj.addClass('sel');
 
 
-        $('.acont').css('display', 'none');
+            $('.acont').css('display', 'none');
 
-        $('#section_activity_tracking').fadeIn();
+            $('#section_activity_tracking').fadeIn();
 
-        $('#snapshot_tracking').val("0");
-        loadActivityTracking(ppid, 0);
+            $('#snapshot_tracking').val("0");
+            loadActivityTracking(ppid, 0);
 
-        setTimeout(function() {
-            changePermission();
+            setTimeout(function() {
+                changePermission();
+            }, 1500);
         }, 1500);
 
     });
 
     $('#act_constraints').click(function(){
+        obj = $(this);
+        setTimeout(function(){
 
-        $('.list').removeClass('sel');
+            $('.list').removeClass('sel');
 
-        $(this).addClass('sel');
+            obj.addClass('sel');
 
 
-        $('.acont').css('display', 'none');
+            $('.acont').css('display', 'none');
 
-        $('#section_activity_constraint').fadeIn();
+            $('#section_activity_constraint').fadeIn();
 
-        loadActivityConstraint(ppid, true);
+            loadActivityConstraint(ppid, true);
 
-        setTimeout(function() {
-            changePermission();
-        }, 1500);
+            setTimeout(function() {
+                changePermission();
+            }, 1500);
+        }, saveTime);
 
     });
 
@@ -1955,7 +2091,22 @@ function trClickEvent() {
 
         });
 
-
+        $('#table_activity tr .div_cal input').each(function(){
+            obj = $(this);
+            date = obj.val(); 
+            obj.datepicker({
+                inline: true,
+                dateFormat: "mm/dd/y",
+                onSelect: function(dateText){
+                    $(this).parent().prev().val(dateText);
+                    $(this).parent().prev().keyup();
+                }
+            });
+            
+            if(date != "") {
+                obj.datepicker("setDate", date);
+            }
+        });
 
         $('#table_activity tr .tt').unbind('keydown');
 
@@ -2224,29 +2375,45 @@ function tableEvent() {
 
 function activityEvent() {
 
-        $('.acolor input').keyup(function(){
+    $('.acolor input').keyup(function(){
 
-                cur = $(this);
+        cur = $(this);
 
-                val = $(this).val(); 
+        val = $(this).val(); 
 
-                acode = $(this).parent().prev().find('input').val(); 
+        acode = $(this).parent().prev().find('input').val(); 
 
-                $('.acode input').each(function(){
+        $('.acode input').each(function(){
 
-                        code = $(this).val(); 
+                code = $(this).val(); 
 
-                        if(cur != $(this) && acode == code) {
+                if(cur != $(this) && acode == code) {
 
-                                $(this).parent().next().find('input').val(val);
+                        $(this).parent().next().find('input').val(val);
 
-                        }
-
-                });
-
-                colorChange();
+                }
 
         });
+
+        colorChange();
+
+    });
+    $('i.note').unbind('click');
+    $('i.note').click(function(){
+        b = false;
+        if($(this).parent().find('.note_popup').css('display') != 'none')
+            b = true;
+        $('.note_popup').css('display', 'none');
+        if(b) {
+            $(this).parent().find('.note_popup').fadeOut();
+        } else {
+            $(this).parent().find('.note_popup').fadeIn();
+        }
+    })
+    $('.note_popup').unbind('click');
+    $('.note_popup').click(function(){
+        $('.note_popup').css('display', 'none');
+    })
 
 }
 
@@ -2254,13 +2421,48 @@ function activityEvent() {
 
 function colorChange() {
 
-        $('.acolor input').each(function(){
+    $('.acolor input').each(function(){
 
-                color = $(this).val(); 
+        color = $(this).val(); 
 
-                $(this).css('color', color);
+        $(this).css('color', color);
 
-        });
+    });
+
+    setTimeout(function() {
+        $('#table_activity tbody tr').each(function(){
+            td1 = $(this).find('.acode input');
+            td_color1 = $(this).find('.acode .clr_responsible');
+            color1 = settingData['responsible']; 
+            for(i=0; i<color1.length; i++) {
+                if(td1.val() == color1[i].value) {
+                    td_color1.css('background', color1[i].color);
+                    td_color1.attr('bg', color1[i].color);
+                    break;
+                }
+            }
+
+            td2 = $(this).find('.alocation input');
+            td_color2 = $(this).find('.alocation .clr_location');
+            color2 = settingData['location']; 
+            for(i=0; i<color2.length; i++) {
+                if(td2.val() == color2[i].value) {
+                    td_color2.css('background', color2[i].color);
+                    break;
+                }
+            }
+
+            td3 = $(this).find('.apriority input');
+            td_color3 = $(this).find('.apriority .clr_priority');
+            color3 = settingData['priority']; 
+            for(i=0; i<color3.length; i++) {
+                if(td3.val() == color3[i].value) {
+                    td_color3.css('background', color3[i].color);
+                    break;
+                }
+            }
+        })     
+    }, 1000);
 
 }
 
@@ -2362,125 +2564,167 @@ var activityData;
 
 function loadActivity(pid) {
     showLoading();
-        sUrl = "api/activity_get.php?pid="+pid+'&sid='+ssid;
+    renderSetting();
+    
+    sUrl = "api/activity_get.php?pid="+pid+'&sid='+ssid;
 
-        strHtml = "";
+    $.ajax({
 
-        n = 0;
+        type: "GET",
 
-        $.ajax({
+        url: sUrl,
 
-            type: "GET",
+        cache: false,
 
-            url: sUrl,
+        processData: false, 
 
-            cache: false,
+        contentType: false,
 
-            processData: false, 
+        success: function(data){
 
-            contentType: false,
+            activityData = data;
 
-            success: function(data){                  
+            renderActivityData(data);
+        },
 
-                activityData = data;
+        error: function() {
+            hideLoading();
+        },
 
-                for(i=0;i<data.length;i++) {
-                    if(data[i].duration == 'NaN') data[i].duration = '';
-                    if(data[i].start.indexOf('NaN') > -1) data[i].start = '';
-                    if(data[i].finish.indexOf('NaN') > -1) data[i].finish = '';
+        dataType: 'json'
 
-                    strHtml += `<tr class='tr'>
+    });
 
-                                    <td class="psetting acheck">
+}
 
-                                        <i class="fa fa-check-square-o i-checked" aria-hidden="true"></i>
+function renderActivityData(data) {
+    
+    strHtml = "";
+    $('#table_activity tbody').html("");
 
-                                        <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
+    n = 0;
 
-                                    </td>
 
-                                    <td class='aid'><input class="tt" type="text" value='`+data[i].activity_id+`'/></td>
+    for(i=0;i<data.length;i++) {
+        if(data[i].duration == 'NaN') data[i].duration = '';
+        if(data[i].start.indexOf('NaN') > -1) data[i].start = '';
+        if(data[i].finish.indexOf('NaN') > -1) data[i].finish = '';
 
-                                    <td><input class="tt" type="text" value='`+data[i].activity_name+`'/></td>
+        strHtml = `<tr class='tr grid'>
 
-                                    <td class='aduration'><input class="tt" type="text" value='`+data[i].duration+`'/></td>
+                        <td class="psetting acheck">
 
-                                    <td class='astart'><input class="tt" type="text" value='`+data[i].start+`'/></td>
+                            <i class="fa fa-check-square-o i-checked" aria-hidden="true"></i>
 
-                                    <td class='afinish'><input class="tt" type="text" value='`+data[i].finish+`'/></td>
+                            <i class="fa fa-square-o i-setting" aria-hidden="true"></i>
 
-                                    <td><input class="tt" type="text" value='`+data[i].size+`'/></td>
+                        </td>
 
-                                    <td class="acolor" style='display:none'><input class="tt" type="text" maxlength="7" value='`+data[i].color+`'/></td>
+                        <td class='eyeview'><i class="fa fa-eye bt_go_detail" aaid="`+data[i].id+`" aid="`+data[i].activity_id+`" aria-hidden="true"></i></td>
 
-                                    <td class="acode"><div class="clr clr_responsible"></div><input class="tt" type="text" value='`+data[i].code+`'/></td>
+                        <td class='aid'><input class="tt tt01" type="text" value='`+data[i].activity_id+`'/></td>
 
-                                    <td class="alocation"><div class="clr clr_location"></div><input class="tt" type="text" value='`+data[i].location+`'/></td>
+                        <td><input class="tt tt02" type="text" value='`+data[i].activity_name+`'/></td>
 
-                                    <td class="apriority"><div class="clr clr_priority"></div><input class="tt" type="text" value='`+data[i].priority+`'/></td>
+                        <td class='aduration'><input class="tt tt03" type="text" value='`+data[i].duration+`'/></td>
 
-                                    <td><input class="tt" type="text" value='`+data[i].url+`'/></td>
+                        <td class='astart'>
+                            <input class="tt tt04" type="text" value='`+data[i].start+`'/>
+                            <div class='div_cal'>
+                                <input type='text' value='`+data[i].start+`' />
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                        </td>
 
-                                    <td><input class="tt" type="text" value='`+data[i].note+`'/></td>
+                        <td class='afinish'>
+                            <input class="tt tt05" type="text" value='`+data[i].finish+`'/>
+                            <div class='div_cal'>
+                                <input type='text' value='`+data[i].finish+`' />
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                        </td>
 
-                                    <td><button type="button" class="btn btn-primary bt_go_detail" aaid="`+data[i].id+`" aid="`+data[i].activity_id+`">View</button></td>
+                        <td><input class="tt tt06" type="text" value='`+data[i].size+`'/></td>
 
-                                </tr>`;
+                        <td class="acolor" style='display:none'><input class="tt tt07" type="text" maxlength="7" value='`+data[i].color+`'/></td>
 
-                }
+                        <td class="acode"><div class="clr clr_responsible"></div><input class="tt tt08" type="text" value='`+data[i].code+`'/></td>
 
-                $('#table_activity tbody').html(strHtml);
+                        <td class="alocation"><div class="clr clr_location"></div><input class="tt tt09" type="text" value='`+data[i].location+`'/></td>
 
-                $('#bt_asave').attr('pid', pid);
+                        <td class="apriority"><div class="clr clr_priority"></div><input class="tt tt10" type="text" value='`+data[i].priority+`'/></td>
 
-                changePermission();
-                loadSetting(ppid, "responsible", function(){
-                    if(ppermission == "Edit Responsible Tasks") {
-                        $('#table_activity tbody tr.tr').each(function() { 
-                            isReadonly = true;
-                            for(j=0; j<respData_permission.length; j++) {
-                                if($(this).find('.acode input').val() == respData_permission[j].value) {
-                                    isReadonly = false;
-                                    break;
-                                }
-                            }
-                            if(isReadonly) {
-                                $(this).find('input').attr('readonly', 'true');
-                            }
-                        })
-                    } else if(ppermission == "Read-Only") {
-                        $('#table_activity tbody tr.tr').each(function() { 
-                            $(this).find('input').attr('readonly', 'true');
-                        })
+                        <td class='td_cal'>
+                            <select class="form-control tt13">
+                            </select>
+                        </td>
+
+                        <td>
+                            <a target='_blank' href='http://`+data[i].url+`'>
+                                <i class="fa fa-external-link url" aria-hidden="true"></i>
+                            </a>
+                            <input class="tt tt11" type="text" value='`+data[i].url+`'/>
+                        </td>
+
+                        <td style='position:relative'>
+                            <i class="fa fa-sticky-note-o note" aria-hidden="true"></i>
+                            <input class="tt tt12" type="text" value='`+data[i].note+`'/>
+                            <div class='note_popup'>
+                                <div>`+data[i].note+`</div>
+                            </div>
+                        </td>
+
+                    </tr>`;
+
+                    $('#table_activity tbody').append(strHtml);
+
+                    if(settingData['calendar']) {
+                        for(j=0;j<settingData['calendar'].length;j++) {
+                            $('#table_activity tbody tr:last-child td.td_cal select').append("<option value='"+settingData['calendar'][j].cname+"'>"+settingData['calendar'][j].cname+"</option>");
+                        }
+                        $('#table_activity tbody tr:last-child td.td_cal select').val(data[i].calendar);
                     }
-                });
-                
 
-                trClickEvent();
+    }
 
-                activityEvent();
+    $('#bt_asave').attr('pid', ppid);
 
+    changePermission();
+    loadSetting(ppid, "responsible", function(){
+        if(ppermission == "Edit Responsible Tasks") {
+            $('#table_activity tbody tr.tr').each(function() { 
+                isReadonly = true;
+                for(j=0; j<respData_permission.length; j++) {
+                    if($(this).find('.acode input').val() == respData_permission[j].value) {
+                        isReadonly = false;
+                        break;
+                    }
+                }
+                if(isReadonly) {
+                    $(this).find('input').attr('readonly', 'true');
+                }
+            })
+        } else if(ppermission == "Read-Only") {
+            $('#table_activity tbody tr.tr').each(function() { 
+                $(this).find('input').attr('readonly', 'true');
+            })
+        }
+    });
+    
 
-                setFilter();
+    trClickEvent();
 
-                setFinishDate();
+    activityEvent();
 
-                loadHolidays(pid);
+    colorChange();
 
-                renderSetting();
+    setFilter();
 
-                hideLoading();
+    setFinishDate();
 
-            },
+    loadHolidays(ppid);
 
-            error: function() {
-                hideLoading();
-            },
-
-            dataType: 'json'
-
-        });
-
+    hideLoading();
 }
 
 function changePermission() { 
@@ -2539,40 +2783,6 @@ function changePermission() {
 
 function renderSetting() {
     loadSettingAll(ppid, function(){
-        setTimeout(function() {
-            $('#table_activity tbody tr').each(function(){
-                td1 = $(this).find('.acode input');
-                td_color1 = $(this).find('.acode .clr_responsible');
-                color1 = settingData['responsible']; 
-                for(i=0; i<color1.length; i++) {
-                    if(td1.val() == color1[i].value) {
-                        td_color1.css('background', color1[i].color);
-                        td_color1.attr('bg', color1[i].color);
-                        break;
-                    }
-                }
-
-                td2 = $(this).find('.alocation input');
-                td_color2 = $(this).find('.alocation .clr_location');
-                color2 = settingData['location']; 
-                for(i=0; i<color2.length; i++) {
-                    if(td2.val() == color2[i].value) {
-                        td_color2.css('background', color2[i].color);
-                        break;
-                    }
-                }
-
-                td3 = $(this).find('.apriority input');
-                td_color3 = $(this).find('.apriority .clr_priority');
-                color3 = settingData['priority']; 
-                for(i=0; i<color3.length; i++) {
-                    if(td3.val() == color3[i].value) {
-                        td_color3.css('background', color3[i].color);
-                        break;
-                    }
-                }
-            })     
-        }, 1000);
     });
 }
 
@@ -2641,15 +2851,15 @@ function setDuration() {
 
         var element = $(this);
 
-        var duration = parseInt($(this).find("input:nth(2)").val()*1);
+        var duration = parseInt($(this).find("input.tt03").val()*1);
 
-        var start = $(this).find("input:nth(3)").val();
-        var finish = $(this).find("input:nth(4)").val();
+        var start = $(this).find("input.tt04").val();
+        var finish = $(this).find("input.tt05").val();
 
         if(duration*1 == 0) { // change finish input
             
             if(finish*1 != 0)
-                element.find("input:nth(3)").val("");
+                element.find("input.tt04").val("");
 
         } else if(finish != "" && start != "") {
 
@@ -2673,7 +2883,13 @@ function setDuration() {
 
             }
 
-            element.find("input:nth(2)").val(nd);
+            element.find("input.tt03").val(nd);
+        }
+
+        if(duration*1 != 0) {
+            if(start != "" && finish == "" || start == "" && finish != "") {
+                element.find("input.tt03").val("0");
+            }
         }
 
 
@@ -2690,10 +2906,43 @@ function setFinishDate(isduration = false) {
 
         var duration = parseInt($(this).find(".aduration input").val()*1);
 
-        var start = $(this).find("input:nth(3)").val();
-        var finish = $(this).find("input:nth(4)").val();
+        var start = $(this).find("input.tt04").val();
+        var finish = $(this).find("input.tt05").val();
 
-        if(duration == 0 && start != "" && finish != "") {
+        if(start && start != "") {
+            ary = start.split('/');
+            if(ary.length > 2 && ary[2].length == 4) {
+                ary[2] = ary[2].substr(2, 2);
+                start = ary[0] + "/" + ary[1] + "/" + ary[2];
+                $(this).find("input.tt04").val(start);
+            }
+        }
+        if(finish && finish != "") {
+            ary = finish.split('/');
+            if(ary.length > 2 && ary[2].length == 4) {
+                ary[2] = ary[2].substr(2, 2);
+                start = ary[0] + "/" + ary[1] + "/" + ary[2];
+                $(this).find("input.tt05").val(finish);
+            }
+        }
+
+        if(duration*1 == 0 && isduration) { // change duration input
+            if(start*1 != 0) {
+                element.find("input.tt05").val("");
+            }
+        } else if(duration*1 == 0 && !isduration) { // change finish input
+            if(start*1 != 0) {
+                element.find("input.tt05").val("");
+                element.find("input.tt03").val("0");
+                duration = 0;
+                finish = "";
+            }
+
+        } else if(!isduration && start*1 == 0) {
+            element.find("input.tt03").val("0");            
+        }  
+
+        else if(duration == 0 && start != "" && finish != "") {
             var start_stamp = new Date(start).getTime() / 1000;
 
             var finish_stamp = new Date(finish).getTime() / 1000;
@@ -2714,7 +2963,7 @@ function setFinishDate(isduration = false) {
 
             }
 
-            element.find("input:nth(2)").val(nd);
+            element.find("input.tt03").val(nd);
         } else if(duration != 0 && start != "") {
             var start_stamp = new Date(start).getTime() / 1000;
             var finish_stamp = start_stamp;
@@ -2730,7 +2979,7 @@ function setFinishDate(isduration = false) {
                     }
                 } while(f);
             } else {
-                getFinishDate(finish_stamp, 1, duration);
+                getFinishDate(finish_stamp, 0, duration);
                 finish_stamp = temp_finish_date;
             }
 
@@ -2743,7 +2992,7 @@ function setFinishDate(isduration = false) {
             var day=finish.getDate();
 
             finish = month + "/" + day + "/" + year;
-            element.find("input:nth(4)").val(finish);
+            element.find("input.tt05").val(finish);
         } else if(isduration && duration*1 != 0) {
             var finish_stamp = new Date(finish).getTime() / 1000;
             var start_stamp = finish_stamp;
@@ -2759,7 +3008,7 @@ function setFinishDate(isduration = false) {
                     }
                 } while(f);
             } else {
-                getStartDate(start_stamp, 1, duration);
+                getStartDate(start_stamp, 0, duration);
                 start_stamp = temp_finish_date;
             }
 
@@ -2772,19 +3021,14 @@ function setFinishDate(isduration = false) {
             var day=start.getDate();
 
             start = month + "/" + day + "/" + year;
-            element.find("input:nth(3)").val(start);
-        } else if(duration*1 == 0 && isduration) { // change duration input
-            if(start*1 != 0) {
-                element.find("input:nth(4)").val("");
-            }
-        } else if(duration*1 == 0 && !isduration) { // change finish input
-            if(start*1 != 0)
-                element.find("input:nth(4)").val("");
-
-        } else if(!isduration && start*1 == 0) {
-            element.find("input:nth(2)").val("0");            
+            element.find("input.tt04").val(start);
         }
 
+        if(!isduration) {
+            if(start != "" && finish == "" || start == "" && finish != "") {
+                element.find("input.tt03").val("0");
+            }
+        }
     });
 
 }
@@ -2835,15 +3079,15 @@ function getFinishDate(date, n, duration){
 
 }
 
-function getStartDate(date, n, duration){
+function getStartDate(date, n, duration){ 
     
-    if (!isRestDate(date)) {
+    if (!isRestDate(date)) { 
 
         n++;
 
         date -= 24 * 60 *60;
 
-        if (n == duration){
+        if (n == duration){ 
 
             var f;
 
@@ -2853,7 +3097,7 @@ function getStartDate(date, n, duration){
 
                     f = true;
 
-                    date += 24 * 60 *60;
+                    date -= 24 * 60 *60;
 
                 } else {
 
@@ -2867,7 +3111,7 @@ function getStartDate(date, n, duration){
 
         } else{
 
-            getFinishDate(date, n, duration);
+            getStartDate(date, n, duration);
 
         }
 
@@ -2875,7 +3119,7 @@ function getStartDate(date, n, duration){
 
         date -= 24 * 60 *60;
 
-        getFinishDate(date, n, duration);
+        getStartDate(date, n, duration);
 
     }
 
@@ -3049,7 +3293,7 @@ function gantt() {
 
                     
 
-                $(this).find('td input').each(function(){
+                $(this).find('td input.tt').each(function(){
 
                         item.push($(this).val());
 
@@ -3070,6 +3314,7 @@ function gantt() {
                     
 
         });
+        console.log(data);
 
 
 
@@ -3255,7 +3500,7 @@ function histogram(filter) {
 
             item = [];
 
-            $(this).find('td input').each(function(){
+            $(this).find('td input.tt').each(function(){
                 item.push($(this).val());
 
             });
@@ -3301,9 +3546,6 @@ function histogram(filter) {
 
     }
 
-
-    console.log(p_start_date);
-    console.log(p_end_date);
     j = 0;
 
     $('#filter option').each(function(){

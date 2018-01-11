@@ -1,9 +1,78 @@
+function sortData(st, prop) {
+	for(i=0; i<activityData.length-1; i++) {
+		for(j=i+1; j<activityData.length; j++) {
+			prop_i = activityData[i][prop];
+			prop_j = activityData[j][prop]; 
+			if(prop == 'size' || prop == 'duration') {
+				prop_i = prop_i*1;
+				prop_j = prop_j*1;
+			} else if(prop == 'start' || prop == 'finish') {
+				prop_i = new Date(prop_i);
+				prop_j = new Date(prop_j);
+			}
+			if(st=='asc' && prop_i > prop_j) {
+				temp = activityData[i];
+				activityData[i] = activityData[j];
+				activityData[j] = temp;
+			} else if(st=='desc' && prop_i < prop_j) {
+				temp = activityData[i];
+				activityData[i] = activityData[j];
+				activityData[j] = temp;
+			}
+		}
+	}
+}
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}
+
 $(function(){
 	/*
     $('#snapshot_date').datepicker({
         inline: true
     });
     */
+
+    $('th').click(function(){
+    	val = $(this).attr('value');
+    	if(val == null || val == '') return;
+    	
+    	$('.sort').css('display', 'none');
+    	$(this).find('.sort').css('display', 'block');
+
+    	$(this).toggleClass('sel');
+    	if($(this).hasClass('sel')) {
+    		//activityData.sort(dynamicSort("-"+val));
+    		sortData('desc', val);
+    	} else {
+    		//activityData.sort(dynamicSort(val));
+    		sortData('asc', val);
+    	}
+
+    	renderActivityData(activityData);
+    })
+    $('.filter_actlist').change(function(){
+    	data = [];
+    	val = $(this).attr('value');
+    	if($(this).val() == "") {
+    		data = activityData;
+    	} else {
+	    	for(i=0; i<activityData.length; i++) {
+	    		if(activityData[i][val] == $(this).val()) {
+	    			data.push(activityData[i]);
+	    		}
+	    	}
+		}
+		renderActivityData(data);
+    })
 
     $('#snapshot_date').val(today);
 	$( "#snapshot" ).combobox({

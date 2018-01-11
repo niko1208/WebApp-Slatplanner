@@ -13,42 +13,32 @@ session_start();
 
     <meta charset="utf-8">
 
-    
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
 
 
     <meta name="description" content="">
 
 
-
     <meta name="author" content="">
-
 
 
     <title>SlatPlanner</title>
 
 
-
     <link rel="stylesheet" href="libs/css/bootstrap.css">
-
 
 
     <link rel="stylesheet" href="libs/css/bootstrap-switch.css">
 
 
-
     <link rel="stylesheet" href="libs/css/font-awesome.css">
-
 
 
     <link rel="stylesheet" href="libs/css/bootstrap-table.css">
 
 
-
     <link rel="stylesheet" href="libs/css/bootstrap-datetimepicker.min.css">
-
 
 
     <link rel="stylesheet" href="libs/css/jquery-ui.css">
@@ -56,11 +46,12 @@ session_start();
     <link rel="stylesheet" href="libs/css/jquery-ui.multidatespicker.css">
 
 
-
     <link rel="stylesheet" href="libs/css/ie10-viewport-bug-workaround.css">
 
     
     <link rel="stylesheet" href="libs/css/spectrum.css">
+
+    <link rel="stylesheet" href="libs/css/jquery.stickytable.min.css">
 
     <link rel="stylesheet" href="css/index.css">
 

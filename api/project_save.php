@@ -19,6 +19,8 @@
 	{		
 		$result = mysql_query("select * from tbl_project order by id DESC");
 		$row = mysql_fetch_assoc($result);
+		$pid = $row['id'];
+		mysql_query("insert into tbl_calendar values('$pid', '5-Day Work Week', '5', '', 'true', null)");
 		mysql_query("insert into tbl_permission values(null, '$uemail', 'Administrator', '".$row['id']."')");   
 		$json_data = array("success"=>"1", "detail"=>"");
 		echo json_encode($json_data);

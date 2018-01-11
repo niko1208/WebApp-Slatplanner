@@ -1250,6 +1250,7 @@ div.tfoot{
 }
 #setting_calendar input.tt{
   width: 99%;
+  max-width: 99%;
 }
 .cdefault{
   border: 3px solid #333;
@@ -1260,6 +1261,99 @@ div.tfoot{
 }
 .cdefault.sel{
   background: #333;
+}
+#table_activity .td_cal select{
+  padding-left: 1px;
+  padding-right: 1px;
+  min-width: 70px;
+  max-width: 100px;
+}
+.filter_actlist{
+  max-width: 100px;
+}
+.eyeview{
+  width: 30px;
+}
+.eyeview i{
+  font-size: 20px;
+  cursor: pointer;
+}
+.div_cal{
+  display: inline-block;
+  position: relative;
+}
+.div_cal input{
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  width: 30px;
+}
+.div_cal i{
+  font-size: 20px;
+  cursor: pointer;
+}
+i.url, i.note{
+  font-size: 20px;
+  cursor: pointer;
+}
+.note_popup{
+  position: absolute;
+  width: 100px;
+  z-index: 11;
+  top: -25px;
+  left: -100px;
+  border: 1px solid #333;
+  padding: 10px;
+  font-size: 18px;
+  background: #fff;
+  box-shadow: #aaa 2px 2px 11px 0px;
+  display: none;
+}
+#bt_aadd{
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+.sticky-table{
+  height: 500px;
+}
+.sticky-table table tr.sticky-row th{
+  outline: 0px;
+  font-size: 12px;
+  cursor: pointer;
+}
+th span{
+  float: left;
+  padding-top: 15px;
+}
+.sort{
+  font-size: 20px;
+  margin-left: 3px;
+  padding-top: 0px;
+  display: none;
+}
+.sort .desc{
+  display: none;
+  margin-top: 8px;
+}
+.sort .asc{
+  margin-top: 18px;
+  height: 9px;
+  overflow: hidden;
+}
+th.sel .sort .asc{
+  display: none;
+}
+th.sel .sort .desc{
+  display: block;
+}
+#setting_snapshot .td_uemail input{
+  width: 100%;
+  max-width: 99%;
+}
+input.tt.tt02{
+  max-width: 100%;
+  width: 100%;
 }
 /*=====================*/
 
