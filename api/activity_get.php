@@ -16,6 +16,19 @@
 			$row['done'] = "0";
 			$row['reason'] = "";
 		}
+		if($row['start'] != "") {
+			$ary = explode("/", $row['start']);
+			if($ary[0]*1<10) $ary[0]="0".$ary[0]*1;
+			if($ary[1]*1<10) $ary[1]="0".$ary[1]*1;
+			$row['start'] = $ary[0]."/".$ary[1]."/".$ary[2];
+		}
+		if($row['finish'] != "") {
+			$ary = explode("/", $row['finish']);
+			if($ary[0]*1<10) $ary[0]="0".$ary[0]*1;
+			if($ary[1]*1<10) $ary[1]="0".$ary[1]*1;
+			$row['finish'] = $ary[0]."/".$ary[1]."/".$ary[2];
+		}
+
 		array_push($ret, $row);
 	}
 	echo json_encode($ret);

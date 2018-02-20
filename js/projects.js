@@ -125,16 +125,17 @@ $(document).ready(function(){
 
                 var pasted = $(this).val();
 
-                var rows = pasted.split("\n");
+                var rows = pasted.split("\n"); console.log(rows);
 
                 var tr_count = $('#table_activity tbody tr').length;
-
+                tr_count = 0;
                 var strHtml = "";
                 $('#table_activity tbody').html("");
 
                 for(i=0; i<rows.length -1; i++) {
+                    if(rows[i] == "") continue;
 
-                    strHtml = `<tr class='tr grid'>
+                    strHtml = `<tr class='tr'>
 
                                     <td class="psetting acheck">
 
@@ -144,11 +145,11 @@ $(document).ready(function(){
 
                                     </td>
 
-                                    <td class='eyeview'><i class="fa fa-eye bt_go_detail" aaid="" aid="" aria-hidden="true"></i></td>
+                                    <td class='eyeview'><i class="fa fa-eye" aria-hidden="true"></i></td>
 
                                     <td class='aid'><input class="tt tt01" type="text" value=''/></td>
 
-                                    <td><input class="tt tt02" type="text" value=''/></td>
+                                    <td><textarea class="tt tt02" type="text"></textarea></td>
 
                                     <td class='aduration'><input class="tt tt03" type="text" value=''/></td>
 
@@ -170,36 +171,22 @@ $(document).ready(function(){
 
                                     <td><input class="tt tt06" type="text" value=''/></td>
 
-                                    <td class="acolor" style='display:none'><input class="tt tt07" type="text" maxlength="7" value=''/></td>
+                                    <td class="acolor" style="display:none"><input class="tt tt07" type="text" maxlength="7" value=''/></td>
 
-                                    <td class="acode"><input class="tt tt08" type="text" value=''/></td>
+                                    <td class="acode"><div class='clr clr_responsible'></div><input class="tt tt08" type="text" value=''/></td>
 
-                                    <td class="alocation"><input class="tt tt09" type="text" value=''/></td>
+                                    <td class="alocation"><div class='clr clr_location'></div><input class="tt tt09" type="text" value=''/></td>
 
-                                    <td class="apriority"><input class="tt tt10" type="text" value=''/></td>
+                                    <td class="apriority"><div class='clr clr_priority'></div><input class="tt tt10" type="text" value=''/></td>
 
                                     <td class='td_cal'>
                                         <select class="form-control tt13">
-                                            <option value='5'>5 Days</option>
-                                            <option value='6'>6 Days</option>
-                                            <option value='7'>7 Days</option>
                                         </select>
                                     </td>
 
-                                    <td>
-                                        <a target='_blank' href='http://'>
-                                            <i class="fa fa-external-link url" aria-hidden="true"></i>
-                                        </a>
-                                        <input class="tt tt11" type="text" value=''/>
-                                    </td>
+                                    <td><input class="tt tt11" type="text" value=''/></td>
 
-                                    <td>
-                                        <i class="fa fa-sticky-note-o note" aria-hidden="true"></i>
-                                        <input class="tt tt12" type="text" value=''/>
-                                        <div class='note_popup'>
-                                            <div></div>
-                                        </div>
-                                    </td>
+                                    <td><input class="tt tt12" type="text" value=''/></td>
 
                                 </tr>`;
 
@@ -213,17 +200,13 @@ $(document).ready(function(){
 
                 }
 
-                
-
-                
-
                 var tr_obj = $('#table_activity tbody tr:nth(' + tr_count + ')');
-
+                console.log(tr_count);
                 for(var y in rows) {
 
                     if (rows[y].length != 0){
 
-                        var cells = rows[y].split("\t");
+                        var cells = rows[y].split("\t"); 
 
                         var td_obj = tr_obj.find('td:nth-child(3)');
 
@@ -232,7 +215,7 @@ $(document).ready(function(){
                                 td_obj.find('input').val('');
                                 td_obj = td_obj.next();
                             }
-                            td_obj.find('input').val(cells[x]);
+                            td_obj.find('input').val(cells[x]); 
                             if(td_obj.find('input').hasClass('tt11')) {
                                td_obj.find('a').attr('href', 'http://'+cells[x]);
                             }
@@ -253,14 +236,13 @@ $(document).ready(function(){
                 }
 
                 $(this).val('');
-
                 
 
                 trClickEvent();
 
                 activityEvent();
 
-                setFinishDate();
+                setFinishDate(); //
 
                 colorChange();
 
@@ -446,7 +428,7 @@ $(document).ready(function(){
 
 		                <td class='aid'><input class="tt tt01" type="text" value=''/></td>
 
-		                <td><input class="tt tt02" type="text" value=''/></td>
+		                <td><textarea class="tt tt02" type="text"></textarea></td>
 
 		                <td class='aduration'><input class="tt tt03" type="text" value=''/></td>
 
@@ -524,7 +506,7 @@ $(document).ready(function(){
                 //     item.push($(this).val());
                 // });
                 item.push($(this).find('input.tt01').val());
-                item.push($(this).find('input.tt02').val());
+                item.push($(this).find('.tt02').val());
                 item.push($(this).find('input.tt03').val());
                 item.push($(this).find('input.tt04').val());
                 item.push($(this).find('input.tt05').val());
@@ -683,7 +665,7 @@ $(document).ready(function(){
 
                         item = [];
 
-                        $(this).find('td input.tt').each(function(){
+                        $(this).find('td .tt').each(function(){
 
                                 item.push($(this).val());
 
@@ -1124,7 +1106,7 @@ $(document).ready(function(){
 
                 item = [];
 
-                $(this).find('td input.tt').each(function(){
+                $(this).find('td .tt').each(function(){
 
                         item.push($(this).val());
 
@@ -1449,7 +1431,7 @@ $(document).ready(function(){
             $('#dlg_export .cont').html("");
 
             $('#duration_print_option tbody tr').each(function(){
-                qn = $(this).find('input.tt').val();
+                qn = $(this).find('.tt').val();
                 color = $(this).find('.respcolor').css('background');
                 respvalue = $(this).find('.respvalue').html();
                 for(i=0; i<qn*1; i++) {
@@ -1693,7 +1675,28 @@ var history = [];
 
     });
 
+    $('#act_meeting').click(function(){ 
+        obj = $(this);
+        setTimeout(function(){
 
+            $('.list').removeClass('sel');
+
+            obj.addClass('sel');
+
+
+            $('.acont').css('display', 'none');
+
+            $('#section_activity_meeting').fadeIn();
+
+            loadActivityMeeting();
+
+        }, saveTime);
+
+    });
+
+
+
+//================================================
 
 //================================================
 
@@ -1957,7 +1960,12 @@ function deleteProjectHolidays(pid) {
 
 function trClickEvent() {
 
-            
+    $('.td_cal select').change(function(){
+        setFinishDate();
+    })
+    $('textarea.tt').each(function(){
+        $(this).autogrow();
+    });
 
         $('.arrow').unbind('click');
 
@@ -2318,7 +2326,6 @@ function changePlatformEvent() {
 
 }
 
-
 var ppid = -1;
 var aaid = -1;
 var aaaid = -1;
@@ -2531,7 +2538,7 @@ function loadProject() {
                     if($(this).attr('permission') == 'Administrator') {
                     } else {
                         $(this).find('.pdelete').remove();
-                        $(this).find('input.tt').attr('readonly', 'true');
+                        $(this).find('.tt').attr('readonly', 'true');
                     }
                 })
 
@@ -2597,6 +2604,33 @@ function loadActivity(pid) {
 
 }
 
+(function($) {
+    $.fn.autogrow = function() {
+        return this.each(function() {
+            var textarea = this;
+            $.fn.autogrow.resize(textarea);
+            $(textarea).focus(function() {
+                textarea.interval = setInterval(function() {
+                    $.fn.autogrow.resize(textarea);
+                }, 500);
+            }).blur(function() {
+                clearInterval(textarea.interval);
+            });
+        });
+    };
+    $.fn.autogrow.resize = function(textarea) {
+        var lineHeight = parseInt($(textarea).css('line-height'), 10);
+        var lines = textarea.value.split('\n');
+        var columns = textarea.cols;
+        var lineCount = 0;
+        $.each(lines, function() {
+            lineCount += Math.ceil(this.length / columns) || 1;
+        });
+        var height = lineHeight * (lineCount + 0);
+        $(textarea).css('height', height);
+    };
+})(jQuery);
+
 function renderActivityData(data) {
     
     strHtml = "";
@@ -2624,7 +2658,7 @@ function renderActivityData(data) {
 
                         <td class='aid'><input class="tt tt01" type="text" value='`+data[i].activity_id+`'/></td>
 
-                        <td><input class="tt tt02" type="text" value='`+data[i].activity_name+`'/></td>
+                        <td><textarea row='1' class="tt tt02" type="text">`+data[i].activity_name+`</textarea></td>
 
                         <td class='aduration'><input class="tt tt03" type="text" value='`+data[i].duration+`'/></td>
 
@@ -2686,6 +2720,7 @@ function renderActivityData(data) {
                     }
 
     }
+    
 
     $('#bt_asave').attr('pid', ppid);
 
@@ -2855,6 +2890,25 @@ function setDuration() {
 
         var start = $(this).find("input.tt04").val();
         var finish = $(this).find("input.tt05").val();
+        work_week = $(this).find(".td_cal select").val();
+        if(settingData['calendar']) {
+            for(j=0; j<settingData['calendar'].length; j++) {
+                if(work_week == settingData['calendar'][j].cname) {
+                    work_week = settingData['calendar'][j].cweek;
+                    holiday = settingData['calendar'][j].choliday;
+                    break;
+                }
+            }
+        }
+        if(finish && finish != "") {
+            ary = finish.split('/');
+            if(ary.length > 2 && ary[2].length == 4) {
+                ary[2] = ary[2].substr(2, 2);
+                finish = ary[0] + "/" + ary[1] + "/" + ary[2];
+                $(this).find("input.tt05").val(finish);
+            }
+        }
+        console.log(work_week, holiday);
 
         if(duration*1 == 0) { // change finish input
             
@@ -2870,10 +2924,9 @@ function setDuration() {
             var oneday = 24 * 60 *60;
             
             var nd = (finish_stamp - start_stamp) / oneday;
-            nd = Math.floor(nd);
-            n = nd;
-
-            for(i=1; i<n; i++) {
+            nd = Math.floor(nd) + 1;
+            n = nd; console.log(n);
+            for(i=0; i<n; i++) {
 
                 ff = start_stamp + oneday*i;
 
@@ -2882,8 +2935,11 @@ function setDuration() {
                 }
 
             }
-
-            element.find("input.tt03").val(nd);
+            if(finish == start) {
+                element.find("input.tt03").val("1");
+            } else {
+                element.find("input.tt03").val(nd*1);
+            }
         }
 
         if(duration*1 != 0) {
@@ -2908,6 +2964,16 @@ function setFinishDate(isduration = false) {
 
         var start = $(this).find("input.tt04").val();
         var finish = $(this).find("input.tt05").val();
+        work_week = $(this).find(".td_cal select").val();
+        if(settingData['calendar']) {
+            for(j=0; j<settingData['calendar'].length; j++) {
+                if(work_week == settingData['calendar'][j].cname) {
+                    work_week = settingData['calendar'][j].cweek;
+                    holiday = settingData['calendar'][j].choliday;
+                    break;
+                }
+            }
+        }
 
         if(start && start != "") {
             ary = start.split('/');
@@ -2918,10 +2984,10 @@ function setFinishDate(isduration = false) {
             }
         }
         if(finish && finish != "") {
-            ary = finish.split('/');
+            ary = finish.split('/'); 
             if(ary.length > 2 && ary[2].length == 4) {
                 ary[2] = ary[2].substr(2, 2);
-                start = ary[0] + "/" + ary[1] + "/" + ary[2];
+                finish = ary[0] + "/" + ary[1] + "/" + ary[2];
                 $(this).find("input.tt05").val(finish);
             }
         }
@@ -2938,11 +3004,11 @@ function setFinishDate(isduration = false) {
                 finish = "";
             }
 
-        } else if(!isduration && start*1 == 0) {
+        } else if(!isduration && start*1 == 0) { 
             element.find("input.tt03").val("0");            
         }  
 
-        else if(duration == 0 && start != "" && finish != "") {
+        else if(duration == 0 && start != "" && finish != "") { 
             var start_stamp = new Date(start).getTime() / 1000;
 
             var finish_stamp = new Date(finish).getTime() / 1000;
@@ -2964,7 +3030,7 @@ function setFinishDate(isduration = false) {
             }
 
             element.find("input.tt03").val(nd);
-        } else if(duration != 0 && start != "") {
+        } else if(duration != 0 && start != "") { 
             var start_stamp = new Date(start).getTime() / 1000;
             var finish_stamp = start_stamp;
             
@@ -2979,7 +3045,7 @@ function setFinishDate(isduration = false) {
                     }
                 } while(f);
             } else {
-                getFinishDate(finish_stamp, 0, duration);
+                getFinishDate(finish_stamp, 1, duration);
                 finish_stamp = temp_finish_date;
             }
 
@@ -2993,7 +3059,8 @@ function setFinishDate(isduration = false) {
 
             finish = month + "/" + day + "/" + year;
             element.find("input.tt05").val(finish);
-        } else if(isduration && duration*1 != 0) {
+
+        } else if(isduration && duration*1 != 0) { 
             var finish_stamp = new Date(finish).getTime() / 1000;
             var start_stamp = finish_stamp;
 
@@ -3008,7 +3075,7 @@ function setFinishDate(isduration = false) {
                     }
                 } while(f);
             } else {
-                getStartDate(start_stamp, 0, duration);
+                getStartDate(start_stamp, 1, duration);
                 start_stamp = temp_finish_date;
             }
 
@@ -3126,36 +3193,48 @@ function getStartDate(date, n, duration){
 }
 
 
+var work_week = 5;
+var holiday = "";
 
-function isRestDate(date){
+function isRestDate(date, ){
 
     var temp = new Date(date * 1000);
 
     var k = 0;
 
-    if ( $('#work_week').val() == 2 && (temp.getDay() == 6 || temp.getDay() == 0)) {
+    if ( work_week == 5 && (temp.getDay() == 6 || temp.getDay() == 0)) {
 
         k = 1;
 
     }
 
-    if ( $('#work_week').val() == 1 && (temp.getDay() == 0)) {
+    if ( work_week == 6 && (temp.getDay() == 0)) {
 
         k = 1;
 
     }
 
-    $('#holidays option').each(function(){
-
-        var holiday = new Date($(this).html()).getTime() / 1000;
-
-        if (holiday == date) {
-
-            k = 1;
-
+    if(holiday != "") {
+        holidays = holiday.split(':');
+        for(ii=0; ii<holidays.length; ii++) {
+            var aholiday = new Date(holidays[ii].trim()).getTime() / 1000;
+            if (aholiday == date) {
+                k = 1;
+            }
         }
+    }
 
-    });
+    // $('#holidays option').each(function(){
+
+    //     var holiday = new Date($(this).html()).getTime() / 1000;
+
+    //     if (holiday == date) {
+
+    //         k = 1;
+
+    //     }
+
+    // });
 
     if (k == 1)     return true;
 
@@ -3293,7 +3372,7 @@ function gantt() {
 
                     
 
-                $(this).find('td input.tt').each(function(){
+                $(this).find('td .tt').each(function(){
 
                         item.push($(this).val());
 
@@ -3500,12 +3579,25 @@ function histogram(filter) {
 
             item = [];
 
-            $(this).find('td input.tt').each(function(){
+            $(this).find('td .tt').each(function(){
                 item.push($(this).val());
 
             });
             item[6] = $(this).find('.clr_responsible').attr('bg');
             if (item[3] != '' && item[4] != ''){
+
+                work_week = $(this).find(".td_cal select").val();
+                if(settingData['calendar']) {
+                    for(j=0; j<settingData['calendar'].length; j++) {
+                        if(work_week == settingData['calendar'][j].cname) {
+                            work_week = settingData['calendar'][j].cweek;
+                            holiday = settingData['calendar'][j].choliday;
+                            break;
+                        }
+                    }
+                }
+                item.push(work_week);
+                item.push(holiday); 
 
                 if (filter_c == 'All')
 
@@ -3548,7 +3640,7 @@ function histogram(filter) {
 
     j = 0;
 
-    $('#filter option').each(function(){
+    $('#visual_resp option').each(function(){
 
         if ($(this).html() != 'All'){
 
@@ -3570,7 +3662,7 @@ function histogram(filter) {
 
     j = 0;  i = 0;
 
-    $('#filter option').each(function(){
+    $('#visual_resp option').each(function(){
 
         if ($(this).html() != 'All'){
 
@@ -3632,9 +3724,14 @@ function histogram(filter) {
 
         j = 0;
 
+        prev_date = "";
         for (i=p_start_date; i<=p_end_date; i=i+24*60*60) {
 
-            var d = new Date(i * 1000);
+            var d = new Date(i * 1000); 
+
+            if(prev_date != "" && prev_date.getMonth() == d.getMonth() && prev_date.getDate() == d.getDate()) {
+                continue;
+            }
 
             var month = months[d.getMonth()];
 
@@ -3653,6 +3750,8 @@ function histogram(filter) {
             }
 
             j++;
+            
+            prev_date = d;
 
         }
 
@@ -3670,8 +3769,11 @@ function histogram(filter) {
 
                     for (k=a_start_date;k<=a_end_date;k=k+24*60*60){
 
-                        var p = (k - p_start_date) / (24*60*60); 
-                        p = Math.floor(p);
+                        var p = (k - p_start_date) / (24*60*60);
+                        p = Math.floor(p); 
+
+                        work_week = data[i][12];
+                        holiday = data[i][13];
 
                         if (isRestDate(k)){
 
@@ -3759,7 +3861,8 @@ function histogram(filter) {
                             var tt = getWeekBy(p_start_date, t);
 
                             if (k == tt){
-
+                                work_week = data[i][12];
+                                holiday = data[i][13];
                                 if (!isRestDate(t)){
 
                                     series[j].data[p] += parseInt(data[i][5]*1);
@@ -3845,7 +3948,8 @@ function histogram(filter) {
                             var tt = getMonthBy(p_start_date, t);
 
                             if (k == tt){
-
+                                work_week = data[i][12];
+                                holiday = data[i][13];
                                 if (!isRestDate(t)){
 
                                     series[j].data[p] += parseInt(data[i][5]*1);

@@ -209,12 +209,58 @@ include("header.php");
 
             <div id='chart' class='list'>Visuals</div>
 
+            <div id='act_meeting' class='list'>+/&#916;</div>
+
         </center>
 
         <div class="clear"></div>
 
     </div>
 
+    <div class="acont" id="section_activity_meeting">
+
+        <div class="td_wrapper">
+            <div class="row">
+                <div class="col col-sm-4">
+                    <div class="setting_tab_title"></div>
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <td width="50"></td>
+                                <td width="150">Date</td>
+                                <td>Description</td>
+                                <td width="50"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="1"><i class="fa fa-plus-circle saddcircle" aria-hidden="true"></i></td>
+                                <td colspan="3">
+                                    <button type="button" class="btn btn-success" id='bt_meeting_save'>Save</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="col col-sm-8">
+                    <div class='tab_meeting' id='meeting_plus'>
+                        <div class='tab_head'>+</div>
+                        <div class='meeting_data'>
+                        </div>
+                    </div>
+
+                    <div class='tab_meeting' id='meeting_delta'>
+                        <div class='tab_head' style='background:#f00'>&#916;</div>
+                        <div class='meeting_data'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 
     <div class="acont" id="section_activity_setting">
@@ -613,7 +659,7 @@ include("header.php");
     </div>
 
     <div class="acont" id="section_activity_tracking">
-        <div class="td_wrapper">
+        <div class="td_wrapper" id='td_wrapper'>
 
             <div class="row">
 
@@ -663,7 +709,7 @@ include("header.php");
 
         <div class="td_wrapper">
 
-            <div class="row">
+            <div class="row" id='div_list_top'>
 
                 <div class="col col-sm-4">
                     <div>Snapshots</div>
@@ -699,10 +745,8 @@ include("header.php");
 
         </div>
 
-        <br/>
-
         <div class="td_wrapper">
-            <div class="sticky-table sticky-headers sticky-ltr-cells">
+            <!-- <div class="sticky-table sticky-headers sticky-ltr-cells"> -->
             <table class='table stable' id="table_activity">
 
                 <thead>
@@ -727,25 +771,25 @@ include("header.php");
 
                         <th class='sort_asize' value='size'><span>Crew Size</span><span class='sort'><i class="fa fa-sort-asc asc" aria-hidden="true"></i><i class="fa fa-sort-desc desc" aria-hidden="true"></i></span></th>
 
-                        <th>Responsible<br>
+                        <th class='sort_resp'>Responsible<br>
                             <select class='filter_actlist' id='filter_resp' value='code'></select>
                         </th>
 
-                        <th>Location<br>
+                        <th class='sort_location'>Location<br>
                             <select class='filter_actlist' id='filter_location' value='location'></select>
                         </th>
 
-                        <th>Priority<br>
+                        <th class='sort_priority'>Priority<br>
                             <select class='filter_actlist' id='filter_priority' value='priority'></select>
                         </th>
 
-                        <th>Calendar<br>
+                        <th class='sort_calendar'>Calendar<br>
                             <select class='filter_actlist' id='filter_calendar' value='calendar'></select>
                         </th>
 
-                        <th>URL</th>
+                        <th class='sort_url'>URL</th>
 
-                        <th>Notes</th>
+                        <th class='sort_note'>Notes</th>
 
                     </tr>
 
@@ -758,7 +802,7 @@ include("header.php");
                 </tbody>
 
             </table>
-            </div>
+            <!-- </div> -->
 
             <br/>
 
@@ -1120,6 +1164,7 @@ include("footer.php");
 <script src="js/activity_tracking.js"></script>
 <script src="js/activity_constraint.js"></script>
 <script src="js/visual.js"></script>
+<script src="js/activity_meeting.js"></script>
 
 
 

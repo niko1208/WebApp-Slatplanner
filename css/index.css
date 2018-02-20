@@ -50,6 +50,19 @@
 
 }
 
+@font-face {
+  font-family: Segui-SemiBold;
+  src: url('../fonts/seguisb.ttf') format('truetype')
+}
+@font-face {
+  font-family: Segui-Light;
+  src: url('../fonts/segoeuil.ttf') format('truetype')
+}
+@font-face {
+  font-family: Segui-Bold;
+  src: url('../fonts/segoeuib.ttf') format('truetype')
+}
+
 
 
 /*=============== global ==================*/
@@ -82,7 +95,7 @@ body {
 
 	color:#3c3c3c;
 
-	font-family: Raleway-Regular;
+	font-family: Segui-Light;
 
 }
 
@@ -148,13 +161,17 @@ html, body {
 
   padding-right: 30px;
 
+  font-family: Segui-Light;
+
 }
 
 .c-header nav ul li a:hover {
 
   background:transparent;
 
-  color:#333;
+  color:#2a343d;
+
+  font-family: Segui-SemiBold;
 
 }
 
@@ -186,14 +203,19 @@ html, body {
 
 .section h2 {
 
-  font-family: Releway-Bold;
+  font-family: Segui-Bold;
 
   letter-spacing: 1.5px;
 
   font-size: 36px;
 
-  color: #333;
+  color: #2a343d;
 
+}
+
+a.conactemail{
+  color: #0071ce;
+  font-family: Segui-SemiBold;
 }
 
 .section .cont u {
@@ -879,7 +901,7 @@ input.tt {
 
   color: #333;
 
-  font-family: Opensans-Bold;
+  font-family: Raleway-Regular !important;
 
 }
 
@@ -1354,6 +1376,50 @@ th.sel .sort .desc{
 input.tt.tt02{
   max-width: 100%;
   width: 100%;
+}
+#div_list_top.fixedheader{
+  position: fixed;
+  top: 0px;
+  background: #fff;
+  z-index: 9;
+}
+thead.fixedheader{
+  position: fixed;
+  top: 70px;
+  background: #fff;
+  z-index: 9;
+}
+table.fixedheader{
+  margin-top: 88px;
+}
+textarea.tt{
+  background: transparent !important;
+  border: 0px;
+  outline: 0;
+  resize: none;
+  height: 24px;
+  overflow:hidden
+}
+.tab_meeting{
+  width: 49%;
+  float: left;
+  margin-right: 1%;
+}
+.tab_head{
+  text-align: center;
+  font-size: 30px;
+  background: #00af50;
+  color: #fff;
+  border: 2px solid #7f7f7f;
+}
+.meeting_item{
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+  font-size: 18px;
+  color: #00af50;
+}
+#meeting_delta .meeting_item{
+  color: #f00;
 }
 /*=====================*/
 

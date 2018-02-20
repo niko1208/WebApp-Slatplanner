@@ -1312,6 +1312,9 @@ function showAlertDeleteSetting(itype, id) {
 	} else if(itype == 2) {
 		$('#alert_delete_setting .alert_title').html("Delete this snapshot?");
 		$('#alert_delete_setting .bt_alert_yes').attr("id", id);
+	} else if(itype == 10) {
+		$('#alert_delete_setting .alert_title').html("Delete this meeting?");
+		$('#alert_delete_setting .bt_alert_yes').attr("id", id);
 	}
 	$('#alert_delete_setting').fadeIn('fast');
 }
@@ -1334,6 +1337,9 @@ function alertEvent() {
 			form_data.append('pid', ppid);
 		    form_data.append('tbname', 'snapshot');
 		    form_data.append('value', id);
+		} else if(setting_item_type == 10) {
+			sUrl = "api/activity_meeting_del.php";
+		    form_data.append('id', id);
 		}
 	    $.ajax({
 	        type: "POST",
@@ -1349,6 +1355,8 @@ function alertEvent() {
 	        		getResponsible();
 	        	} else if(setting_item_type == 2) {
 	        		getSnapshot();
+	        	} else if(setting_item_type == 10) {
+	        		loadActivityMeeting();
 	        	}
 	        },
 	        error: function() {

@@ -41,6 +41,42 @@ $(function(){
     });
     */
 
+    $(window).scroll(function(){
+    	stop = $(window).scrollTop();
+    	if(stop >= 400) {
+    		resizeList();
+    		$('#div_list_top').addClass('fixedheader');
+    		$('#table_activity thead').addClass('fixedheader');
+    		$('#table_activity').addClass('fixedheader');
+    	} else {
+    		$('#div_list_top').removeClass('fixedheader');
+    		$('#table_activity thead').removeClass('fixedheader');
+    		$('#table_activity').removeClass('fixedheader');
+    	}
+    })
+    $(window).resize(function(){
+    	resizeList();
+    })
+    function resizeList() {
+    	w = $(window).width();
+    	if(w > 1400) w = 1400;
+    	$('#div_list_top').css('width', (eval(w)+40)+'px');
+    	$('#table_activity thead').css('width', w+'px');
+
+		$('#table_activity thead th.sort_aid').prev().css('width', '70px');
+		$('#table_activity thead th.sort_aid').css('width', (eval($('#table_activity td.aid').width())+16)+'px');
+		$('#table_activity thead th.sort_aname').css('width', (eval($('#table_activity td.aid').next().width())+16)+'px');
+		$('#table_activity thead th.sort_aduration').css('width', (eval($('#table_activity td.aduration').width())+16)+'px');
+		$('#table_activity thead th.sort_astart').css('width', (eval($('#table_activity td.astart').width())+16)+'px');
+		$('#table_activity thead th.sort_afinish').css('width', (eval($('#table_activity td.afinish').width())+16)+'px');
+		$('#table_activity thead th.sort_asize').css('width', (eval($('#table_activity td.afinish').next().width())+16)+'px');
+		$('#table_activity thead th.sort_resp').css('width', (eval($('#table_activity td.acode').width())+16)+'px');
+		$('#table_activity thead th.sort_location').css('width', (eval($('#table_activity td.alocation').width())+16)+'px');
+		$('#table_activity thead th.sort_priority').css('width', (eval($('#table_activity td.apriority').width())+16)+'px');
+		$('#table_activity thead th.sort_calendar').css('width', (eval($('#table_activity td.td_cal').width())+16)+'px');
+		$('#table_activity thead th.sort_url').css('width', (eval($('#table_activity td.td_cal').next().width())+16)+'px');
+    }
+
     $('th').click(function(){
     	val = $(this).attr('value');
     	if(val == null || val == '') return;

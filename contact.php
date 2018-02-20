@@ -10,7 +10,7 @@ include("header.php");
     	We would love to hear you ideas, questions, and feedback.<br/>
         Our email: 
         <br/>
-        <a class="text-bold" href="mailto:contact@slatplanner.com">contact@slatplanner.com</a>
+        <a class="text-bold conactemail" href="mailto:contact@slatplanner.com">contact@slatplanner.com</a>
 	</div>
 
 </div>
